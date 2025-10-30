@@ -1,4 +1,4 @@
-﻿namespace ChessLogic // demo
+﻿namespace ChessLogic 
 {
     public class Board      // Lớp dành cho bàn cờ
     {
@@ -43,9 +43,9 @@
             //pieces[6, 6] = new Pawn(Player.Black);
 
             // Test for Castle - P1
-            pieces[0, 0] = new Rook(Player.Black);
-            pieces[0, 4] = new King(Player.Black);
-            pieces[5, 7] = new Rook(Player.Black);
+            pieces[0, 0] = new Rook(Player.White);
+            pieces[0, 4] = new King(Player.White);
+            pieces[5, 7] = new Rook(Player.White);
             pieces[7, 0] = new Rook(Player.White);
             pieces[6, 4] = new King(Player.White);
             pieces[7, 7] = new Rook(Player.White);
