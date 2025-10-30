@@ -1,4 +1,4 @@
-﻿namespace ChessLogic
+﻿namespace ChessLogic // demo
 {
     public class Board      // Lớp dành cho bàn cờ
     {
