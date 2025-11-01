@@ -66,12 +66,31 @@
             //pieces[7, 0] = new Rook(Player.White);
             //pieces[6, 4] = new King(Player.White);
             //pieces[7, 7] = new Rook(Player.White);
+            //pieces[0, 2] = new Knight(Player.White);
 
             // Test for EnPassant
             //pieces[4, 1] = new Pawn(Player.Black);
             //pieces[0, 3] = new King(Player.Black);
             //pieces[6, 2] = new Pawn(Player.White);
             //pieces[7, 4] = new King(Player.White);
+
+            // Test for Insufficient Material
+            // P1
+            //pieces[1, 5] = new King(Player.Black);
+            //pieces[6, 2] = new King(Player.White);
+            //pieces[6, 1] = new Queen(Player.Black);
+            // P2
+            //pieces[7, 2] = new Bishop(Player.White);
+            // P3
+            //pieces[7, 2] = new Knight(Player.White);
+            // P4.1
+            //pieces[7, 2] = new Bishop(Player.White);
+            //pieces[0, 2] = new Bishop(Player.Black);
+            // P4.2
+            //pieces[7, 2] = new Bishop(Player.White);
+            //pieces[0, 5] = new Bishop(Player.Black);
+
+            // Test for 50-move Rule: Chỉnh biến noCaptureOrPawnMoves trong GameState.cs thành 95
 
             pieces[0, 0] = new Rook(Player.Black);
             pieces[0, 1] = new Knight(Player.Black);
@@ -143,6 +162,61 @@
             }
             
             return newBoard;   
+        }
+
+        public Counting CountPieces()
+        {
+            Counting counting = new Counting();
+
+            foreach(Position pos in PiecePositions())
+            {
+                Piece piece = pieces[pos.Row, pos.Column];
+
+                counting.Increment(piece.Color, piece.Type);
+            }
+
+            return counting;
+        } 
+
+        public bool IsInsufficientMaterial()
+        {
+            Counting counting = CountPieces();
+
+            // Cac dieu kien de insufficient material: 4 case: 
+            return IsKingVKing(counting) || IsKingBishopVKing(counting) || IsKingKnightVKing(counting) || IsKingBishopVKingBishop(counting);
+        }
+
+        private static bool IsKingVKing(Counting counting)
+        {
+            return counting.TotalCount == 2;
+        }
+
+        private static bool IsKingBishopVKing(Counting counting)
+        {
+            return counting.TotalCount == 3 && (counting.WhiteCount(PieceType.Bishop) == 1 || counting.BlackCount(PieceType.Bishop) == 1);
+        }
+
+        private static bool IsKingKnightVKing(Counting counting)
+        {
+            return counting.TotalCount == 3 && (counting.WhiteCount(PieceType.Knight) == 1 || counting.BlackCount(PieceType.Knight) == 1);
+        }
+
+        private bool IsKingBishopVKingBishop(Counting counting)
+        {
+            if (counting.TotalCount != 4) return false;
+
+            if (counting.WhiteCount(PieceType.Bishop) != 1 || counting.BlackCount(PieceType.Bishop) != 1) return false;
+
+            Position wBishopPos = FindPiece(Player.White, PieceType.Bishop);
+            Position bBishopPos = FindPiece(Player.Black, PieceType.Bishop);
+
+            // 2 tượng khác màu vẫn được xem là Sufficient => Phải cùng màu 
+            return wBishopPos.SquareColor() == bBishopPos.SquareColor();
+        }
+
+        private Position FindPiece(Player color, PieceType type)
+        {
+            return PiecePositionsFor(color).First(pos => pieces[pos.Row, pos.Column].Type == type);
         }
     }
 }

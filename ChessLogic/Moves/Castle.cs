@@ -30,10 +30,12 @@
             rookToPos = kingPos + kingMoveDir;
         }
 
-        public override void Execute(Board board)
+        public override bool Execute(Board board)
         {
             new NormalMove(FromPos, ToPos).Execute(board);
             new NormalMove(rookFromPos, rookToPos).Execute(board);
+
+            return false;
 
             //Piece king = board[FromPos];
             //board[ToPos] = king;

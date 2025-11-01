@@ -12,12 +12,14 @@
             this.ToPos = toPos;
         }
 
-        public override void Execute(Board board)
+        public override bool Execute(Board board)
         {
             Piece piece = board[FromPos];
             board[ToPos] = piece;
             board[FromPos] = null;
             piece.HasMoved = true;
+
+            return !board.IsEmpty(ToPos) || piece.Type == PieceType.Pawn;
         }
     }
 }

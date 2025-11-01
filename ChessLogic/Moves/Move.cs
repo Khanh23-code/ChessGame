@@ -6,7 +6,8 @@
         public abstract Position FromPos { get; }
         public abstract Position ToPos { get; }
 
-        public abstract void Execute(Board board);
+        // Kiểu trả về của Execute là bool để hỗ trợ việc đếm cho 50 move rule: Nếu việc move thực hiện Execute() có ăn quân cờ hoặc là move của Tốt sẽ return true
+        public abstract bool Execute(Board board);
 
         public virtual bool IsLegal(Board board)
         {

@@ -6,6 +6,8 @@
         public Player CurrentPlayer { get; private set; }
         public Result Result { get; private set; } = null;
 
+        private int noCaptureOrPawnMoves = 95;       // Biến đếm hỗ trợ 50-move rule
+
         public GameState(Player player, Board board)
         {
             CurrentPlayer = player;
@@ -27,7 +29,16 @@
         {
             Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
 
-            move.Execute(Board);
+            bool captureOrPawn = move.Execute(Board);
+            if (!captureOrPawn)
+            {
+                noCaptureOrPawnMoves++;
+            }
+            else
+            {
+                noCaptureOrPawnMoves = 0;
+            }
+
             CurrentPlayer = CurrentPlayer.Opponent();
             CheckForGameOver();
         }
@@ -55,8 +66,18 @@
                 }
                 else
                 {
-                    Result = Result.Draw(EndReason.Stalemate);
+                    Result = Result.Draw(EndReason.InsufficentMaterial);
+
+                    //Result = Result.Draw(EndReason.Stalemate);
                 }
+            }
+            else if (Board.IsInsufficientMaterial())
+            {
+                Result = Result.Draw(EndReason.InsufficentMaterial);
+            }
+            else if (noCaptureOrPawnMoves >= 100)
+            {
+                Result = Result.Draw(EndReason.FiftyMoveRule);
             }
         }
 
