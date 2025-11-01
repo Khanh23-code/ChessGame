@@ -4,6 +4,13 @@
     {
         private readonly Piece[,] pieces = new Piece[8, 8];
 
+        // Dictionary để lưu nước đi 2 bước của tốt cho mỗi Player => phục vụ En Passant
+        private readonly Dictionary<Player, Position> pawnSkipPositions = new Dictionary<Player, Position>
+        {
+            {Player.White, null },
+            {Player.Black, null }
+        };
+
         public Piece this[int row, int col]     // Indexer
         {
             get { return pieces[row, col]; }
@@ -14,6 +21,16 @@
         {
             get { return pieces[position.Row, position.Column]; }
             set { pieces[position.Row, position.Column] = value; }
+        }
+
+        public Position GetPawnSkipPosition(Player player)
+        {
+            return pawnSkipPositions[player];
+        }
+
+        public void SetPawnSkipPostion(Player player, Position position)
+        {
+            pawnSkipPositions[player] = position;
         }
 
         public static Board Initial()
@@ -42,7 +59,7 @@
             //pieces[1, 1] = new Pawn(Player.White);
             //pieces[6, 6] = new Pawn(Player.Black);
 
-            // Test for Castle - P1
+            // Test for Castle
             //pieces[0, 0] = new Rook(Player.Black);
             //pieces[0, 4] = new King(Player.Black);
             //pieces[5, 7] = new Rook(Player.Black);
@@ -50,23 +67,11 @@
             //pieces[6, 4] = new King(Player.White);
             //pieces[7, 7] = new Rook(Player.White);
 
-            pieces[0, 0] = new Rook(Player.Black);
-            pieces[0, 1] = new Knight(Player.Black);
-            pieces[0, 2] = new Bishop(Player.Black);
-            pieces[0, 3] = new Queen(Player.Black);
-            pieces[0, 4] = new King(Player.Black);
-            pieces[0, 5] = new Bishop(Player.Black);
-            pieces[0, 6] = new Knight(Player.Black);
-            pieces[0, 7] = new Rook(Player.Black);
-
-            pieces[7, 0] = new Rook(Player.White);
-            pieces[7, 1] = new Knight(Player.White);
-            pieces[7, 2] = new Bishop(Player.White);
-            pieces[7, 3] = new Queen(Player.White);
-            pieces[7, 4] = new King(Player.White);
-            pieces[7, 5] = new Bishop(Player.White);
-            pieces[7, 6] = new Knight(Player.White);
-            pieces[7, 7] = new Rook(Player.White);
+            // Test for EnPassant
+            //pieces[4, 1] = new Pawn(Player.Black);
+            //pieces[0, 3] = new King(Player.Black);
+            //pieces[6, 2] = new Pawn(Player.White);
+            //pieces[7, 4] = new King(Player.White);
 
             pieces[0, 0] = new Rook(Player.Black);
             pieces[0, 1] = new Knight(Player.Black);

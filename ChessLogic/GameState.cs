@@ -25,6 +25,8 @@
 
         public void MakeMove (Move move)        // Hàm dùng để thực thi <move>
         {
+            Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
+
             move.Execute(Board);
             CurrentPlayer = CurrentPlayer.Opponent();
             CheckForGameOver();

@@ -62,7 +62,7 @@
                 }
 
                 Position twoMovePos = oneMovePos + forward;
-                if (!HasMoved && CanMoveTo(twoMovePos, board)) yield return new NormalMove(from, twoMovePos);
+                if (!HasMoved && CanMoveTo(twoMovePos, board)) yield return new DoublePawn(from, twoMovePos);
             }
         }
 
@@ -71,7 +71,13 @@
             Position leftPos = from + (forward + Direction.West);
             Position rightPos = from + (forward + Direction.East);
 
-            if (CanCaptureAt(leftPos, board))
+            // Kiem tra EnPassant
+            if (leftPos == board.GetPawnSkipPosition(Color.Opponent()))
+            {
+                yield return new EnPassant(from, leftPos);
+            }
+
+            else if (CanCaptureAt(leftPos, board))
             {
                 // Kiểm tra PawnPromotion
                 if (leftPos.Row == 0 || leftPos.Row == 7)
@@ -86,11 +92,18 @@
                     yield return new NormalMove(from, leftPos);
                 }
             }
-                
-            if (CanCaptureAt(rightPos, board))
+
+
+            // Kiem tra EnPassant
+            if (rightPos == board.GetPawnSkipPosition(Color.Opponent()))
+            {
+                yield return new EnPassant(from, rightPos);
+            }
+
+            else if (CanCaptureAt(rightPos, board))
             {
                 // Kiểm tra PawnPromotion
-                if (leftPos.Row == 0 || leftPos.Row == 7)
+                if (rightPos.Row == 0 || rightPos.Row == 7)
                 {
                     foreach (Move move in PromotionMoves(from, rightPos))
                     {

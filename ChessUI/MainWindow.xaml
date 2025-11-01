@@ -8,9 +8,11 @@
         Title="ChessGame" Width="600" SizeToContent="Height"
         Icon="Assets/icon.ico"
         WindowStartupLocation="CenterScreen"
-        Background="Black">
+        Background="Black"
+        KeyDown="Window_KeyDown"
+        >
 
-    <Grid>
+    <Grid RenderOptions.BitmapScalingMode="HighQuality">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
