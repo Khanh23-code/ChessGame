@@ -42,37 +42,37 @@
             //pieces[1, 1] = new Pawn(Player.White);
             //pieces[6, 6] = new Pawn(Player.Black);
 
-            // Test for Castle - P1
-            //pieces[0, 0] = new Rook(Player.White);
-            //pieces[0, 4] = new King(Player.White);
-            //pieces[5, 7] = new Rook(Player.White);
-            //pieces[7, 0] = new Rook(Player.White);
-            //pieces[6, 4] = new King(Player.White);
-            //pieces[7, 7] = new Rook(Player.White);
-
-            pieces[0, 0] = new Rook(Player.Black);
-            pieces[0, 1] = new Knight(Player.Black);
-            pieces[0, 2] = new Bishop(Player.Black);
-            pieces[0, 3] = new Queen(Player.Black);
-            pieces[0, 4] = new King(Player.Black);
-            pieces[0, 5] = new Bishop(Player.Black);
-            pieces[0, 6] = new Knight(Player.Black);
-            pieces[0, 7] = new Rook(Player.Black);
-
+            // Test for Castle
+            pieces[0, 0] = new Rook(Player.White);
+            pieces[0, 4] = new King(Player.White);
+            pieces[5, 7] = new Rook(Player.White);
             pieces[7, 0] = new Rook(Player.White);
-            pieces[7, 1] = new Knight(Player.White);
-            pieces[7, 2] = new Bishop(Player.White);
-            pieces[7, 3] = new Queen(Player.White);
-            pieces[7, 4] = new King(Player.White);
-            pieces[7, 5] = new Bishop(Player.White);
-            pieces[7, 6] = new Knight(Player.White);
+            pieces[6, 4] = new King(Player.White);
             pieces[7, 7] = new Rook(Player.White);
 
-            for (int i = 0; i < 8; i++)
-            {
-               pieces[1, i] = new Pawn(Player.Black);
-               pieces[6, i] = new Pawn(Player.White);
-            }
+            // pieces[0, 0] = new Rook(Player.Black);
+            // pieces[0, 1] = new Knight(Player.Black);
+            // pieces[0, 2] = new Bishop(Player.Black);
+            // pieces[0, 3] = new Queen(Player.Black);
+            // pieces[0, 4] = new King(Player.Black);
+            // pieces[0, 5] = new Bishop(Player.Black);
+            // pieces[0, 6] = new Knight(Player.Black);
+            // pieces[0, 7] = new Rook(Player.Black);
+
+            // pieces[7, 0] = new Rook(Player.White);
+            // pieces[7, 1] = new Knight(Player.White);
+            // pieces[7, 2] = new Bishop(Player.White);
+            // pieces[7, 3] = new Queen(Player.White);
+            // pieces[7, 4] = new King(Player.White);
+            // pieces[7, 5] = new Bishop(Player.White);
+            // pieces[7, 6] = new Knight(Player.White);
+            // pieces[7, 7] = new Rook(Player.White);
+
+            // for (int i = 0; i < 8; i++)
+            // {
+            //    pieces[1, i] = new Pawn(Player.Black);
+            //    pieces[6, i] = new Pawn(Player.White);
+            // }
         }
 
         public bool IsInside(Position pos)
