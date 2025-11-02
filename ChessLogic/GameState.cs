@@ -6,12 +6,14 @@
         public Player CurrentPlayer { get; private set; }
         public Result Result { get; private set; } = null;
 
-        private int noCaptureOrPawnMoves = 95;       // Biến đếm hỗ trợ 50-move rule
+        private int noCaptureOrPawnMoves;      // Biến đếm hỗ trợ 50-move rule
 
         public GameState(Player player, Board board)
         {
             CurrentPlayer = player;
             Board = board;
+
+            noCaptureOrPawnMoves = 0;
         }
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
@@ -30,13 +32,13 @@
             Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
 
             bool captureOrPawn = move.Execute(Board);
-            if (!captureOrPawn)
+            if (captureOrPawn)
             {
-                noCaptureOrPawnMoves++;
+                noCaptureOrPawnMoves = 0;
             }
             else
             {
-                noCaptureOrPawnMoves = 0;
+                noCaptureOrPawnMoves++;
             }
 
             CurrentPlayer = CurrentPlayer.Opponent();

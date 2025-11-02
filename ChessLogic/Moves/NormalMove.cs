@@ -14,12 +14,14 @@
 
         public override bool Execute(Board board)
         {
+            bool isCapture = !board.IsEmpty(ToPos);
+
             Piece piece = board[FromPos];
             board[ToPos] = piece;
             board[FromPos] = null;
             piece.HasMoved = true;
 
-            return !board.IsEmpty(ToPos) || piece.Type == PieceType.Pawn;
+            return isCapture || piece.Type == PieceType.Pawn;
         }
     }
 }
