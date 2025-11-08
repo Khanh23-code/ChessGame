@@ -32,7 +32,7 @@
             Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
 
             bool captureOrPawn = move.Execute(Board);
-            if (captureOrPawn)
+
             {
                 noCaptureOrPawnMoves = 0;
             }
