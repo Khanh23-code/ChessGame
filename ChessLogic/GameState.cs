@@ -8,12 +8,20 @@
 
         private int noCaptureOrPawnMoves;      // Biến đếm hỗ trợ 50-move rule
 
+        // Hien tai chi luu 1 stateString tai 1 thoi diem va dem so lan lap lai cua stateString do => phuc vu Threefold rule
+        // => Mo rong: Luu tat ca stateString de truy vet nuoc di
+        private string stateString;
+        private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+
         public GameState(Player player, Board board)
         {
             CurrentPlayer = player;
             Board = board;
 
             noCaptureOrPawnMoves = 0;
+
+            stateString = new StateString(CurrentPlayer, Board).ToString();
+            stateHistory[stateString] = 1;
         }
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
@@ -33,13 +41,20 @@
 
             bool captureOrPawn = move.Execute(Board);
 
+            if (captureOrPawn)      // Cap nhat bien dem => 50-move Rule
             {
                 noCaptureOrPawnMoves = 0;
+
+                stateHistory.Clear();   
+                // Voi nhung move thuc hien capture hoac pawn's move thi trang thai ca ban co se khong the lap lai trang thai truoc do
+                // => Co the xoa stateHistory de lam trong bo nho
             }
             else
             {
                 noCaptureOrPawnMoves++;
             }
+            
+            UpdateStateString();    // Update stateString => Threefold Rule
 
             CurrentPlayer = CurrentPlayer.Opponent();
             CheckForGameOver();
@@ -81,11 +96,29 @@
             {
                 Result = Result.Draw(EndReason.FiftyMoveRule);
             }
+            else if (stateHistory[stateString] >= 3)
+            {
+                Result = Result.Draw(EndReason.ThreefoldRepetition);
+            }
         }
 
         public bool IsGameOver()
         {
             return Result != null;
+        }
+
+        private void UpdateStateString()
+        {
+            stateString = new StateString(CurrentPlayer, Board).ToString();
+
+            if (!stateHistory.ContainsKey(stateString))
+            {
+                stateHistory[stateString] = 1;
+            }
+            else
+            {
+                stateHistory[stateString]++;
+            }
         }
     }
 }

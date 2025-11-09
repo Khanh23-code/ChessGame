@@ -26,6 +26,7 @@
         public Position GetPawnSkipPosition(Player player)
         {
             return pawnSkipPositions[player];
+            return pawnSkipPositions[player];
         }
 
         public void SetPawnSkipPostion(Player player, Position position)
@@ -91,6 +92,11 @@
             //pieces[0, 5] = new Bishop(Player.Black);
 
             // Test for 50-move Rule: Chỉnh biến noCaptureOrPawnMoves trong GameState.cs thành 95
+
+            // Test for ThreefoldCompetition Rule
+            //pieces[7, 0] = new King(Player.Black);
+            //pieces[4, 1] = new Rook(Player.White);
+            //pieces[5, 2] = new King(Player.White);
 
             pieces[0, 0] = new Rook(Player.Black);
             pieces[0, 1] = new Knight(Player.Black);
@@ -217,6 +223,79 @@
         private Position FindPiece(Player color, PieceType type)
         {
             return PiecePositionsFor(color).First(pos => pieces[pos.Row, pos.Column].Type == type);
+        }
+
+        private bool IsUnmovedKingAndRook(Position kingPos, Position rookPos)       // Kiểm tra vua và xe đã di chuyển chưa => (đơn giản hóa) truyền vào vị trí ban đầu của xe và vua
+        {
+            if (IsEmpty(kingPos) || IsEmpty(rookPos)) return false;
+
+            Piece king = this[kingPos];
+            Piece rook = this[rookPos];
+
+            return king.Type == PieceType.King && rook.Type == PieceType.Rook && !king.HasMoved && !rook.HasMoved;
+        }
+
+        public bool CanCaslteKS(Player player)      // Kiem tra nhap thanh canh vua (ben phai)
+        {
+            return player switch
+            {
+                Player.White => IsUnmovedKingAndRook(new Position(7, 4), new Position(7, 7)),
+                Player.Black => IsUnmovedKingAndRook(new Position(0, 4), new Position(0, 7)),
+                _ => false
+            };
+        }
+
+        public bool CanCaslteQS(Player player)      // Kiem tra nhap thanh canh hau (ben trai)
+        {
+            return player switch
+            {
+                Player.White => IsUnmovedKingAndRook(new Position(7, 4), new Position(7, 0)),
+                Player.Black => IsUnmovedKingAndRook(new Position(0, 4), new Position(0, 0)),
+                _ => false
+            };
+        }
+
+        private bool HasPawnPosition(Player player, Position[] pawnPositions, Position skipPos)
+        {
+            foreach (Position pos in pawnPositions)
+            {
+                if (!IsInside(pos)) continue;
+
+                Piece piece = this[pos];
+                if (piece == null || piece.Color != player || piece.Type != PieceType.Pawn) continue;
+                
+                EnPassant move = new EnPassant(pos, skipPos);
+                if (move.IsLegal(this))
+                {
+                    return true;        // Chi can co 1 vi tri hop le
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanCaptureEnPassant(Player player)
+        //Hàm dùng để kiểm tra xem phía player có thể thực hiện EnPassant hay ko?
+        //Ví dụ hàm này gọi cho Player.White
+        //B1: Lấy ra skipPos của đối thủ. VD lấy ra skipPos của Player.Black (nếu skipPos này khác null tức bên Black vừa thực hiện DoublePawn)
+        //B2: Từ skipPos sẽ suy ra được 2 vị trí có thể thực hiện EnPassant. Ví dụ skipPos là của Black, v thì 2 ô dưới bên trái/phải của skipPos là vị trí có thể EnPassant
+        //B3: Kiểm tra 2 vị trí đó: Có chứa quân tốt của player ko? Có thể thực hiện EnPassant ko?
+        {
+            Position skipPos = GetPawnSkipPosition(player.Opponent());
+
+            if (skipPos == null)        // Doi thu vua roi khong di chuyen DoublePawn => khong co skipPos
+            {
+                return false;
+            }
+
+            Position[] pawnPositions = player switch
+            {
+                Player.White => new Position[] { skipPos + Direction.SouthEast, skipPos + Direction.SouthWest },
+                Player.Black => new Position[] { skipPos + Direction.NorthEast, skipPos + Direction.NorthWest },
+                _ => Array.Empty<Position>()
+            };
+
+            return HasPawnPosition(player, pawnPositions, skipPos);
         }
     }
 }
