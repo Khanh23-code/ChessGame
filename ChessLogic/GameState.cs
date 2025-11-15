@@ -83,9 +83,7 @@
                 }
                 else
                 {
-                    Result = Result.Draw(EndReason.InsufficentMaterial);
-
-                    //Result = Result.Draw(EndReason.Stalemate);
+                    Result = Result.Draw(EndReason.Stalemate);
                 }
             }
             else if (Board.IsInsufficientMaterial())

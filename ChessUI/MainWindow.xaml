@@ -15,33 +15,53 @@
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <Viewbox Grid.Column="1"
-                 Grid.Row="1">
-            <Grid x:Name="BoardGrid"
-          Height="600"
-          Width="600"
-          MouseDown="BoardGrid_MouseDown">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/Assets/Board.png"/>
-                </Grid.Background>
+        <Viewbox Grid.Column="0">
 
-                <UniformGrid x:Name="HighLightGrid"
-                     Rows="8"
-                     Columns="8">
-                </UniformGrid>
+            <Grid>
+                <Grid x:Name="BoardGrid"
+                      Height="600"
+                      Width="600"
+                      MouseDown="BoardGrid_MouseDown"
+                      >
 
-                <UniformGrid x:Name="PieceGrid"
-                 Rows="8"
-                 Columns="8">
-                </UniformGrid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Assets/Board.png"/>
+                    </Grid.Background>
 
-                <ContentControl x:Name="MenuContainer"/>
+                    <UniformGrid x:Name="HighLightGrid"
+                                 Rows="8"
+                                 Columns="8">
+                    </UniformGrid>
+
+                    <UniformGrid x:Name="PieceGrid"
+                                 Rows="8"
+                                 Columns="8">
+                    </UniformGrid>
+
+                    <Grid>
+                        
+                    </Grid>
+
+                    <ContentControl x:Name="MenuContainer"/>
+
+                </Grid>
+
+                <!--<TextBlock Text="1"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           Width="25"
+                           FontSize="25"
+                           Foreground="White"
+                           TextAlignment="Center"
+                           VerticalAlignment="Top" Margin="0,244,0,0"/>-->
             </Grid>
+
         </Viewbox>
+
     </Grid>
 
 </Window>
