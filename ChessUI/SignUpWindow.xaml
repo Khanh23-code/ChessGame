@@ -1,0 +1,126 @@
+﻿<Window
+    x:Class="ChessUI.SignUpWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Sign Up"
+    Width="400"
+    Height="800"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+
+    <Grid Margin="20">
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,0,0,0"
+            Background="#C0000000"
+            CornerRadius="10"
+            Style="{StaticResource BorderStyleLogin}" />
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,15,15,15"
+            Background="Transparent"
+            BorderBrush="#30FFFFFF"
+            BorderThickness="1"
+            CornerRadius="10">
+
+            <StackPanel Margin="25" VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="CREATE ACCOUNT"
+                    TextDecorations="Underline" />
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Họ và tên:" />
+                <TextBox x:Name="FullNameTextBox" />
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Email:" />
+                <TextBox x:Name="EmailTextBox" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Username:" />
+                <TextBox x:Name="UsernameTextBox" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Password:" />
+                <PasswordBox x:Name="PasswordBox" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Confirm Password:" />
+                <PasswordBox x:Name="ConfirmPasswordBox" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Tuổi:" />
+                <TextBox x:Name="AgeTextBox" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Trình độ hiện tại:" />
+                <ComboBox
+                    x:Name="LevelComboBox"
+                    IsEditable="True"
+                    IsReadOnly="True"
+                    Text="Beginner">
+
+                    <ComboBoxItem Content="Beginner" />
+                    <ComboBoxItem Content="Intermediate" />
+                    <ComboBoxItem Content="Advanced" />
+                    <ComboBoxItem Content="Professor" />
+                </ComboBox>
+                <Button
+                    x:Name="RegisterButton"
+                    Height="40"
+                    Margin="0,10"
+                    Background="White"
+                    Click="RegisterButton_Click"
+                    Content="Register"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Foreground="#333333"
+                    Style="{StaticResource ButtonBorderRadius}" />
+                <Button
+                    x:Name="CancelButton"
+                    Height="40"
+                    Margin="0,0"
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="1"
+                    Click="CancelButton_Click"
+                    Content="Cancel"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    IsCancel="True"
+                    Style="{StaticResource ButtonBorderRadius}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
