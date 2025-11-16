@@ -1,4 +1,5 @@
 ﻿using ChessLogic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,6 +10,7 @@ namespace ChessUI
     /// </summary>
     public partial class PromotionMenu : UserControl
     {
+        #region Properties / Constructors
         public event Action<PieceType> PieceSelected;
 
         public PromotionMenu(Player player)
@@ -20,7 +22,9 @@ namespace ChessUI
             imgKnight.Source = Images.GetImage(player, PieceType.Knight);
             imgBishop.Source = Images.GetImage(player, PieceType.Bishop);
         }
+        #endregion
 
+        #region Events
         private void imgQueen_MouseDown(object sender, MouseButtonEventArgs e)
         {
             PieceSelected?.Invoke(PieceType.Queen);
@@ -40,5 +44,6 @@ namespace ChessUI
         {
             PieceSelected?.Invoke(PieceType.Bishop);
         }
+        #endregion
     }
 }

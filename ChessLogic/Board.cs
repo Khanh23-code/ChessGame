@@ -2,6 +2,7 @@
 {
     public class Board      // Lớp dành cho bàn cờ
     {
+        #region Properties
         private readonly Piece[,] pieces = new Piece[8, 8];
 
         // Dictionary để lưu nước đi 2 bước của tốt cho mỗi Player => phục vụ En Passant
@@ -10,8 +11,10 @@
             {Player.White, null },
             {Player.Black, null }
         };
+        #endregion
 
-        public Piece this[int row, int col]     // Indexer
+        #region Indexers
+        public Piece this[int row, int col]   
         {
             get { return pieces[row, col]; }
             set { pieces[row, col] = value; }
@@ -22,27 +25,17 @@
             get { return pieces[position.Row, position.Column]; }
             set { pieces[position.Row, position.Column] = value; }
         }
+        #endregion
 
-        public Position GetPawnSkipPosition(Player player)
-        {
-            return pawnSkipPositions[player];
-        }
-
-        public void SetPawnSkipPostion(Player player, Position position)
-        {
-            pawnSkipPositions[player] = position;
-        }
-
+        #region Initialization / Copy Board
         public static Board Initial()
         {
             Board board = new Board();
             board.AddStartPieces();
-            // Hàm AddStartPieces() hiện tại đang tạo cố định bàn cờ với quân đen ở trên và quân trắng ở dưới
-            // => Có khả năng mở rộng 
             return board;
         }
 
-        private void AddStartPieces()       
+        private void AddStartPieces()
         {
             //Test for Checkmate
             //pieces[0, 4] = new King(Player.Black);
@@ -58,6 +51,8 @@
             // Test for PromotionMenu/PawnPromotion
             //pieces[1, 1] = new Pawn(Player.White);
             //pieces[6, 6] = new Pawn(Player.Black);
+            //pieces[0, 4] = new King(Player.Black);
+            //pieces[7, 6] = new King(Player.White);
 
             //Test for Castle
             //pieces[0, 0] = new Rook(Player.Black);
@@ -122,6 +117,20 @@
             }
         }
 
+        public Board Copy()
+        {
+            Board newBoard = new Board();
+
+            foreach (Position pos in PiecePositions())
+            {
+                newBoard[pos] = this[pos].Copy();
+            }
+
+            return newBoard;
+        }
+        #endregion
+
+        #region Supportive Functions
         public bool IsInside(Position pos)
         {
             return (0 <= pos.Row && pos.Row <= 7) && (0 <= pos.Column && pos.Column <= 7);
@@ -131,7 +140,21 @@
         {
             return this[pos] == null;
         }
+        #endregion
 
+        #region PawnSkipPosition
+        public Position GetPawnSkipPosition(Player player)
+        {
+            return pawnSkipPositions[player];
+        }
+
+        public void SetPawnSkipPostion(Player player, Position position)
+        {
+            pawnSkipPositions[player] = position;
+        }
+        #endregion
+
+        #region Get Pieces
         public IEnumerable<Position> PiecePositions()
         {
             for (int i = 0; i < 8; i++)
@@ -140,7 +163,7 @@
                 {
                     if (pieces[i, j] != null) yield return new Position(i, j);
                 }
-            } 
+            }
         }
 
         public IEnumerable<Position> PiecePositionsFor(Player player)
@@ -156,24 +179,22 @@
                 return piece.CanCaptureOpponentKing(pos, this);
             });
         }
+        #endregion
 
-        public Board Copy()
+        #region Check Insufficient
+        public bool IsInsufficientMaterial()
         {
-            Board newBoard = new Board();
+            Counting counting = CountPieces();
 
-            foreach(Position pos in PiecePositions())
-            {
-                newBoard[pos] = this[pos].Copy();
-            }
-            
-            return newBoard;   
+            // Cac dieu kien de insufficient material: 4 case: 
+            return IsKingVKing(counting) || IsKingBishopVKing(counting) || IsKingKnightVKing(counting) || IsKingBishopVKingBishop(counting);
         }
 
         public Counting CountPieces()
         {
             Counting counting = new Counting();
 
-            foreach(Position pos in PiecePositions())
+            foreach (Position pos in PiecePositions())
             {
                 Piece piece = pieces[pos.Row, pos.Column];
 
@@ -181,14 +202,6 @@
             }
 
             return counting;
-        } 
-
-        public bool IsInsufficientMaterial()
-        {
-            Counting counting = CountPieces();
-
-            // Cac dieu kien de insufficient material: 4 case: 
-            return IsKingVKing(counting) || IsKingBishopVKing(counting) || IsKingKnightVKing(counting) || IsKingBishopVKingBishop(counting);
         }
 
         private static bool IsKingVKing(Counting counting)
@@ -223,7 +236,9 @@
         {
             return PiecePositionsFor(color).First(pos => pieces[pos.Row, pos.Column].Type == type);
         }
+        #endregion
 
+        #region Create FEN string
         private bool IsUnmovedKingAndRook(Position kingPos, Position rookPos)       // Kiểm tra vua và xe đã di chuyển chưa => (đơn giản hóa) truyền vào vị trí ban đầu của xe và vua
         {
             if (IsEmpty(kingPos) || IsEmpty(rookPos)) return false;
@@ -262,7 +277,7 @@
 
                 Piece piece = this[pos];
                 if (piece == null || piece.Color != player || piece.Type != PieceType.Pawn) continue;
-                
+
                 EnPassant move = new EnPassant(pos, skipPos);
                 if (move.IsLegal(this))
                 {
@@ -296,5 +311,6 @@
 
             return HasPawnPosition(player, pawnPositions, skipPos);
         }
+        #endregion
     }
 }

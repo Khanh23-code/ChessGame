@@ -2,6 +2,7 @@
 {
     public class Position     // Các đối tượng thuộc lớp là các ô ứng với từng vị trí trên bàn cờ
     {
+        #region Properties / Constructors
         public int Row { get; }
         public int Column { get; }
 
@@ -10,7 +11,9 @@
             Row = row; 
             Column = column;
         }
+        #endregion
 
+        #region Set Color
         public Player SquareColor()     // Sử dụng Player để lấy màu sắc (vì cũng có trắng/đen) thay vì tạo thêm enum cho màu sắc bàn cờ
         {
             if ((Row + Column) % 2 == 0)
@@ -19,7 +22,9 @@
             }
             return Player.Black;
         }
+        #endregion
 
+        #region Operators / Equal Functions
         // 4 phương thức (Equals, GetHashCode, operator ==, operator !=) được VS tạo tự động (phím tắt Ctrl + '.' >> "Generate Equals and GetHashCode...")
         // dùng để hộ trợ so sánh bằng
 
@@ -50,5 +55,6 @@
         {
             return new Position(start.Row + dir.RowDelta, start.Column + dir.ColumnDelta);
         }
+        #endregion
     }
 }
