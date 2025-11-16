@@ -38,13 +38,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\BackgroundMenu.jpeg" />
+    <Resource Include="Assets\LoginAssets\BackgroundMenu.jpeg" />
     <Resource Include="Assets\BishopB.png" />
     <Resource Include="Assets\BishopW.png" />
     <Resource Include="Assets\Board.png" />
     <Resource Include="Assets\CursorB.cur" />
     <Resource Include="Assets\CursorW.cur" />
-    <Resource Include="Assets\GoogleIcon.png" />
+    <Resource Include="Assets\LoginAssets\GoogleIcon.png" />
     <Resource Include="Assets\icon.ico" />
     <Resource Include="Assets\KingB.png" />
     <Resource Include="Assets\KingW.png" />
