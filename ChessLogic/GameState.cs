@@ -102,6 +102,24 @@ namespace ChessLogic
             Piece piece = Board[pos];
             return piece.GetMoves(pos, Board).Where(move => move.IsLegal(Board));
         }
+        #endregion
+
+        #region Check for Game Over
+        public bool IsGameOver()
+        {
+            return Result != null;
+        }
+
+        public IEnumerable<Move> LegalMovesForPiece(Position pos)
+        {
+            if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
+            {
+                return Enumerable.Empty<Move>();
+            }
+
+            Piece piece = Board[pos];
+            return piece.GetMoves(pos, Board).Where(move => move.IsLegal(Board));
+        }
 
         public IEnumerable<Move> AllLegalMovesFor(Player player)
         {
