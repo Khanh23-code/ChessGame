@@ -40,11 +40,11 @@ namespace ChessUI
         }
 
         // taskbar button
-        private void btnMinimize_Click(object sender,  RoutedEventArgs e)
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-        private void btnMaximize_Click (object sender, RoutedEventArgs e) 
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
             {
@@ -54,7 +54,7 @@ namespace ChessUI
                 WindowState = WindowState.Maximized;
         }
         // Change content of btnMaximize
-        private void Window_StateChanged (object sender,EventArgs e )
+        private void Window_StateChanged(object sender, EventArgs e)
         {
             // check if Window in Maximized state change btn Maximize content
             if (this.WindowState == WindowState.Maximized)
@@ -67,7 +67,7 @@ namespace ChessUI
                 btnMaximize.Content = "\uE922";
             }
         }
-        private void btnClose_Click (object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
