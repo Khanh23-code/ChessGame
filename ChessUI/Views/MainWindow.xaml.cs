@@ -17,6 +17,7 @@ namespace ChessUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Properties
         private readonly Image[,] pieceImages = new Image[8, 8];
         private readonly Rectangle[,] highlights = new Rectangle[8, 8];
         private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();   
@@ -25,7 +26,9 @@ namespace ChessUI
 
         private GameState gameState;
         private Position selectedPos = null;
+        #endregion
 
+        #region Constructors / Initial Functions
         public MainWindow()
         {
             InitializeComponent();
@@ -64,7 +67,65 @@ namespace ChessUI
                 }
             }
         }
+        #endregion
 
+        #region Supportive Functions
+        private Position ToSquarePosition(Point point)
+        {
+            double squareSize = BoardGrid.ActualWidth / 8;
+            int row = (int)(point.Y / squareSize);
+            int column = (int)(point.X / squareSize);
+            return new Position(row, column);
+        }
+
+        private bool IsMenuOnScreen()
+        {
+            return MenuContainer.Content != null;
+        }
+
+        // moves truyền vào được lấy từ piece.GetMoves của gameState.Board[selectedPos]
+        private void CacheMoves(IEnumerable<Move> moves)
+        {
+            moveCache.Clear();
+
+            foreach (Move move in moves)
+            {
+                moveCache[move.ToPos] = move;
+            }
+        }
+
+        private void ShowHighLights()
+        {
+            Color color = Color.FromArgb(150, 125, 255, 125);
+
+            foreach (Position to in moveCache.Keys)
+            {
+                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
+            }
+        }
+
+        private void HideHighLights()
+        {
+            foreach (Position to in moveCache.Keys)
+            {
+                highlights[to.Row, to.Column].Fill = Brushes.Transparent;
+            }
+        }
+
+        private void SetCursor(Player player)
+        {
+            if (player == Player.White)
+            {
+                Cursor = ChessCursors.WhiteCursor;
+            }
+            else
+            {
+                Cursor = ChessCursors.BlackCursor;
+            }
+        }
+        #endregion
+
+        #region Handle MouseDown on Board
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (IsMenuOnScreen()) return;       // Nếu trên màn hình đang hiện 1 Menu nào đó (GameOverMenu) thì không nhận event MouseDown
@@ -115,6 +176,56 @@ namespace ChessUI
                 }
             }
         }
+        #endregion
+
+        #region Handle Moves
+        private void HandleMove(Move move)
+        {
+            gameState.MakeMove(move);
+            DrawBoard(gameState.Board);
+            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
+            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
+
+            SetCursor(gameState.CurrentPlayer);
+
+            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
+            if (gameState.IsGameOver())     // if (gameState.Result != null)
+            {
+                ShowGameOverMenu();
+            }
+        }
+
+        #region Gameover
+        private void ShowGameOverMenu()
+        {
+            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
+            MenuContainer.Content = gameOverMenu;
+
+            gameOverMenu.OptionSelected += option =>
+            {
+                if (option == Option.Restart)
+                {
+                    MenuContainer.Content = null;
+                    RestartGame();
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            };
+        }
+
+        private void RestartGame()
+        {
+            selectedPos = null;
+            HideHighLights();
+            moveCache.Clear();
+
+            gameState = new GameState(Player.White, Board.Initial());
+            DrawBoard(gameState.Board);
+            SetCursor(gameState.CurrentPlayer);
+        }
+        #endregion
 
         private void HandlePromotionMove(Move move)
         {
@@ -145,107 +256,9 @@ namespace ChessUI
                 //} 
             };
         }
+        #endregion
 
-        private void HandleMove(Move move)
-        {
-            gameState.MakeMove(move);
-            DrawBoard(gameState.Board);
-            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
-            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
-            
-            SetCursor(gameState.CurrentPlayer);
-
-            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
-            if (gameState.IsGameOver())     // if (gameState.Result != null)
-            {
-                ShowGameOverMenu();
-            }
-        }
-
-        private Position ToSquarePosition(Point point)
-        {
-            double squareSize = BoardGrid.ActualWidth / 8;
-            int row = (int)(point.Y / squareSize);
-            int column = (int)(point.X / squareSize);
-            return new Position(row, column);
-        }
-
-        // moves truyền vào được lấy từ piece.GetMoves của gameState.Board[selectedPos]
-        private void CacheMoves(IEnumerable<Move> moves)  
-        {
-            moveCache.Clear();
-
-            foreach (Move move in moves)
-            {
-                moveCache[move.ToPos] = move;   
-            }
-        }
-
-        private void ShowHighLights()
-        {
-            Color color = Color.FromArgb(150, 125, 255, 125);
-
-            foreach (Position to in moveCache.Keys)
-            {
-                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
-            }
-        }
-
-        private void HideHighLights()
-        {
-            foreach (Position to in moveCache.Keys)
-            {
-                highlights[to.Row, to.Column].Fill = Brushes.Transparent;
-            }
-        }
-
-        private void SetCursor(Player player)
-        {
-            if (player == Player.White)
-            {
-                Cursor = ChessCursors.WhiteCursor;
-            }
-            else
-            {
-                Cursor = ChessCursors.BlackCursor;
-            }
-        }
-
-        private bool IsMenuOnScreen()
-        {
-            return MenuContainer.Content != null;
-        }
-
-        private void ShowGameOverMenu()
-        {
-            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
-            MenuContainer.Content = gameOverMenu;
-
-            gameOverMenu.OptionSelected += option =>
-            {
-                if (option == Option.Restart)
-                {
-                    MenuContainer.Content = null;
-                    RestartGame();
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
-            };
-        }
-
-        private void RestartGame()
-        {
-            selectedPos = null;
-            HideHighLights();
-            moveCache.Clear();
-
-            gameState = new GameState(Player.White, Board.Initial());
-            DrawBoard(gameState.Board);
-            SetCursor(gameState.CurrentPlayer);
-        }
-
+        #region Pause Game
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (!IsMenuOnScreen() && e.Key == Key.Escape)
@@ -269,5 +282,6 @@ namespace ChessUI
                 }
             };
         }
+        #endregion
     }
 }

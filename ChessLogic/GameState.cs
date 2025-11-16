@@ -1,7 +1,10 @@
-﻿namespace ChessLogic
+﻿using ChessLogic;
+
+namespace ChessLogic
 {
     public class GameState
     {
+        #region Properties
         public Board Board { get; }
         public Player CurrentPlayer { get; private set; }
         public Result Result { get; private set; } = null;
@@ -12,7 +15,9 @@
         // => Mo rong: Luu tat ca stateString de truy vet nuoc di
         private string stateString;
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+        #endregion
 
+        #region Constructors
         public GameState(Player player, Board board)
         {
             CurrentPlayer = player;
@@ -22,6 +27,40 @@
 
             stateString = new StateString(CurrentPlayer, Board).ToString();
             stateHistory[stateString] = 1;
+        }
+        #endregion
+
+        #region Make Move
+        public void MakeMove(Move move)        // Hàm dùng để thực thi <move>
+        {
+            Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
+
+            bool captureOrPawn = move.Execute(Board);
+
+            if (captureOrPawn)      // Cap nhat bien dem => 50-move Rule
+            {
+                noCaptureOrPawnMoves = 0;
+
+                stateHistory.Clear();
+                // Voi nhung move thuc hien capture hoac pawn's move thi trang thai ca ban co se khong the lap lai trang thai truoc do
+                // => Co the xoa stateHistory de lam trong bo nho
+            }
+            else
+            {
+                noCaptureOrPawnMoves++;
+            }
+
+            UpdateStateString();    // Update stateString => Threefold Rule
+
+            CurrentPlayer = CurrentPlayer.Opponent();
+            CheckForGameOver();
+        }
+        #endregion
+
+        #region Check for Game Over
+        public bool IsGameOver()
+        {
+            return Result != null;
         }
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
@@ -33,31 +72,6 @@
 
             Piece piece = Board[pos];
             return piece.GetMoves(pos, Board).Where(move => move.IsLegal(Board));
-        }
-
-        public void MakeMove (Move move)        // Hàm dùng để thực thi <move>
-        {
-            Board.SetPawnSkipPostion(CurrentPlayer, null);      // Reset pawnSkipPosition moi luot
-
-            bool captureOrPawn = move.Execute(Board);
-
-            if (captureOrPawn)      // Cap nhat bien dem => 50-move Rule
-            {
-                noCaptureOrPawnMoves = 0;
-
-                stateHistory.Clear();   
-                // Voi nhung move thuc hien capture hoac pawn's move thi trang thai ca ban co se khong the lap lai trang thai truoc do
-                // => Co the xoa stateHistory de lam trong bo nho
-            }
-            else
-            {
-                noCaptureOrPawnMoves++;
-            }
-            
-            UpdateStateString();    // Update stateString => Threefold Rule
-
-            CurrentPlayer = CurrentPlayer.Opponent();
-            CheckForGameOver();
         }
 
         public IEnumerable<Move> AllLegalMovesFor(Player player)
@@ -99,12 +113,9 @@
                 Result = Result.Draw(EndReason.ThreefoldRepetition);
             }
         }
+        #endregion
 
-        public bool IsGameOver()
-        {
-            return Result != null;
-        }
-
+        #region Update StateString
         private void UpdateStateString()
         {
             stateString = new StateString(CurrentPlayer, Board).ToString();
@@ -118,5 +129,6 @@
                 stateHistory[stateString]++;
             }
         }
+        #endregion
     }
 }

@@ -28,6 +28,7 @@
             return copy;
         }
 
+        #region Supportive Functions
         private static bool CanMoveTo(Position pos, Board board)        // Kiểm tra tính hợp lệ đẻ di chuyển: ô có nằm trong phạm vị board và có quân khác ở đó không
         {
             return board.IsInside(pos) && board.IsEmpty(pos);
@@ -41,7 +42,9 @@
             if (piece.Color != Color) return true;
             return false;
         }
+        #endregion
 
+        #region Get Forward/Diagonal Moves
         private IEnumerable<Move> ForwardMoves(Position from, Board board)      // Bao gồm di chuyển 1 và 2 bước đầu (note: Bên MoveType có type khác cho 2 bước đầu?)
         {
             Position oneMovePos = from + forward;
@@ -93,7 +96,6 @@
                 }
             }
 
-
             // Kiem tra EnPassant
             if (rightPos == board.GetPawnSkipPosition(Color.Opponent()))
             {
@@ -116,6 +118,7 @@
                 }
             }
         }
+        #endregion
 
         public override IEnumerable<Move> GetMoves(Position from, Board board)
         {

@@ -8,21 +8,21 @@ namespace ChessUI
     {
         private static readonly Dictionary<PieceType, ImageSource> WhitePieces = new()
         {
-            { PieceType.Pawn, LoadImage("Assets/PawnW.png") },
-            { PieceType.Bishop, LoadImage("Assets/BishopW.png") },
-            { PieceType.Rook, LoadImage("Assets/RookW.png") },
-            { PieceType.Knight, LoadImage("Assets/KnightW.png") },
-            { PieceType.Queen, LoadImage("Assets/QueenW.png") },
-            { PieceType.King, LoadImage("Assets/KingW.png") }
+            { PieceType.Pawn, LoadImage("/Assets/PawnW.png") },
+            { PieceType.Bishop, LoadImage("/Assets/BishopW.png") },
+            { PieceType.Rook, LoadImage("/Assets/RookW.png") },
+            { PieceType.Knight, LoadImage("/Assets/KnightW.png") },
+            { PieceType.Queen, LoadImage("/Assets/QueenW.png") },
+            { PieceType.King, LoadImage("/Assets/KingW.png") }
         };
         private static readonly Dictionary<PieceType, ImageSource> BlackPieces = new()
         {
-            { PieceType.Pawn, LoadImage("Assets/PawnB.png") },
-            { PieceType.Bishop, LoadImage("Assets/BishopB.png") },
-            { PieceType.Rook, LoadImage("Assets/RookB.png") },
-            { PieceType.Knight, LoadImage("Assets/KnightB.png") },
-            { PieceType.Queen, LoadImage("Assets/QueenB.png") },
-            { PieceType.King, LoadImage("Assets/KingB.png") }
+            { PieceType.Pawn, LoadImage("/Assets/PawnB.png") },
+            { PieceType.Bishop, LoadImage("/Assets/BishopB.png") },
+            { PieceType.Rook, LoadImage("/Assets/RookB.png") },
+            { PieceType.Knight, LoadImage("/Assets/KnightB.png") },
+            { PieceType.Queen, LoadImage("/Assets/QueenB.png") },
+            { PieceType.King, LoadImage("/Assets/KingB.png") }
         };
 
         // Có vẻ hàm này khi cần sử dụng Image đều cần

@@ -36,16 +36,6 @@
             new NormalMove(rookFromPos, rookToPos).Execute(board);
 
             return false;
-
-            //Piece king = board[FromPos];
-            //board[ToPos] = king;
-            //board[FromPos] = null;
-            //king.HasMoved = true;
-
-            //Piece rook = board[rookFromPos];
-            //board[rookToPos] = rook;
-            //board[rookFromPos] = null;
-            //rook.HasMoved = true;
         }
 
         public override bool IsLegal(Board board)

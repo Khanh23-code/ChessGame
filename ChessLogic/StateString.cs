@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChessLogic
 {
-    public class StateString
+    public class StateString    
     {
+        #region Properties / Constructors - Build FEN string
         private readonly StringBuilder sb = new StringBuilder();
 
         public StateString(Player currentPlayer, Board board)
@@ -25,7 +26,11 @@ namespace ChessLogic
         {
             return sb.ToString();
         }
+        #endregion
 
+        #region Add Datas
+
+        #region Piece Datas
         private static char PieceChar(Piece piece)
         {
             char c = piece.Type switch
@@ -79,6 +84,7 @@ namespace ChessLogic
                 AddRowData(board, r);
             }
         }
+        #endregion
 
         private void AddCurrentPlayer(Player player)
         {
@@ -128,5 +134,6 @@ namespace ChessLogic
             sb.Append(file);
             sb.Append(rank);
         }
+        #endregion
     }
 }

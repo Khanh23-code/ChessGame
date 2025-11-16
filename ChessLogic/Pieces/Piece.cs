@@ -9,6 +9,7 @@
         public abstract Piece Copy();
         public abstract IEnumerable<Move> GetMoves(Position from, Board board);     // Trả về các Move mà quân <Piece> có thể di chuyển từ <from>
 
+        #region Get Positions (if exists) with Directions
         protected IEnumerable<Position> MovePositionsInDir(Position from, Board board, Direction dir)       // Trả về tất cả các ô theo MỘT hướng <dir> tính từ <from> (hỗ trợ các quân Rook, Queen, Bishop có thể di chuyển tất cả ô theo <dir>)
         {
             for (Position pos = from + dir; board.IsInside(pos); pos += dir)
@@ -42,7 +43,9 @@
             //    }
             //}
         }
+        #endregion
 
+        #region Check if any Postitions after moving can CHECK
         public virtual bool CanCaptureOpponentKing(Position from, Board board)
         {
             return GetMoves(from, board).Any(move =>
@@ -52,18 +55,6 @@
                 return false;
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #endregion
     }
 }
