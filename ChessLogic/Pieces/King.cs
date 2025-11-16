@@ -24,43 +24,6 @@ namespace ChessLogic
             Color = color;
         }
 
-        private static bool IsUnmovedRook(Position pos, Board board)        // Hô trợ - kiểm tra nhập thành: Kiểm tra quân xe đã di chuyển (thông qua lớp King)
-        {
-            if (board.IsEmpty(pos)) return false;
-
-            return board[pos].Type == PieceType.Rook && !board[pos].HasMoved;
-        }
-
-        private static bool AllEmpty(IEnumerable<Position> positions, Board board)      // Hỗ trợ - kiểm tra nhập thành: Kiểm tra nhiều vị trí có trống không? Dùng để kiểm tra các positions giữa vua và xe
-        {
-            return positions.All(pos => board.IsEmpty(pos));
-        }
-
-        private bool CanCastleKingSide(Position from, Board board)      // Kiểm tra nhập thành cánh vua (phải)
-        {
-            if (HasMoved) return false;
-
-            Position rookPos = new Position(from.Row, 7);
-            // Vì nhập thành phải nên xe ở cột 7 (cố định cho cả player black và white)
-            // => Khi mở rộng để xoay bàn cờ: PHẢI truyền thêm tham số để xác định column
-
-            Position[] betweenPositions = new Position[] { new Position(from.Row, 5), new Position(from.Row, 6) };
-            // Cần mở rộng không được truyền giá trị cố định (5, 6)
-
-            return IsUnmovedRook(rookPos, board) && AllEmpty(betweenPositions, board);
-        }
-
-        private bool CanCastleQueenSide(Position from, Board board)      // Kiểm tra nhập thành cánh hậu (trái)
-        {
-            if (HasMoved) return false;
-
-            Position rookPos = new Position(from.Row, 0);
-            Position[] betweenPositions = new Position[] { new Position(from.Row, 1), new Position(from.Row, 2), new Position(from.Row, 3) };
-            // Cần mở rộng tương tự trên
-
-            return IsUnmovedRook(rookPos, board) && AllEmpty(betweenPositions, board);
-        }
-
         public override Piece Copy()
         {
             King copy = new(Color);
@@ -97,6 +60,45 @@ namespace ChessLogic
                 yield return new Castle(MoveType.CaslteQS, from);
             }
         }
+
+        #region Supportive Functions for Castling
+        private static bool IsUnmovedRook(Position pos, Board board)        // Hô trợ - kiểm tra nhập thành: Kiểm tra quân xe đã di chuyển (thông qua lớp King)
+        {
+            if (board.IsEmpty(pos)) return false;
+
+            return board[pos].Type == PieceType.Rook && !board[pos].HasMoved;
+        }
+
+        private static bool AllEmpty(IEnumerable<Position> positions, Board board)      // Hỗ trợ - kiểm tra nhập thành: Kiểm tra nhiều vị trí có trống không? Dùng để kiểm tra các positions giữa vua và xe
+        {
+            return positions.All(pos => board.IsEmpty(pos));
+        }
+
+        private bool CanCastleKingSide(Position from, Board board)      // Kiểm tra nhập thành cánh vua (phải)
+        {
+            if (HasMoved) return false;
+
+            Position rookPos = new Position(from.Row, 7);
+            // Vì nhập thành phải nên xe ở cột 7 (cố định cho cả player black và white)
+            // => Khi mở rộng để xoay bàn cờ: PHẢI truyền thêm tham số để xác định column
+
+            Position[] betweenPositions = new Position[] { new Position(from.Row, 5), new Position(from.Row, 6) };
+            // Cần mở rộng không được truyền giá trị cố định (5, 6)
+
+            return IsUnmovedRook(rookPos, board) && AllEmpty(betweenPositions, board);
+        }
+
+        private bool CanCastleQueenSide(Position from, Board board)      // Kiểm tra nhập thành cánh hậu (trái)
+        {
+            if (HasMoved) return false;
+
+            Position rookPos = new Position(from.Row, 0);
+            Position[] betweenPositions = new Position[] { new Position(from.Row, 1), new Position(from.Row, 2), new Position(from.Row, 3) };
+            // Cần mở rộng tương tự trên
+
+            return IsUnmovedRook(rookPos, board) && AllEmpty(betweenPositions, board);
+        }
+        #endregion
 
         public override bool CanCaptureOpponentKing(Position from, Board board)     // Cần override bởi vì các nước nhập thành không thể ăn quân (chỉ nước bình thường mới chiếu được)
         {
