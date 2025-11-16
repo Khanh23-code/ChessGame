@@ -73,7 +73,7 @@
                     MouseDown="BoardGrid_MouseDown">
 
                     <Grid.Background>
-                        <ImageBrush ImageSource="/Assets/BoardAsssets/Board.png" />
+                        <ImageBrush ImageSource="/Assets/Board.png" />
                     </Grid.Background>
 
                     <UniformGrid
