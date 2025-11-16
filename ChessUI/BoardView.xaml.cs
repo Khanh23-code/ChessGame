@@ -1,4 +1,9 @@
-﻿using System.Text;
+﻿using ChessLogic;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,33 +13,43 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ChessLogic;
+using System.Windows.Threading;
 
-namespace ChessUI
+namespace ChessUI.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BoardView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BoardView : UserControl
     {
-<<<<<<< Updated upstream:ChessUI/MainWindow.xaml.cs
+        public BoardView()
+        {
+            InitializeComponent();
+            InitialBoard();
+
+            TimeSpan initialTime = TimeSpan.FromMinutes(1);
+            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+
+            DrawBoard(gameState.Board);
+            SetCursor(gameState.CurrentPlayer);
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+
+            StartGame();
+        }
         private readonly Image[,] pieceImages = new Image[8, 8];
         private readonly Rectangle[,] highlights = new Rectangle[8, 8];
-        private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();   
+        private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
         // Khi 1 quân cờ được chọn (thay đổi biến selectedPos), tất cả các vị trí có thể di chuyển kèm theo move tương ứng sẽ được lưu vào Dictionary moveCache
         // moveCache lưu key là <Position> tương ứng vị trí có thể di chuyển, với value là <Move>
 
         private GameState gameState;
         private Position selectedPos = null;
 
-=======
->>>>>>> Stashed changes:ChessUI/Views/MainWindow.xaml.cs
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-<<<<<<< Updated upstream:ChessUI/MainWindow.xaml.cs
+        // DispatcherTimer
+        private readonly DispatcherTimer timer;
         private void InitialBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -63,7 +78,59 @@ namespace ChessUI
                 }
             }
         }
+        private Position ToSquarePosition(Point point)
+        {
+            double squareSize = BoardGrid.ActualWidth / 8;
+            int row = (int)(point.Y / squareSize);
+            int column = (int)(point.X / squareSize);
+            return new Position(row, column);
+        }
 
+        public bool IsMenuOnScreen()
+        {
+            return MenuContainer.Content != null;
+        }
+
+        // moves truyền vào được lấy từ piece.GetMoves của gameState.Board[selectedPos]
+        private void CacheMoves(IEnumerable<Move> moves)
+        {
+            moveCache.Clear();
+
+            foreach (Move move in moves)
+            {
+                moveCache[move.ToPos] = move;
+            }
+        }
+
+        private void ShowHighLights()
+        {
+            Color color = Color.FromArgb(150, 125, 255, 125);
+
+            foreach (Position to in moveCache.Keys)
+            {
+                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
+            }
+        }
+
+        private void HideHighLights()
+        {
+            foreach (Position to in moveCache.Keys)
+            {
+                highlights[to.Row, to.Column].Fill = Brushes.Transparent;
+            }
+        }
+
+        private void SetCursor(Player player)
+        {
+            if (player == Player.White)
+            {
+                Cursor = ChessCursors.WhiteCursor;
+            }
+            else
+            {
+                Cursor = ChessCursors.BlackCursor;
+            }
+        }
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (IsMenuOnScreen()) return;       // Nếu trên màn hình đang hiện 1 Menu nào đó (GameOverMenu) thì không nhận event MouseDown
@@ -114,6 +181,54 @@ namespace ChessUI
                 }
             }
         }
+        private void HandleMove(Move move)
+        {
+            gameState.MakeMove(move);
+            DrawBoard(gameState.Board);
+            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
+            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
+
+            SetCursor(gameState.CurrentPlayer);
+
+            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
+            if (gameState.IsGameOver())     // if (gameState.Result != null)
+            {
+                ShowGameOverMenu();
+            }
+        }
+        private void ShowGameOverMenu()
+        {
+            timer.Stop();
+            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
+            MenuContainer.Content = gameOverMenu;
+
+            gameOverMenu.OptionSelected += option =>
+            {
+                if (option == Option.Restart)
+                {
+                    MenuContainer.Content = null;
+                    RestartGame();
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            };
+        }
+
+        private void RestartGame()
+        {
+            selectedPos = null;
+            HideHighLights();
+            moveCache.Clear();
+
+            // initial Timer after ResetGame is called
+            TimeSpan initialTime = TimeSpan.FromMinutes(1);
+            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+
+            DrawBoard(gameState.Board);
+            StartGame();
+        }
 
         private void HandlePromotionMove(Move move)
         {
@@ -144,122 +259,9 @@ namespace ChessUI
                 //} 
             };
         }
-
-        private void HandleMove(Move move)
+        public void ShowPauseMenu()
         {
-            gameState.MakeMove(move);
-            DrawBoard(gameState.Board);
-            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
-            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
-            
-            SetCursor(gameState.CurrentPlayer);
-
-            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
-            if (gameState.IsGameOver())     // if (gameState.Result != null)
-            {
-                ShowGameOverMenu();
-            }
-        }
-
-        private Position ToSquarePosition(Point point)
-        {
-            double squareSize = BoardGrid.ActualWidth / 8;
-            int row = (int)(point.Y / squareSize);
-            int column = (int)(point.X / squareSize);
-            return new Position(row, column);
-        }
-
-        // moves truyền vào được lấy từ piece.GetMoves của gameState.Board[selectedPos]
-        private void CacheMoves(IEnumerable<Move> moves)  
-        {
-            moveCache.Clear();
-
-            foreach (Move move in moves)
-            {
-                moveCache[move.ToPos] = move;   
-            }
-        }
-
-        private void ShowHighLights()
-        {
-            Color color = Color.FromArgb(150, 125, 255, 125);
-
-            foreach (Position to in moveCache.Keys)
-            {
-                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
-            }
-        }
-
-        private void HideHighLights()
-        {
-            foreach (Position to in moveCache.Keys)
-            {
-                highlights[to.Row, to.Column].Fill = Brushes.Transparent;
-            }
-        }
-
-        private void SetCursor(Player player)
-        {
-            if (player == Player.White)
-            {
-                Cursor = ChessCursors.WhiteCursor;
-            }
-            else
-            {
-                Cursor = ChessCursors.BlackCursor;
-            }
-        }
-
-        private bool IsMenuOnScreen()
-        {
-            return MenuContainer.Content != null;
-        }
-
-        private void ShowGameOverMenu()
-        {
-            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
-            MenuContainer.Content = gameOverMenu;
-
-            gameOverMenu.OptionSelected += option =>
-            {
-                if (option == Option.Restart)
-                {
-                    MenuContainer.Content = null;
-                    RestartGame();
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
-            };
-        }
-
-        private void RestartGame()
-        {
-            selectedPos = null;
-            HideHighLights();
-            moveCache.Clear();
-
-            gameState = new GameState(Player.White, Board.Initial());
-            DrawBoard(gameState.Board);
-            SetCursor(gameState.CurrentPlayer);
-        }
-
-=======
->>>>>>> Stashed changes:ChessUI/Views/MainWindow.xaml.cs
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            // check BoardView loaded
-            // call public function
-            if (BoardViewControl != null && !BoardViewControl.IsMenuOnScreen() && e.Key == Key.Escape)
-            {
-                BoardViewControl.ShowPauseMenu();
-            }
-        }
-<<<<<<< Updated upstream:ChessUI/MainWindow.xaml.cs
-
-        private void ShowPauseMenu()
-        {
+            timer.Stop();
             PauseMenu pauseMenu = new PauseMenu();
             MenuContainer.Content = pauseMenu;
 
@@ -271,9 +273,37 @@ namespace ChessUI
                 {
                     RestartGame();
                 }
+                else
+                {
+                    if (!gameState.IsGameOver())
+                    {
+                        timer.Start();
+                    }
+                }
             };
         }
-=======
->>>>>>> Stashed changes:ChessUI/Views/MainWindow.xaml.cs
+        #region TimerSetUp
+        private void StartGame()
+        {
+            UpdateTimerDisplay();
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            gameState.Tick();
+            UpdateTimerDisplay();
+            if (gameState.IsGameOver() && !IsMenuOnScreen())
+            {
+                timer.Stop();
+                ShowGameOverMenu();
+            }
+        }
+        private void UpdateTimerDisplay()
+        {
+            PlayerTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
+            OpponentTimerText.Text = gameState.BlackTime.ToString(@"mm\:ss");
+        }
+        #endregion 
     }
 }

@@ -6,6 +6,10 @@
         public Player CurrentPlayer { get; private set; }
         public Result Result { get; private set; } = null;
 
+        // Variables for timer
+        public TimeSpan WhiteTime { get; private set; }
+        public TimeSpan BlackTime { get; private set; }
+
         private int noCaptureOrPawnMoves;      // Biến đếm hỗ trợ 50-move rule
 
         // Hien tai chi luu 1 stateString tai 1 thoi diem va dem so lan lap lai cua stateString do => phuc vu Threefold rule
@@ -13,10 +17,18 @@
         private string stateString;
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
 
+<<<<<<< Updated upstream
         public GameState(Player player, Board board)
+=======
+        #region Constructors
+        public GameState(Player player, Board board, TimeSpan initialTime)
+>>>>>>> Stashed changes
         {
             CurrentPlayer = player;
             Board = board;
+
+            WhiteTime = initialTime;
+            BlackTime = initialTime;
 
             noCaptureOrPawnMoves = 0;
 
@@ -99,6 +111,14 @@
                 Result = Result.Draw(EndReason.ThreefoldRepetition);
             }
         }
+<<<<<<< Updated upstream
+=======
+        public void EndGame(Result result)
+        { 
+            Result = result;
+        }
+        #endregion
+>>>>>>> Stashed changes
 
         public bool IsGameOver()
         {
@@ -118,5 +138,35 @@
                 stateHistory[stateString]++;
             }
         }
+<<<<<<< Updated upstream
+=======
+        #endregion
+
+        #region Timer
+        public void Tick()
+        {
+            if (IsGameOver())
+            {
+                return;
+            }
+            if (CurrentPlayer == Player.White)
+            {
+                WhiteTime = WhiteTime.Subtract(TimeSpan.FromSeconds(1));
+            }
+            else
+            {
+                BlackTime = BlackTime.Subtract(TimeSpan.FromSeconds(1));
+            }
+            if (WhiteTime == TimeSpan.Zero || BlackTime == TimeSpan.Zero)
+            {
+                Result timeoutResult = (WhiteTime == TimeSpan.Zero)
+                                        ? new Result(Player.Black, EndReason.Timeout)
+                                        : new Result(Player.White, EndReason.Timeout);
+
+                EndGame(timeoutResult); 
+            }
+        }
+        #endregion
+>>>>>>> Stashed changes
     }
 }

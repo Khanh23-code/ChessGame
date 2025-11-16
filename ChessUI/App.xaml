@@ -258,5 +258,87 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--  infoView UserControls  -->
+        <Style
+            x:Key="NeutralButton"
+            BasedOn="{StaticResource ButtonBorderRadius}"
+            TargetType="Button">
+            <Setter Property="Background" Value="#504F4E" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="15,8" />
+        </Style>
+        <!--  RegisterButton style  -->
+        <Style
+            x:Key="RegisterButton"
+            BasedOn="{StaticResource NeutralButton}"
+            TargetType="Button">
+            <Setter Property="Background" Value="#B03030" />
+        </Style>
+        <!--  ChatTextBox style  -->
+        <Style x:Key="ChatTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#403F3E" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border
+                            Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Navigation Button UserControls  -->
+        <Style x:Key="NavButton" TargetType="RadioButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#909090" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Padding" Value="15" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#404040" />
+                    <Setter Property="Background" Value="White" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--  timer TextBox style  -->
+        <Style x:Key="TimerBox" TargetType="Border">
+            <Setter Property="Background" Value="#202020" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Padding" Value="12,8" />
+        </Style>
+
+        <Style x:Key="TimerText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

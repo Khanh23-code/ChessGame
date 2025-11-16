@@ -152,7 +152,7 @@
                             Width="21"
                             Height="21"
                             Margin="0,0,15,0"
-                            Source="/Assets/GoogleIcon.png" />
+                            Source="/Assets/LoginAssets/GoogleIcon.png" />
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="14"
