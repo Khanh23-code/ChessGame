@@ -38,24 +38,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\BackgroundMenu.jpeg" />
-    <Resource Include="Assets\BishopB.png" />
-    <Resource Include="Assets\BishopW.png" />
-    <Resource Include="Assets\Board.png" />
-    <Resource Include="Assets\CursorB.cur" />
-    <Resource Include="Assets\CursorW.cur" />
-    <Resource Include="Assets\GoogleIcon.png" />
-    <Resource Include="Assets\icon.ico" />
-    <Resource Include="Assets\KingB.png" />
-    <Resource Include="Assets\KingW.png" />
-    <Resource Include="Assets\KnightB.png" />
-    <Resource Include="Assets\KnightW.png" />
-    <Resource Include="Assets\PawnB.png" />
-    <Resource Include="Assets\PawnW.png" />
-    <Resource Include="Assets\QueenB.png" />
-    <Resource Include="Assets\QueenW.png" />
-    <Resource Include="Assets\RookB.png" />
-    <Resource Include="Assets\RookW.png" />
+    <Resource Include="Assets\LoginAssets\BackgroundMenu.jpeg" />
+    <Resource Include="Assets\BoardAsssets\BishopB.png" />
+    <Resource Include="Assets\BoardAsssets\BishopW.png" />
+    <Resource Include="Assets\BoardAsssets\Board.png" />
+    <Resource Include="Assets\BoardAsssets\CursorB.cur" />
+    <Resource Include="Assets\BoardAsssets\CursorW.cur" />
+    <Resource Include="Assets\LoginAssets\GoogleIcon.png" />
+    <Resource Include="Assets\BoardAsssets\icon.ico" />
+    <Resource Include="Assets\BoardAsssets\KingB.png" />
+    <Resource Include="Assets\BoardAsssets\KingW.png" />
+    <Resource Include="Assets\BoardAsssets\KnightB.png" />
+    <Resource Include="Assets\BoardAsssets\KnightW.png" />
+    <Resource Include="Assets\BoardAsssets\PawnB.png" />
+    <Resource Include="Assets\BoardAsssets\PawnW.png" />
+    <Resource Include="Assets\BoardAsssets\QueenB.png" />
+    <Resource Include="Assets\BoardAsssets\QueenW.png" />
+    <Resource Include="Assets\BoardAsssets\RookB.png" />
+    <Resource Include="Assets\BoardAsssets\RookW.png" />
   </ItemGroup>
 
   <ItemGroup>
