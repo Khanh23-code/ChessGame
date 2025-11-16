@@ -55,7 +55,7 @@
         <Image
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
-            Source="/Assets/BackgroundMenu.jpeg"
+            Source="/Assets/LoginAssets/BackgroundMenu.jpeg"
             Stretch="UniformToFill" />
 
         <Border
