@@ -16,12 +16,8 @@
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="8*" />
-        </Grid.ColumnDefinitions>
 
-        <Viewbox Grid.Row="1" Grid.Column="1">
+        <Viewbox>
             <Grid
                 x:Name="BoardGrid"
                 Width="600"
