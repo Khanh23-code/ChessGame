@@ -9,7 +9,7 @@
     Width="1930"
     Height="1080"
     Background="#302E2C"
-    Icon="/Assets/BoardAsssets/icon.ico"
+    Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
