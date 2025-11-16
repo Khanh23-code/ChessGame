@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.NavigationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChessUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel Width="80" Background="#262522">
+        <RadioButton
+            Margin="10"
+            Content="&#xE768;"
+            GroupName="NavGroup"
+            IsChecked="True"
+            Style="{StaticResource NavButton}" />
+        <RadioButton
+            Margin="10"
+            Content="&#xE133;"
+            GroupName="NavGroup"
+            Style="{StaticResource NavButton}" />
+        <RadioButton
+            Margin="10"
+            Content="&#xE8C8;"
+            GroupName="NavGroup"
+            Style="{StaticResource NavButton}" />
+    </StackPanel>
+</UserControl>

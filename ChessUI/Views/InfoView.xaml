@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.InfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChessUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="700"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <Grid Margin="0,20,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Padding="10"
+            Background="#262522"
+            CornerRadius="8">
+            <StackPanel>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Rated Blitz • 3 min" />
+                <StackPanel
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="5"
+                        Content="Offer Draw"
+                        Style="{StaticResource NeutralButton}" />
+                    <Button
+                        Margin="5"
+                        Content="Resign"
+                        Style="{StaticResource RegisterButton}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Margin="0,10"
+            Padding="10"
+            Background="#262522"
+            CornerRadius="8">
+            <ListView
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="White">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="50" Header="Move" />
+                        <GridViewColumn Width="100" Header="White" />
+                        <GridViewColumn Width="100" Header="Black" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            Padding="10"
+            Background="#262522"
+            CornerRadius="8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Foreground="#aaa" Text="Hello!" />
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            Foreground="White"
+                            Text="I like this opening." />
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            Foreground="#aaa"
+                            Text="No idea." />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <TextBox
+                    Grid.Row="1"
+                    Style="{StaticResource ChatTextBox}"
+                    Text="Chat with opponent..." />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
