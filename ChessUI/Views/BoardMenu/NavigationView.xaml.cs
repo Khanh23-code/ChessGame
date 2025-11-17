@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChessUI.Views
+namespace ChessUI.Views.BoardMenu
 {
     /// <summary>
-    /// Interaction logic for InfoView.xaml
+    /// Interaction logic for NavigationView.xaml
     /// </summary>
-    public partial class InfoView : UserControl
+    public partial class NavigationView : UserControl
     {
-        public InfoView()
+        public NavigationView()
         {
             InitializeComponent();
         }

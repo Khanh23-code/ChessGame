@@ -1,5 +1,5 @@
 ﻿using ChessLogic;
-using System; // Cần thêm 'using System;' để sử dụng TimeSpan
+using System; 
 
 namespace ChessLogic
 {
@@ -23,7 +23,6 @@ namespace ChessLogic
         {
             CurrentPlayer = player;
             Board = board;
-
             WhiteTime = initialTime;
             BlackTime = initialTime;
 
@@ -58,14 +57,14 @@ namespace ChessLogic
         }
         #endregion
 
-        #region Timer Tick
+        #region Timer Tick 
         public void Tick()
         {
-
             if (IsGameOver())
             {
                 return;
             }
+
             if (CurrentPlayer == Player.White)
             {
                 WhiteTime = WhiteTime.Subtract(TimeSpan.FromSeconds(1));
@@ -75,32 +74,15 @@ namespace ChessLogic
                 BlackTime = BlackTime.Subtract(TimeSpan.FromSeconds(1));
             }
 
+
             if (WhiteTime == TimeSpan.Zero || BlackTime == TimeSpan.Zero)
             {
                 Result timeoutResult = (WhiteTime == TimeSpan.Zero)
                                         ? new Result(Player.Black, EndReason.Timeout)
                                         : new Result(Player.White, EndReason.Timeout);
 
-                EndGame(timeoutResult);
+                EndGame(timeoutResult); 
             }
-        }
-        #endregion
-
-        #region Check for Game Over
-        public bool IsGameOver()
-        {
-            return Result != null;
-        }
-
-        public IEnumerable<Move> LegalMovesForPiece(Position pos)
-        {
-            if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
-            {
-                return Enumerable.Empty<Move>();
-            }
-
-            Piece piece = Board[pos];
-            return piece.GetMoves(pos, Board).Where(move => move.IsLegal(Board));
         }
         #endregion
 

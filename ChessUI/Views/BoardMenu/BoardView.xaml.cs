@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace ChessUI.Views
+namespace ChessUI.Views.BoardMenu
 {
     /// <summary>
     /// Interaction logic for BoardView.xaml
@@ -27,11 +27,11 @@ namespace ChessUI.Views
             InitializeComponent();
             InitialBoard();
 
-            TimeSpan initialTime = TimeSpan.FromMinutes(1);
+            TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
             DrawBoard(gameState.Board);
-            SetCursor(gameState.CurrentPlayer);
+            //SetCursor(gameState.CurrentPlayer);
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -120,17 +120,17 @@ namespace ChessUI.Views
             }
         }
 
-        private void SetCursor(Player player)
-        {
-            if (player == Player.White)
-            {
-                Cursor = ChessCursors.WhiteCursor;
-            }
-            else
-            {
-                Cursor = ChessCursors.BlackCursor;
-            }
-        }
+        //private void SetCursor(Player player)
+        //{
+        //    if (player == Player.White)
+        //    {
+        //        Cursor = ChessCursors.WhiteCursor;
+        //    }
+        //    else
+        //    {
+        //        Cursor = ChessCursors.BlackCursor;
+        //    }
+        //}
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (IsMenuOnScreen()) return;       // Nếu trên màn hình đang hiện 1 Menu nào đó (GameOverMenu) thì không nhận event MouseDown
@@ -188,7 +188,7 @@ namespace ChessUI.Views
             // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
             // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
 
-            SetCursor(gameState.CurrentPlayer);
+            //SetCursor(gameState.CurrentPlayer);
 
             // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
             if (gameState.IsGameOver())     // if (gameState.Result != null)
@@ -223,7 +223,7 @@ namespace ChessUI.Views
             moveCache.Clear();
 
             // initial Timer after ResetGame is called
-            TimeSpan initialTime = TimeSpan.FromMinutes(1);
+            TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
             DrawBoard(gameState.Board);

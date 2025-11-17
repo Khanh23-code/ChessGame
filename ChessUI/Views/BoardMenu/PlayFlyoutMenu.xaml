@@ -1,0 +1,139 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.BoardMenu.PlayFlyoutMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Border
+        Width="300"
+        Background="#2C2B29"
+        BorderBrush="#404040"
+        BorderThickness="0,0,1,0"
+        RenderOptions.BitmapScalingMode="HighQuality">
+        <StackPanel Margin="15">
+
+            <Grid Margin="5,5,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Grid.Column="0"
+                    Width="28"
+                    Height="28"
+                    Margin="0,0,10,0"
+                    Source="/Assets/MenuAssets/board.png" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe UI"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="Play" />
+            </Grid>
+
+            <RadioButton GroupName="PlaySubMenu" Style="{StaticResource FlyoutButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Margin="0,0,15,0"
+                        Source="/Assets/MenuAssets/play_online.png" />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Play Online" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Play vs a person of similar skill"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </RadioButton>
+
+            <RadioButton
+                Margin="0,10,0,0"
+                GroupName="PlaySubMenu"
+                Style="{StaticResource FlyoutButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Margin="0,0,15,0"
+                        Source="/Assets/MenuAssets/play_computer.png" />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Play With Computer" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Challenge a bot from Easy to Master"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </RadioButton>
+            <RadioButton
+                Margin="0,10,0,0"
+                GroupName="PlaySubMenu"
+                Style="{StaticResource FlyoutButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Margin="0,0,15,0"
+                        Source="/Assets/MenuAssets/two_player.png" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Two Players" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Challenge a bot from Easy to Master"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <Image
+                        Grid.Column="2"
+                        Width="32"
+                        Height="32"
+                        Margin="15,0,0,0"
+                        Source="/Assets/MenuAssets/two_player.png" />
+                </Grid>
+            </RadioButton>
+        </StackPanel>
+    </Border>
+</UserControl>

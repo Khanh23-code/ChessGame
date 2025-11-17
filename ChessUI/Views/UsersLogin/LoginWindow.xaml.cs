@@ -39,7 +39,7 @@ namespace ChessUI
             DragMove();
         }
 
-        // taskbar button
+        #region Taskbar Button
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -71,6 +71,8 @@ namespace ChessUI
         {
             Close();
         }
+        #endregion
+        #region Login
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
@@ -139,8 +141,10 @@ namespace ChessUI
         {
             return;
         }
+        #endregion
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            // I can't do it
             return;
         }
         private void SignUp_Click(object sender, RoutedEventArgs e)
@@ -148,5 +152,29 @@ namespace ChessUI
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
+        #region ShowPassword
+        private bool isPasswordVisible = false;
+        private void EyeButton_Click(object sender, RoutedEventArgs e) 
+        {
+            if (isPasswordVisible == false)
+            {
+                PasswordShowBox.Text = PasswordBox.Password;
+                PasswordShowBox.Visibility = Visibility.Visible;
+                PasswordBox.Visibility = Visibility.Collapsed;
+                PasswordShowBox.Focus();
+                PasswordShowBox.Select(PasswordShowBox.Text.Length, 0);
+                isPasswordVisible = true;
+            }
+            else 
+            {
+                PasswordBox.Password = PasswordShowBox.Text;
+                PasswordShowBox.Visibility = Visibility.Collapsed;
+                PasswordBox.Visibility = Visibility.Visible;
+                PasswordShowBox.Text = ""; 
+
+                isPasswordVisible = false;
+            }
+        }
+        #endregion
     }
 }

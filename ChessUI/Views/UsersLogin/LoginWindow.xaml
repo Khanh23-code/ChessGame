@@ -97,7 +97,29 @@
                     FontWeight="Medium"
                     Foreground="White"
                     Text="Password" />
-                <PasswordBox x:Name="PasswordBox" Height="25" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="PasswordShowBox"
+                        Height="25"
+                        Visibility="Collapsed" />
+                    <PasswordBox x:Name="PasswordBox" Height="25" />
+                    <Button
+                        x:Name="eye"
+                        Grid.ColumnSpan="1"
+                        Width="25"
+                        Height="25"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="EyeButton_Click"
+                        Content="👁️"
+                        Foreground="White"
+                        Style="{StaticResource EyeButton}" />
+                </Grid>
+
 
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
