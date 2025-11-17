@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChessUI.Views
+namespace ChessUI.Views.BoardMenu
 {
     /// <summary>
-    /// Interaction logic for NavigationView.xaml
+    /// Interaction logic for PuzzleFlyoutMenu.xaml
     /// </summary>
-    public partial class NavigationView : UserControl
+    public partial class PuzzleFlyoutMenu : UserControl
     {
-        public NavigationView()
+        public PuzzleFlyoutMenu()
         {
             InitializeComponent();
         }

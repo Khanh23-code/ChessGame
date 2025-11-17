@@ -5,20 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ChessUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:ChessUI.Views"
+    xmlns:views="clr-namespace:ChessUI.Views.BoardMenu"
     Title="ChessGame"
     Width="1000"
     Height="800"
     Background="#302E2C"
     Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
