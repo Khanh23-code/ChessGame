@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ChessUI.Views.BoardMenu.PuzzleFlyoutMenu"
+    x:Class="ChessUI.Views.BoardMenu.LearnFlyoutMenu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,6 +14,7 @@
         BorderThickness="0,0,1,0"
         RenderOptions.BitmapScalingMode="HighQuality">
         <StackPanel Margin="15">
+
             <Grid Margin="5,5,0,15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
@@ -25,17 +26,18 @@
                     Width="28"
                     Height="28"
                     Margin="0,0,10,0"
-                    Source="/Assets/MenuAssets/puzzle.png" />
+                    Source="/Assets/MenuAssets/learn.png" />
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontFamily="Segoe UI"
-                    FontSize="24"
+                    FontSize="18"
                     FontWeight="Bold"
                     Foreground="White"
-                    Text="Puzzle" />
+                    Text="Learn" />
             </Grid>
-            <RadioButton GroupName="PuzzleSubMenu" Style="{StaticResource FlyoutButton}">
+
+            <RadioButton GroupName="LearnSubMenu" Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -47,20 +49,26 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/puzzles.png" />
+                        Source="/Assets/MenuAssets/Lessons.png" />
+
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="Puzzles" />
+                            Text="Lessons" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Ready to start your chess learning journey"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
             </RadioButton>
 
             <RadioButton
                 Margin="0,10,0,0"
-                GroupName="PuzzleSubMenu"
+                GroupName="LearnSubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -73,14 +81,49 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/puzzle_daily.png" />
+                        Source="/Assets/MenuAssets/courses.png" />
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="Daily Puzzle" />
+                            Text="Courses" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Do you know how the chess pieces are converted?"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </RadioButton>
+            <RadioButton
+                Margin="0,10,0,0"
+                GroupName="LearnSubMenu"
+                Style="{StaticResource FlyoutButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Margin="0,0,15,0"
+                        Source="/Assets/MenuAssets/chess_openings.png" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Chess Openings" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Learn the main lines and key ideas in fifty different openings!"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
             </RadioButton>
