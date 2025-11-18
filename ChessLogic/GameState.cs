@@ -16,6 +16,8 @@ namespace ChessLogic
         private int noCaptureOrPawnMoves;
         private string stateString;
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+
+        public string FENString;
         #endregion
 
         #region Constructors

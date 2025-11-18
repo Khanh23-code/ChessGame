@@ -238,7 +238,7 @@
         }
         #endregion
 
-        #region Create FEN string
+        #region Threefold Repitition Rule
         private bool IsUnmovedKingAndRook(Position kingPos, Position rookPos)       // Kiểm tra vua và xe đã di chuyển chưa => (đơn giản hóa) truyền vào vị trí ban đầu của xe và vua
         {
             if (IsEmpty(kingPos) || IsEmpty(rookPos)) return false;
