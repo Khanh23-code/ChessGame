@@ -10,9 +10,9 @@
     d:DesignWidth="200"
     mc:Ignorable="d">
 
+
     <Grid
         x:Name="NavRootGrid"
-        Background="#262522"
         Grid.IsSharedSizeScope="True"
         RenderOptions.BitmapScalingMode="HighQuality">
         <Grid.RowDefinitions>
@@ -33,7 +33,6 @@
 
                 <RadioButton
                     Grid.Row="0"
-                    
                     Content=""
                     FontSize="24"
                     FontWeight="Bold"
@@ -44,11 +43,10 @@
                 <RadioButton
                     x:Name="PlayButton"
                     Grid.Row="1"
-                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
-                    Tag="#E040FB">
+                    Tag="White">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
@@ -74,7 +72,6 @@
                 <RadioButton
                     x:Name="PuzzleButton"
                     Grid.Row="2"
-                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
@@ -104,7 +101,6 @@
                 <RadioButton
                     x:Name="LearnButton"
                     Grid.Row="3"
-                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
@@ -134,7 +130,6 @@
                 <RadioButton
                     x:Name="MoreButton"
                     Grid.Row="4"
-                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
@@ -205,11 +200,12 @@
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
             <Border
                 Height="1"
-                Margin="10,0"
+                Margin="0,0"
                 Background="#404040" />
 
             <RadioButton
-                
+                x:Name="SettingsButton"
+                VerticalAlignment="Center"
                 GroupName="NavGroup"
                 Style="{StaticResource NavButton}"
                 Tag="#AAAAAA">
@@ -231,10 +227,18 @@
                         FontFamily="Segoe UI"
                         FontSize="18"
                         FontWeight="Bold"
-                        Foreground="White"
-                        Text="Setting" />
+                        Text="Settings" />
                 </Grid>
             </RadioButton>
+            <Popup
+                x:Name="SettingsSubMenu"
+                AllowsTransparency="True"
+                IsOpen="{Binding IsChecked, ElementName=SettingsButton}"
+                Placement="Right"
+                PlacementTarget="{Binding ElementName=SettingsButton}"
+                StaysOpen="False">
+                <local:SettingsFlyoutMenu />
+            </Popup>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -13,23 +13,72 @@
     Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    StateChanged="Window_StateChanged"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="0"
+            CornerRadius="0"
+            GlassFrameThickness="0" />
+    </WindowChrome.WindowChrome>
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Right"
+            Panel.ZIndex="1"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnMinimize"
+                Click="btnMinimize_Click"
+                Content="&#xE921;"
+                Style="{StaticResource TitleBarButton}" />
+            <Button
+                x:Name="btnMaximize"
+                Click="btnMaximize_Click"
+                Content="&#xE922;"
+                Style="{StaticResource TitleBarButton}" />
+            <Button
+                x:Name="btnClose"
+                Click="btnClose_Click"
+                Content="&#xE8BB;"
+                Style="{StaticResource TitleBarButtonClose}" />
+        </StackPanel>
+        <Image
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            Source="/Assets/MenuAssets/BackgroundMenu.jpeg"
+            Stretch="UniformToFill">
 
-        <views:NavigationView Grid.Column="0" />
+            <Image.Effect>
+                <BlurEffect KernelType="Gaussian" Radius="15" />
+            </Image.Effect>
 
-        <views:BoardView x:Name="BoardViewControl" Grid.Column="1" />
+        </Image>
+        <views:NavigationView
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="0" />
 
-        <views:InfoView Grid.Column="2" />
+        <views:BoardView
+            x:Name="BoardViewControl"
+            Grid.Row="1"
+            Grid.Column="1" />
+
+        <views:InfoView Grid.Row="1" Grid.Column="2" />
 
     </Grid>
 </Window>
