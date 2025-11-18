@@ -33,7 +33,7 @@
 
                 <RadioButton
                     Grid.Row="0"
-                    Margin="10"
+                    
                     Content=""
                     FontSize="24"
                     FontWeight="Bold"
@@ -44,11 +44,11 @@
                 <RadioButton
                     x:Name="PlayButton"
                     Grid.Row="1"
-                    Margin="10"
+                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
-                    Tag="#00C2E0">
+                    Tag="#E040FB">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
@@ -74,7 +74,7 @@
                 <RadioButton
                     x:Name="PuzzleButton"
                     Grid.Row="2"
-                    Margin="10"
+                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
@@ -104,7 +104,7 @@
                 <RadioButton
                     x:Name="LearnButton"
                     Grid.Row="3"
-                    Margin="10"
+                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
@@ -134,11 +134,11 @@
                 <RadioButton
                     x:Name="MoreButton"
                     Grid.Row="4"
-                    Margin="10"
+                    
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
-                    Tag="#E040FB">
+                    Tag="#00C2E0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
@@ -209,7 +209,7 @@
                 Background="#404040" />
 
             <RadioButton
-                Margin="10"
+                
                 GroupName="NavGroup"
                 Style="{StaticResource NavButton}"
                 Tag="#AAAAAA">
