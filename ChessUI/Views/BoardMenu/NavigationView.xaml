@@ -48,7 +48,7 @@
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
-                    Tag="#00C2E0">
+                    Tag="#E040FB">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
@@ -138,7 +138,7 @@
                     VerticalAlignment="Center"
                     GroupName="NavGroup"
                     Style="{StaticResource NavButton}"
-                    Tag="#E040FB">
+                    Tag="#00C2E0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
