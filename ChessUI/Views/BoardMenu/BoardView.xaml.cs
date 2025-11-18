@@ -222,7 +222,6 @@ namespace ChessUI.Views.BoardMenu
             gameState.MakeMove(move);
             DrawBoard(gameState.Board);
             // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
-            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
 
             //SetCursor(gameState.CurrentPlayer);
 
@@ -232,7 +231,7 @@ namespace ChessUI.Views.BoardMenu
                 ShowGameOverMenu();
             }
         }
-        private void ShowGameOverMenu()
+        public void ShowGameOverMenu()
         {
             timer.Stop();
             GameOverMenu gameOverMenu = new GameOverMenu(gameState);
@@ -330,10 +329,10 @@ namespace ChessUI.Views.BoardMenu
         {
             gameState.Tick();
             UpdateTimerDisplay();
-            if (gameState.IsGameOver() && !IsMenuOnScreen())
+            if (gameState.IsGameOver())
             {
-                timer.Stop();
                 ShowGameOverMenu();
+                timer.Stop();
             }
         }
         private void UpdateTimerDisplay()
