@@ -1,0 +1,240 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.BoardMenu.NavigationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChessUI.Views.BoardMenu"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:ChessUI.Views.BoardMenu"
+    d:DesignHeight="700"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+
+    <Grid
+        x:Name="NavRootGrid"
+        Background="#262522"
+        Grid.IsSharedSizeScope="True"
+        RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <RadioButton
+                    Grid.Row="0"
+                    Margin="10"
+                    Content=""
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    GroupName="NavGroup"
+                    Style="{StaticResource NavButton}" />
+
+                <RadioButton
+                    x:Name="PlayButton"
+                    Grid.Row="1"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    GroupName="NavGroup"
+                    Style="{StaticResource NavButton}"
+                    Tag="#00C2E0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Source="/Assets/MenuAssets/board.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe UI"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Play" />
+                    </Grid>
+                </RadioButton>
+
+                <RadioButton
+                    x:Name="PuzzleButton"
+                    Grid.Row="2"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    GroupName="NavGroup"
+                    Style="{StaticResource NavButton}"
+                    Tag="#FFB900">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Source="/Assets/MenuAssets/puzzle.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe UI"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Puzzle" />
+                    </Grid>
+                </RadioButton>
+
+                <RadioButton
+                    x:Name="LearnButton"
+                    Grid.Row="3"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    GroupName="NavGroup"
+                    Style="{StaticResource NavButton}"
+                    Tag="#4CAF50">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Source="/Assets/MenuAssets/learn.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe UI"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Learn" />
+                    </Grid>
+                </RadioButton>
+
+                <RadioButton
+                    x:Name="MoreButton"
+                    Grid.Row="4"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    GroupName="NavGroup"
+                    Style="{StaticResource NavButton}"
+                    Tag="#E040FB">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Source="/Assets/MenuAssets/more.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe UI"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="More" />
+                    </Grid>
+                </RadioButton>
+            </Grid>
+            <Popup
+                x:Name="PlaySubMenu"
+                AllowsTransparency="True"
+                IsOpen="{Binding IsChecked, ElementName=PlayButton}"
+                Placement="Right"
+                PlacementTarget="{Binding ElementName=NavRootGrid}"
+                StaysOpen="False">
+
+                <local:PlayFlyoutMenu />
+            </Popup>
+            <Popup
+                x:Name="PuzzleSubMenu"
+                AllowsTransparency="True"
+                IsOpen="{Binding IsChecked, ElementName=PuzzleButton}"
+                Placement="Right"
+                PlacementTarget="{Binding ElementName=NavRootGrid}"
+                StaysOpen="False">
+
+                <local:PuzzleFlyoutMenu />
+            </Popup>
+            <Popup
+                x:Name="LearnSubMenu"
+                AllowsTransparency="True"
+                IsOpen="{Binding IsChecked, ElementName=LearnButton}"
+                Placement="Right"
+                PlacementTarget="{Binding ElementName=NavRootGrid}"
+                StaysOpen="False">
+
+                <local:LearnFlyoutMenu />
+            </Popup>
+            <Popup
+                x:Name="MoreSubMenu"
+                AllowsTransparency="True"
+                IsOpen="{Binding IsChecked, ElementName=MoreButton}"
+                Placement="Right"
+                PlacementTarget="{Binding ElementName=NavRootGrid}"
+                StaysOpen="False">
+
+                <local:MoreFlyoutMenu />
+            </Popup>
+        </StackPanel>
+        <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+            <Border
+                Height="1"
+                Margin="10,0"
+                Background="#404040" />
+
+            <RadioButton
+                Margin="10"
+                GroupName="NavGroup"
+                Style="{StaticResource NavButton}"
+                Tag="#AAAAAA">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        Width="28"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Source="/Assets/MenuAssets/setting.png" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontFamily="Segoe UI"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Setting" />
+                </Grid>
+            </RadioButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

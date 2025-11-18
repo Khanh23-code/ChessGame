@@ -132,158 +132,19 @@ namespace ChessUI
             {
                 highlights[to.Row, to.Column].Fill = Brushes.Transparent;
             }
-        }
-
-        private void SetCursor(Player player)
+        public MainWindow()
         {
-            if (player == Player.White)
-            {
-                Cursor = ChessCursors.WhiteCursor;
-            }
-            else
-            {
-                Cursor = ChessCursors.BlackCursor;
-            }
+            InitializeComponent();
         }
-        #endregion
-
-        #region Handle MouseDown on Board
-        private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (IsMenuOnScreen()) return;       // Nếu trên màn hình đang hiện 1 Menu nào đó (GameOverMenu) thì không nhận event MouseDown
-
-            Point point = e.GetPosition(BoardGrid);     // Hàm này trả về point tính theo px, cần sử dụng ToSquarePosition để định Position
-            Position pos = ToSquarePosition(point);
-
-            if (selectedPos == null)
-            {
-                OnFromPositionSelected(pos);    // Thao tác chọn quân để di chuyển
-            }
-            else
-            {
-                OnToPositionSelected(pos);      // Thao tác chọn ô để di chuyển quân đã chọn
-            }
-
-            // Hiện tại khi đã có selectedPos => luôn gọi OnToPositionSelected()
-            // => Nếu người dùng đã chọn 1 quân cờ, sau đó muốn chọn quân cờ khác, buộc phải bấm ô không thể di chuyển để cancel, rồi mới chọn lại
-            // Mở rộng: Nếu selected != null nhưng người dùng vẫn nhấp vào quân cờ khác của mình, lập tức chuyển selectedPos và cập nhật moveCache
+            DragMove();
         }
-
-        private void OnFromPositionSelected(Position pos)
-        {
-            IEnumerable<Move> moves = gameState.LegalMovesForPiece(pos);
-
-            if (moves.Any())
-            {
-                selectedPos = pos;
-                CacheMoves(moves);
-                ShowHighLights();
-            }
-        }
-
-        private void OnToPositionSelected(Position pos)
-        {
-            selectedPos = null;
-            HideHighLights();
-
-            if (moveCache.TryGetValue(pos, out Move move))      // Nếu moveCache rỗng thì không chạy
-            {
-                if (move.Type == MoveType.PawnPromotion)
-                {
-                    HandlePromotionMove(move);
-                }
-                else
-                {
-                    HandleMove(move);
-                }
-            }
-        }
-        #endregion
-
-        #region Handle Moves
-        private void HandleMove(Move move)
-        {
-            gameState.MakeMove(move);
-            DrawBoard(gameState.Board);
-            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
-            // Mở rộng: Để dễ dàng cho người dùng theo dõi, thiết lập vị trí của CurrentPlayer nằm dưới (hiện tại quân trắng là row = 6, 7; đen là 0, 1)
-
-            SetCursor(gameState.CurrentPlayer);
-
-            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
-            if (gameState.IsGameOver())     // if (gameState.Result != null)
-            {
-                ShowGameOverMenu();
-            }
-        }
-
-        #region Gameover
-        private void ShowGameOverMenu()
-        {
-            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
-            MenuContainer.Content = gameOverMenu;
-
-            gameOverMenu.OptionSelected += option =>
-            {
-                if (option == Option.Restart)
-                {
-                    MenuContainer.Content = null;
-                    RestartGame();
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
-            };
-        }
-
-        private void RestartGame()
-        {
-            selectedPos = null;
-            HideHighLights();
-            moveCache.Clear();
-
-            gameState = new GameState(Player.White, Board.Initial());
-            DrawBoard(gameState.Board);
-            SetCursor(gameState.CurrentPlayer);
-        }
-        #endregion
-
-        private void HandlePromotionMove(Move move)
-        {
-            // B1: hiển thị quân tốt đã di chuyển cho người dùng (nhưng thực sự chưa thực thi PromotionMove)
-            Position from = move.FromPos;
-            Position to = move.ToPos;
-
-            pieceImages[to.Row, to.Column].Source = Images.GetImage(gameState.CurrentPlayer, PieceType.Pawn);
-            pieceImages[from.Row, from.Column].Source = null;
-
-            // B2: Show PromotionMenu => Nhận event click để xem người dùng chọn quân nào
-            PromotionMenu promMenu = new PromotionMenu(gameState.CurrentPlayer);
-            MenuContainer.Content = promMenu;
-
-            promMenu.PieceSelected += type =>
-            {
-                // B3: Thực thi PromotionMove
-                MenuContainer.Content = null;
-                HandleMove(new PawnPromotion(from, to, type));
-
-                //switch (type)
-                //{
-                //    case PieceType.Queen:
-                //    case PieceType.Rook:
-                //    case PieceType.Knight:
-                //    case PieceType.Bishop:
-                //    default:
-                //} 
-            };
-        }
-        #endregion
-
-        #region Pause Game
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!IsMenuOnScreen() && e.Key == Key.Escape)
+            // check BoardView loaded
+            // call public function
+            if (BoardViewControl != null && !BoardViewControl.IsMenuOnScreen() && e.Key == Key.Escape)
             {
                 ShowPauseMenu();
                 MessageBox.Show(gameState.StateString);
@@ -302,24 +163,8 @@ namespace ChessUI
                 }
 
                 DrawBoard(gameState.Board);
+                BoardViewControl.ShowPauseMenu();
             }
         }
-
-        private void ShowPauseMenu()
-        {
-            PauseMenu pauseMenu = new PauseMenu();
-            MenuContainer.Content = pauseMenu;
-
-            pauseMenu.OptionSelected += option =>
-            {
-                MenuContainer.Content = null;
-
-                if (option == Option.Restart)
-                {
-                    RestartGame();
-                }
-            };
-        }
-        #endregion
     }
 }
