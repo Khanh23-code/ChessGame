@@ -76,15 +76,7 @@ namespace ChessLogic
                 BlackTime = BlackTime.Subtract(TimeSpan.FromSeconds(1));
             }
 
-
-            if (WhiteTime == TimeSpan.Zero || BlackTime == TimeSpan.Zero)
-            {
-                Result timeoutResult = (WhiteTime == TimeSpan.Zero)
-                                        ? new Result(Player.Black, EndReason.Timeout)
-                                        : new Result(Player.White, EndReason.Timeout);
-
-                EndGame(timeoutResult); 
-            }
+            CheckForGameOver();
         }
         #endregion
 
@@ -93,6 +85,23 @@ namespace ChessLogic
         {
             return Result != null;
         }
+
+        private Player CheckTimeout()
+        {
+            if (WhiteTime == TimeSpan.Zero || BlackTime == TimeSpan.Zero)
+            {
+                //Result timeoutResult = (WhiteTime == TimeSpan.Zero)
+                //                        ? new Result(Player.Black, EndReason.Timeout)
+                //                        : new Result(Player.White, EndReason.Timeout);
+
+                //EndGame(timeoutResult);
+
+                return (WhiteTime == TimeSpan.Zero) ? Player.White : Player.Black;      // trả về người thua cuộc
+            }
+
+            return Player.None;
+        }
+
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
@@ -112,6 +121,13 @@ namespace ChessLogic
 
         private void CheckForGameOver()
         {
+            Player timeoutPlayer = CheckTimeout();
+            if (timeoutPlayer != Player.None)
+            {
+                Result = Result.Win(timeoutPlayer.Opponent(), EndReason.Timeout);
+                return;
+            }
+
             if (!AllLegalMovesFor(CurrentPlayer).Any())
             {
                 if (Board.IsInCheck(CurrentPlayer))
@@ -136,6 +152,7 @@ namespace ChessLogic
                 Result = Result.Draw(EndReason.ThreefoldRepetition);
             }
         }
+
         public void EndGame(Result result)
         {
             Result = result;

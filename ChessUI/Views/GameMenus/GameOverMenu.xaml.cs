@@ -53,6 +53,7 @@ namespace ChessUI
                 EndReason.FiftyMoveRule => "FIFTY MOVE RULE",
                 EndReason.InsufficentMaterial => "INSUFFICENT MATERIAL",
                 EndReason.ThreefoldRepetition => "THREE FOLD REPETITION",
+                EndReason.Timeout => $"{PlayerString(currentPlayer.Opponent())} WINS ON TIME",
                 _ => ""
             };
         }
