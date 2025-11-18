@@ -48,12 +48,16 @@
     <None Remove="Assets\KingW.png" />
     <None Remove="Assets\KnightB.png" />
     <None Remove="Assets\KnightW.png" />
+    <None Remove="Assets\MenuAssets\appearance.png" />
+    <None Remove="Assets\MenuAssets\BackgroundMenu.jpeg" />
     <None Remove="Assets\MenuAssets\board.png" />
+    <None Remove="Assets\MenuAssets\board_and_pieces.png" />
     <None Remove="Assets\MenuAssets\chess_openings.png" />
     <None Remove="Assets\MenuAssets\courses.png" />
     <None Remove="Assets\MenuAssets\learn.png" />
     <None Remove="Assets\MenuAssets\lessons.png" />
     <None Remove="Assets\MenuAssets\library.png" />
+    <None Remove="Assets\MenuAssets\logout.png" />
     <None Remove="Assets\MenuAssets\more.png" />
     <None Remove="Assets\MenuAssets\play_computer.png" />
     <None Remove="Assets\MenuAssets\play_online.png" />
@@ -69,6 +73,10 @@
     <None Remove="Assets\QueenW.png" />
     <None Remove="Assets\RookB.png" />
     <None Remove="Assets\RookW.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\MenuAssets\BackgroundMenu.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -111,12 +119,15 @@
     <Resource Include="Assets\CursorW.cur" />
     <Resource Include="Assets\LoginAssets\GoogleIcon.png" />
     <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\MenuAssets\appearance.png" />
     <Resource Include="Assets\MenuAssets\board.png" />
+    <Resource Include="Assets\MenuAssets\board_and_pieces.png" />
     <Resource Include="Assets\MenuAssets\chess_openings.png" />
     <Resource Include="Assets\MenuAssets\courses.png" />
     <Resource Include="Assets\MenuAssets\learn.png" />
     <Resource Include="Assets\MenuAssets\lessons.png" />
     <Resource Include="Assets\MenuAssets\library.png" />
+    <Resource Include="Assets\MenuAssets\logout.png" />
     <Resource Include="Assets\MenuAssets\more.png" />
     <Resource Include="Assets\MenuAssets\play_computer.png" />
     <Resource Include="Assets\MenuAssets\play_online.png" />

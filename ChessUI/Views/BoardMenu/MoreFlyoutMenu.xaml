@@ -20,7 +20,7 @@
                 VerticalAlignment="Center"
                 Background="#666563"
                 FontFamily="Segoe UI"
-                FontSize="16"
+                FontSize="24"
                 FontWeight="Bold"
                 Foreground="White"
                 Text="Features" />
@@ -61,7 +61,7 @@
                 VerticalAlignment="Center"
                 Background="#666563"
                 FontFamily="Segoe UI"
-                FontSize="16"
+                FontSize="24"
                 FontWeight="Bold"
                 Foreground="White"
                 Text="Resources" />

@@ -1,8 +1,9 @@
 ﻿<UserControl
-    x:Class="ChessUI.Views.BoardMenu.PlayFlyoutMenu"
+    x:Class="ChessUI.Views.BoardMenu.SettingsFlyoutMenu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChessUI.Views.BoardMenu"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="300"
@@ -26,7 +27,7 @@
                     Width="28"
                     Height="28"
                     Margin="0,0,10,0"
-                    Source="/Assets/MenuAssets/board.png" />
+                    Source="/Assets/MenuAssets/setting.png" />
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
@@ -34,10 +35,10 @@
                     FontSize="24"
                     FontWeight="Bold"
                     Foreground="White"
-                    Text="Play" />
+                    Text="Settings" />
             </Grid>
 
-            <RadioButton GroupName="PlaySubMenu" Style="{StaticResource FlyoutButton}">
+            <RadioButton GroupName="SettingsSubMenu" Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -49,18 +50,18 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/play_online.png" />
+                        Source="/Assets/MenuAssets/board_and_pieces.png" />
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="Play Online" />
+                            Text="Board and Pieces Chess" />
                         <TextBlock
                             FontSize="12"
                             Foreground="#AAAAAA"
-                            Text="Play vs a person of similar skill"
+                            Text="Custom your board and pieces chess as you want"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
@@ -68,7 +69,7 @@
 
             <RadioButton
                 Margin="0,10,0,0"
-                GroupName="PlaySubMenu"
+                GroupName="SettingsSubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -81,31 +82,30 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/play_computer.png" />
+                        Source="/Assets/MenuAssets/appearance.png" />
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="Play With Computer" />
+                            Text="Appearance" />
                         <TextBlock
                             FontSize="12"
                             Foreground="#AAAAAA"
-                            Text="Challenge a bot from Easy to Master"
+                            Text="Change your mode if you want dark mode"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
             </RadioButton>
             <RadioButton
                 Margin="0,10,0,0"
-                GroupName="PlaySubMenu"
+                GroupName="SettingsSubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <Image
@@ -113,25 +113,15 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/two_player.png" />
+                        Source="/Assets/MenuAssets/logout.png" />
+
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="Two Players" />
-                        <TextBlock
-                            FontSize="12"
-                            Foreground="#AAAAAA"
-                            Text="Play with your friend"
-                            TextWrapping="Wrap" />
+                            Text="Log out" />
                     </StackPanel>
-                    <Image
-                        Grid.Column="2"
-                        Width="32"
-                        Height="32"
-                        Margin="15,0,0,0"
-                        Source="/Assets/MenuAssets/two_player.png" />
                 </Grid>
             </RadioButton>
         </StackPanel>

@@ -66,7 +66,7 @@
                 MouseDown="BoardGrid_MouseDown">
 
                 <Grid.Background>
-                    <ImageBrush ImageSource="../../Assets/Asset1/Board.png" />
+                    <ImageBrush ImageSource="/Assets/Asset1/Board.png" />
                 </Grid.Background>
 
                 <UniformGrid
@@ -79,7 +79,7 @@
                     Columns="8"
                     Rows="8" />
 
-                <ContentControl x:Name="MenuContainer"/>
+                <ContentControl x:Name="MenuContainer" />
             </Grid>
         </Viewbox>
 
