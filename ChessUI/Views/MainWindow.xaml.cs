@@ -26,6 +26,8 @@ namespace ChessUI
 
         private GameState gameState;
         private Position selectedPos = null;
+
+        private int assetIndex = 1;
         #endregion
 
         #region Constructors / Initial Functions
@@ -58,12 +60,32 @@ namespace ChessUI
 
         private void DrawBoard(Board board)
         {
+            try
+            {
+                ImageBrush boardBackGround = BoardGrid.Background as ImageBrush;
+
+                BitmapImage source = new BitmapImage();
+                source.BeginInit();
+                //source.UriSource = new Uri($"/Assets/Asset{assetIndex}/Board.png", UriKind.Relative);
+                string packUri = $"pack://application:,,,/Assets/Asset{assetIndex}/Board.png";
+                source.UriSource = new Uri(packUri, UriKind.Absolute);
+                source.EndInit();
+
+                //ImageSource source = new BitmapImage(new Uri($"Assets/Asset{assetIndex}/Board.png", UriKind.Relative));
+                //MessageBox.Show(source.ToString() + "+" + path);
+                boardBackGround.ImageSource = source;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
                     Piece piece = board[i, j];
-                    pieceImages[i, j].Source = Images.GetImage(piece);
+                    pieceImages[i, j].Source = Images.GetImage(piece, assetIndex);
                 }
             }
         }
@@ -264,6 +286,22 @@ namespace ChessUI
             if (!IsMenuOnScreen() && e.Key == Key.Escape)
             {
                 ShowPauseMenu();
+                MessageBox.Show(gameState.StateString);
+                return;
+            }
+
+            if (!IsMenuOnScreen() && e.Key == Key.Space)
+            {
+                if (assetIndex == 1)
+                {
+                    assetIndex = 2;
+                }
+                else
+                {
+                    assetIndex = 1;
+                }
+
+                DrawBoard(gameState.Board);
             }
         }
 

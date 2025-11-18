@@ -15,6 +15,8 @@ namespace ChessLogic
         // => Mo rong: Luu tat ca stateString de truy vet nuoc di
         private string stateString;
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+
+        public string FENString;
         #endregion
 
         #region Constructors

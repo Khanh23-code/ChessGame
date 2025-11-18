@@ -73,66 +73,70 @@ namespace ChessUI
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = UsernameTextBox.Text;
-            string password = PasswordBox.Password;
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu");
-                return;
-            }
-            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            string sqlQuery = "SELECT COUNT(1) FROM Users WHERE Username = @Username and Password = @Password";
+            //string username = UsernameTextBox.Text;
+            //string password = PasswordBox.Password;
 
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Username", username);
-                        cmd.Parameters.AddWithValue("@Password", password);
+            //if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            //{
+            //    MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu");
+            //    return;
+            //}
+            //string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+            //string sqlQuery = "SELECT COUNT(1) FROM Users WHERE Username = @Username and Password = @Password";
 
-                        conn.Open();
-                        int count = (int)cmd.ExecuteScalar();
+            //try
+            //{
+            //    using (SqlConnection conn = new SqlConnection(connectionString))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
+            //        {
+            //            cmd.Parameters.AddWithValue("@Username", username);
+            //            cmd.Parameters.AddWithValue("@Password", password);
 
-                        if (count == 1)
-                        {
-                            // logic Remember Me
-                            if (RememberMeCheckBox.IsChecked == true)
-                            {
-                                // if checked is selected, save user name and state
-                                Settings.Default.RememberedUsername = username;
-                                Settings.Default.RememberMe = true;
-                            }
-                            else
-                            {
-                                // otherwise, delete settings
-                                Settings.Default.RememberedUsername = "";
-                                Settings.Default.RememberMe = false;
-                            }
-                            Settings.Default.Save();
-                            // Login successfully
-                            MainWindow mainWindow = new MainWindow();
-                            mainWindow.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            // Login failed
-                            MessageBox.Show("Username hoặc Password bị sai");
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-            }
+            //            conn.Open();
+            //            int count = (int)cmd.ExecuteScalar();
+
+            //            if (count == 1)
+            //            {
+            //                // logic Remember Me
+            //                if (RememberMeCheckBox.IsChecked == true)
+            //                {
+            //                    // if checked is selected, save user name and state
+            //                    Settings.Default.RememberedUsername = username;
+            //                    Settings.Default.RememberMe = true;
+            //                }
+            //                else
+            //                {
+            //                    // otherwise, delete settings
+            //                    Settings.Default.RememberedUsername = "";
+            //                    Settings.Default.RememberMe = false;
+            //                }
+            //                Settings.Default.Save();
+            //                // Login successfully
+            //                MainWindow mainWindow = new MainWindow();
+            //                mainWindow.Show();
+            //                this.Close();
+            //            }
+            //            else
+            //            {
+            //                // Login failed
+            //                MessageBox.Show("Username hoặc Password bị sai");
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            //}
         }
 
         private void GoogleLoginButton_Click(object sender, RoutedEventArgs e)

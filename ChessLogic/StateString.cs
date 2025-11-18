@@ -8,7 +8,7 @@ namespace ChessLogic
 {
     public class StateString    
     {
-        #region Properties / Constructors - Build FEN string
+        #region Properties / Constructors
         private readonly StringBuilder sb = new StringBuilder();
 
         public StateString(Player currentPlayer, Board board)
