@@ -22,6 +22,20 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class BoardView : UserControl
     {
+        private readonly Image[,] pieceImages = new Image[8, 8];
+        private readonly Rectangle[,] highlights = new Rectangle[8, 8];
+        private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
+        // Khi 1 quân cờ được chọn (thay đổi biến selectedPos), tất cả các vị trí có thể di chuyển kèm theo move tương ứng sẽ được lưu vào Dictionary moveCache
+        // moveCache lưu key là <Position> tương ứng vị trí có thể di chuyển, với value là <Move>
+
+        private GameState gameState;
+        private Position selectedPos = null;
+
+        public int assetIndex = 1;   // Mặc định sử dụng Asset 1
+
+        // DispatcherTimer
+        private readonly DispatcherTimer timer;
+
         public BoardView()
         {
             InitializeComponent();
@@ -39,17 +53,7 @@ namespace ChessUI.Views.BoardMenu
 
             StartGame();
         }
-        private readonly Image[,] pieceImages = new Image[8, 8];
-        private readonly Rectangle[,] highlights = new Rectangle[8, 8];
-        private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
-        // Khi 1 quân cờ được chọn (thay đổi biến selectedPos), tất cả các vị trí có thể di chuyển kèm theo move tương ứng sẽ được lưu vào Dictionary moveCache
-        // moveCache lưu key là <Position> tương ứng vị trí có thể di chuyển, với value là <Move>
 
-        private GameState gameState;
-        private Position selectedPos = null;
-
-        // DispatcherTimer
-        private readonly DispatcherTimer timer;
         private void InitialBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -69,15 +73,47 @@ namespace ChessUI.Views.BoardMenu
 
         private void DrawBoard(Board board)
         {
+            try
+            {
+                ImageBrush boardBackGround = BoardGrid.Background as ImageBrush;
+
+                BitmapImage source = new BitmapImage();
+                source.BeginInit();
+                //source.UriSource = new Uri($"/Assets/Asset{assetIndex}/Board.png", UriKind.Relative);
+                string packUri = $"pack://application:,,,/Assets/Asset{assetIndex}/Board.png";
+                source.UriSource = new Uri(packUri, UriKind.Absolute);
+                source.EndInit();
+
+                //ImageSource source = new BitmapImage(new Uri($"Assets/Asset{assetIndex}/Board.png", UriKind.Relative));
+                //MessageBox.Show(source.ToString() + "+" + path);
+                boardBackGround.ImageSource = source;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
                     Piece piece = board[i, j];
-                    pieceImages[i, j].Source = Images.GetImage(piece);
+                    pieceImages[i, j].Source = Images.GetImage(piece, assetIndex);
                 }
             }
         }
+
+        //private void DrawBoard(Board board)
+        //{
+        //    for (int i = 0; i < 8; i++)
+        //    {
+        //        for (int j = 0; j < 8; j++)
+        //        {
+        //            Piece piece = board[i, j];
+        //            pieceImages[i, j].Source = Images.GetImage(piece);
+        //        }
+        //    }
+        //}
         private Position ToSquarePosition(Point point)
         {
             double squareSize = BoardGrid.ActualWidth / 8;
@@ -282,6 +318,7 @@ namespace ChessUI.Views.BoardMenu
                 }
             };
         }
+
         #region TimerSetUp
         private void StartGame()
         {
@@ -304,6 +341,19 @@ namespace ChessUI.Views.BoardMenu
             PlayerTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
             OpponentTimerText.Text = gameState.BlackTime.ToString(@"mm\:ss");
         }
-        #endregion 
+        #endregion
+
+        public void ChangeAsset()
+        {
+            if (assetIndex == 1)
+            {
+                assetIndex = 2;
+            }
+            else
+            {
+                assetIndex = 1;
+            }
+            DrawBoard(gameState.Board);
+        }
     }
 }
