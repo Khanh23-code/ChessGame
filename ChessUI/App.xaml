@@ -10,6 +10,8 @@
         <SolidColorBrush x:Key="TextColor">#ffa274</SolidColorBrush>
         <SolidColorBrush x:Key="ButtonColor">#730909</SolidColorBrush>
 
+        <SolidColorBrush x:Key="FrostedGlassBrush">#CC262421</SolidColorBrush>
+
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="4" />
             <Setter Property="BorderBrush" Value="{StaticResource StrokeColor}" />
@@ -321,6 +323,19 @@
             </Setter>
         </Style>
 
+        <Style
+            x:Key="MoveNavButton"
+            BasedOn="{StaticResource ButtonBorderRadius}"
+            TargetType="Button">
+            <Setter Property="Background" Value="#A0000000" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
         <!--  Navigation Button UserControls  -->
         <Style x:Key="NavButton" TargetType="RadioButton">
             <Setter Property="Background" Value="Transparent" />
@@ -363,6 +378,42 @@
                     <Setter Property="Margin" Value="0,0,0,0" />
                     <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" />
                     <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--  LogoMenu Style  -->
+        <Style x:Key="LogoButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0,5,5,0">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#404040" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FFA274" />
                 </Trigger>
             </Style.Triggers>
         </Style>

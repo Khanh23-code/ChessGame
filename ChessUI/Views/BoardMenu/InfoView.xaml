@@ -19,14 +19,14 @@
         <Border
             Grid.Row="0"
             Padding="10"
-            Background="#262522"
+            Background="{StaticResource FrostedGlassBrush}"
             CornerRadius="8">
             <StackPanel>
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontSize="16"
                     Foreground="White"
-                    Text="Rated Blitz • 3 min" />
+                    Text="Name User + time " />
                 <StackPanel
                     Margin="0,10,0,0"
                     HorizontalAlignment="Center"
@@ -47,26 +47,47 @@
             Grid.Row="1"
             Margin="0,10"
             Padding="10"
-            Background="#262522"
+            Background="{StaticResource FrostedGlassBrush}"
             CornerRadius="8">
-            <ListView
-                Background="Transparent"
-                BorderThickness="0"
-                Foreground="White">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="50" Header="Move" />
-                        <GridViewColumn Width="100" Header="White" />
-                        <GridViewColumn Width="100" Header="Black" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Button Content="&#xE892;" Style="{StaticResource MoveNavButton}" />
+                    <Button Content="&#xE76B;" Style="{StaticResource MoveNavButton}" />
+                    <Button Content="&#xE768;" Style="{StaticResource MoveNavButton}" />
+                    <Button Content="&#xE76C;" Style="{StaticResource MoveNavButton}" />
+                    <Button Content="&#xE893;" Style="{StaticResource MoveNavButton}" />
+                </StackPanel>
+
+                <ListView
+                    Grid.Row="1"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="White">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="50" Header="Move" />
+                            <GridViewColumn Width="100" Header="White" />
+                            <GridViewColumn Width="100" Header="Black" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Border>
 
         <Border
             Grid.Row="2"
             Padding="10"
-            Background="#262522"
+            Background="{StaticResource FrostedGlassBrush}"
             CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions>
