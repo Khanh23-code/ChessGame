@@ -9,7 +9,6 @@
     Title="ChessGame"
     Width="1000"
     Height="800"
-    Background="#302E2C"
     Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -21,7 +20,9 @@
         <WindowChrome
             CaptionHeight="0"
             CornerRadius="0"
-            GlassFrameThickness="0" />
+            GlassFrameThickness="0"
+            NonClientFrameEdges="None"
+            ResizeBorderThickness="{Binding ResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
@@ -60,14 +61,8 @@
         <Image
             Grid.RowSpan="3"
             Grid.ColumnSpan="3"
-            Source="/Assets/MenuAssets/BackgroundMenu.jpeg"
-            Stretch="UniformToFill">
-
-            <Image.Effect>
-                <BlurEffect KernelType="Gaussian" Radius="15" />
-            </Image.Effect>
-
-        </Image>
+            Source="/Assets/MenuAssets/BackgroundMenu1.jpeg"
+            Stretch="UniformToFill" />
         <views:NavigationView
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -79,6 +74,5 @@
             Grid.Column="1" />
 
         <views:InfoView Grid.Row="1" Grid.Column="2" />
-
     </Grid>
 </Window>
