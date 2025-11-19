@@ -67,7 +67,9 @@
             </RadioButton>
 
             <RadioButton
+                x:Name="PlayComputerButton"
                 Margin="0,10,0,0"
+                Checked="PlayComputerButton_Checked"
                 GroupName="PlaySubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>
@@ -98,7 +100,9 @@
                 </Grid>
             </RadioButton>
             <RadioButton
+                x:Name="TwoPlayersButton"
                 Margin="0,10,0,0"
+                Checked="TwoPlayersButton_Checked"
                 GroupName="PlaySubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>

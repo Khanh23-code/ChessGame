@@ -63,7 +63,10 @@
             Grid.ColumnSpan="3"
             Source="/Assets/MenuAssets/BackgroundMenu1.jpeg"
             Stretch="UniformToFill" />
+
+
         <views:NavigationView
+            x:Name="NavigationViewControl"
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="0" />
@@ -72,7 +75,12 @@
             x:Name="BoardViewControl"
             Grid.Row="1"
             Grid.Column="1" />
+        <Grid Grid.Row="1" Grid.Column="2">
 
-        <views:InfoView Grid.Row="1" Grid.Column="2" />
+            <ContentControl
+                x:Name="RightPanelContentHost"
+                Grid.Row="1"
+                Grid.Column="2" />
+        </Grid>
     </Grid>
 </Window>

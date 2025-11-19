@@ -21,9 +21,25 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class PlayFlyoutMenu : UserControl
     {
+        public event EventHandler PlayComputerClicked;
+        public event EventHandler PlayTwoPlayerClicked;
         public PlayFlyoutMenu()
         {
             InitializeComponent();
+        }
+        private void PlayComputerButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton btn && btn.IsChecked == true)
+            {
+                PlayComputerClicked?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        private void TwoPlayersButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton btn && btn.IsChecked == true)
+            {
+                PlayTwoPlayerClicked?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }
