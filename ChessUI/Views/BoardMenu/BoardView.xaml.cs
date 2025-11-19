@@ -328,6 +328,24 @@ namespace ChessUI.Views.BoardMenu
         private void Timer_Tick(object sender, EventArgs e)
         {
             gameState.Tick();
+            if (gameState.CurrentPlayer == Player.White)
+            {
+                PlayerTimerBorder.Background = Brushes.White;
+                PlayerTimerText.Foreground = Brushes.Black;
+
+                OpponentTimerBorder.Background = null;
+                OpponentTimerText.Foreground = Brushes.White;
+            }
+            else
+            {
+                PlayerTimerBorder.Background = null;
+                PlayerTimerText.Foreground = Brushes.White;
+
+                OpponentTimerBorder.Background = Brushes.White;
+                OpponentTimerText.Foreground = Brushes.Black;
+            }
+
+            gameState.Tick();
             UpdateTimerDisplay();
             if (gameState.IsGameOver())
             {
