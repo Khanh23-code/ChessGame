@@ -1,6 +1,9 @@
-﻿using System.Text;
+﻿using ChessLogic;
+using ChessUI.Views.BoardMenu;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -8,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ChessLogic;
 
 namespace ChessUI
 {
@@ -17,16 +19,23 @@ namespace ChessUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        private readonly Views.BoardMenu.InfoView DefaultInfoView = new Views.BoardMenu.InfoView();
         public MainWindow()
         {
             InitializeComponent();
+            RightPanelContentHost.Content = DefaultInfoView; 
+
+            if (NavigationViewControl != null)
+            {
+                NavigationViewControl.Loaded += NavigationView_Loaded;
+            }
         }
+        #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             DragMove();
         }
-        #region Taskbar Button
+
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -76,6 +85,39 @@ namespace ChessUI
             {
                 BoardViewControl.ChangeAsset();
             }
+        }
+
+
+        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            NavigationView navView = (NavigationView)sender;
+            Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
+            if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
+            {
+                playFlyoutMenu.PlayComputerClicked += PlayFlyoutMenu_PlayComputerClicked;
+                playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
+            }
+        }
+        private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
+        {
+            var setupControl = new Views.BoardMenu.ComputerPlaySetup();
+            RightPanelContentHost.Content = setupControl; // <-- THAY THẾ VIEW
+            setupControl.StartGameButton.Click += StartGameButton_Click;
+        }
+        private void PlayFlyoutMenu_PlayTwoPlayerClicked(object sender, EventArgs e)
+        {
+            var setupControl = new Views.BoardMenu.TwoPlayerSetup();
+            RightPanelContentHost.Content = setupControl; // <-- THAY THẾ VIEW
+            setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
+        }
+
+
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            RightPanelContentHost.Content = DefaultInfoView; 
+
+            // start logic game
         }
     }
 }
