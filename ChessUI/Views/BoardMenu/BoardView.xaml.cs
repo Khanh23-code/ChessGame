@@ -345,7 +345,6 @@ namespace ChessUI.Views.BoardMenu
                 OpponentTimerText.Foreground = Brushes.Black;
             }
 
-            gameState.Tick();
             UpdateTimerDisplay();
             if (gameState.IsGameOver())
             {
