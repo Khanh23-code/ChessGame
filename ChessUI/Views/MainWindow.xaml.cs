@@ -23,6 +23,7 @@ namespace ChessUI
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight; 
             RightPanelContentHost.Content = DefaultInfoView; 
 
             if (NavigationViewControl != null)
@@ -102,13 +103,15 @@ namespace ChessUI
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
         {
             var setupControl = new Views.BoardMenu.ComputerPlaySetup();
-            RightPanelContentHost.Content = setupControl; // <-- THAY THẾ VIEW
+            // change InfoView to ComputerPlaySetup View
+            RightPanelContentHost.Content = setupControl; 
             setupControl.StartGameButton.Click += StartGameButton_Click;
         }
         private void PlayFlyoutMenu_PlayTwoPlayerClicked(object sender, EventArgs e)
         {
             var setupControl = new Views.BoardMenu.TwoPlayerSetup();
-            RightPanelContentHost.Content = setupControl; // <-- THAY THẾ VIEW
+            // change InfoView to TwoPlayerSetup View
+            RightPanelContentHost.Content = setupControl; 
             setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
         }
 
