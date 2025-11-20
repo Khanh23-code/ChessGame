@@ -94,42 +94,95 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <RadioButton
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
-
+                                HorizontalAlignment="Center">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
+                                    <RadioButton.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock
+                                                FontSize="14"
+                                                FontWeight="Bold"
+                                                Foreground="White"
+                                                Text="Stockfish 8" />
+                                            <TextBlock Foreground="#AAAAAA" Text="Elo: 2200 (Mạnh)" />
+                                        </StackPanel>
+                                    </RadioButton.ToolTip>
+                                </RadioButton>
+                            </StackPanel>
                             <RadioButton
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
+                                Style="{StaticResource BotTileStyle}">
+                                <RadioButton.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="White"
+                                            Text="Lê Quang Liêm Bot" />
+                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 1800 (Trung bình)" />
+                                    </StackPanel>
+                                </RadioButton.ToolTip>
+                                <Image Source="/Assets/MenuAssets/LeQuangLiem_avartar.jpeg" Stretch="UniformToFill" />
+                            </RadioButton>
 
                             <RadioButton
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
+                                Style="{StaticResource BotTileStyle}">
+                                <RadioButton.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="White"
+                                            Text="Hikaru Bot" />
+                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 1400 (Dễ)" />
+                                    </StackPanel>
+                                </RadioButton.ToolTip>
+                                <Image Source="/Assets/MenuAssets/Hikaru_Nakamura_avartar.jpeg" Stretch="UniformToFill" />
+                            </RadioButton>
 
                             <RadioButton
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
+                                Style="{StaticResource BotTileStyle}">
+                                <RadioButton.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="White"
+                                            Text="Garry Bot" />
+                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 2500 (Rất Mạnh)" />
+                                    </StackPanel>
+                                </RadioButton.ToolTip>
+                                <Image Source="/Assets/MenuAssets/Garry_Kasparov_avartar.jpeg" Stretch="UniformToFill" />
+                            </RadioButton>
 
                             <RadioButton
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
-
-                            <RadioButton
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}" />
-
+                                Style="{StaticResource BotTileStyle}">
+                                <RadioButton.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="White"
+                                            Text="Magnus Bot" />
+                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 2000 (Khó)" />
+                                    </StackPanel>
+                                </RadioButton.ToolTip>
+                                <Image Source="/Assets/MenuAssets/Magnus_Carlsen_avartar.jpeg" Stretch="UniformToFill" />
+                            </RadioButton>
                         </Grid>
                     </Grid>
                 </Border>

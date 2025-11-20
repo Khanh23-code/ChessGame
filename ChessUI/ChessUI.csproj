@@ -48,6 +48,7 @@
     <None Remove="Assets\KingW.png" />
     <None Remove="Assets\KnightB.png" />
     <None Remove="Assets\KnightW.png" />
+    <None Remove="Assets\MenuAssets\admin_avartar.png" />
     <None Remove="Assets\MenuAssets\appearance.png" />
     <None Remove="Assets\MenuAssets\BackgroundMenu1.jpeg" />
     <None Remove="Assets\MenuAssets\BackgroundMenu2.jpeg" />
@@ -56,7 +57,9 @@
     <None Remove="Assets\MenuAssets\chess_openings.png" />
     <None Remove="Assets\MenuAssets\courses.png" />
     <None Remove="Assets\MenuAssets\Garry_Kasparov_avartar.jpeg" />
+    <None Remove="Assets\MenuAssets\Hikaru_Nakamura_avartar.jpeg" />
     <None Remove="Assets\MenuAssets\learn.png" />
+    <None Remove="Assets\MenuAssets\LeQuangLiem_avartar.jpeg" />
     <None Remove="Assets\MenuAssets\lessons.png" />
     <None Remove="Assets\MenuAssets\library.png" />
     <None Remove="Assets\MenuAssets\logo.png" />
@@ -80,6 +83,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\MenuAssets\admin_avartar.png" />
+    <Resource Include="Assets\MenuAssets\Hikaru_Nakamura_avartar.jpeg" />
+    <Resource Include="Assets\MenuAssets\LeQuangLiem_avartar.jpeg" />
     <Resource Include="Assets\MenuAssets\Magnus_Carlsen_avartar.jpeg" />
   </ItemGroup>
 
