@@ -34,17 +34,25 @@ namespace ChessUI.Views.BoardMenu
         public int assetIndex = 1;   // Mặc định sử dụng Asset 1
 
         // DispatcherTimer
-        private readonly DispatcherTimer timer;
+        private DispatcherTimer timer;
 
         public BoardView()
         {
             InitializeComponent();
             InitialBoard();
 
-            TimeSpan initialTime = TimeSpan.FromMinutes(10);
-            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+            if (false) 
+            {
+                //LoadGameStateFromFEN("r1bqkbnr/pp1ppppp/2n5/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3 485:470");
+                //LoadGameStateFromFEN("rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3 30:45");      // Test En Passant
+                //LoadGameStateFromFEN("8/8/8/4k3/8/8/4R3/4K3 b - - 10 45 15:10");      // Test Endgame
+            }
+            else
+            {
+                LoadInitialGameState();
+            }
 
-            DrawBoard(gameState.Board);
+        DrawBoard(gameState.Board);
             //SetCursor(gameState.CurrentPlayer);
 
             timer = new DispatcherTimer();
@@ -69,6 +77,17 @@ namespace ChessUI.Views.BoardMenu
                     HighLightGrid.Children.Add(highlight);
                 }
             }
+        }
+
+        private void LoadInitialGameState()
+        {
+            TimeSpan initialTime = TimeSpan.FromMinutes(10);
+            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+        }
+
+        private void LoadGameStateFromFEN(string fen)
+        {
+            gameState = new GameState(fen);
         }
 
         private void DrawBoard(Board board)
@@ -299,6 +318,9 @@ namespace ChessUI.Views.BoardMenu
             timer.Stop();
             PauseMenu pauseMenu = new PauseMenu();
             MenuContainer.Content = pauseMenu;
+
+
+            MessageBox.Show(gameState.FENString);
 
             pauseMenu.OptionSelected += option =>
             {

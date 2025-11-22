@@ -1,4 +1,6 @@
-﻿namespace ChessLogic 
+﻿using System.Security.Cryptography;
+
+namespace ChessLogic 
 {
     public class Board      // Lớp dành cho bàn cờ
     {
@@ -13,6 +15,8 @@
         };
         #endregion
 
+        public Board() { }
+
         #region Indexers
         public Piece this[int row, int col]   
         {
@@ -24,6 +28,118 @@
         {
             get { return pieces[position.Row, position.Column]; }
             set { pieces[position.Row, position.Column] = value; }
+        }
+        #endregion
+
+        #region Initialize by FEN
+        // Constructor vì không sử dụng static được (do có gọi hàm thành phần)
+        public Board(string locations, string castlingRights, string enPassant, Player current)
+        {
+            bool K = false, Q = false, k = false, q = false;
+            int row = -1, col = -1;
+            CheckCastlingRights(castlingRights, out K, out Q, out k, out q);
+            CheckEnPassant(enPassant, out row, out col);
+            // Xử lý Pieces: Vẽ đúng locations;  set HasMoved cho Pawn; set HasMoved cho King, Rook dựa vào castlingRights; set PawnSkipPosition dựa vào enPassant
+            this.AddPieces(locations, K, Q, k, q);
+            pawnSkipPositions[current.Opponent()] = (row != -1 && col != -1) ? new Position(row, col) : null;
+
+        }
+
+        private void CheckCastlingRights(string rights, out bool K, out bool Q, out bool k, out bool q)       // Castling Rights: KQkq or '-'
+        {
+            K = false; Q = false; k = false; q = false;
+
+            if (rights == "-") return;
+
+            if (rights.Contains('K')) K = true;
+            if (rights.Contains('Q')) Q = true;
+            if (rights.Contains('k')) k = true;
+            if (rights.Contains('q')) q = true;
+        }
+
+        private void CheckEnPassant(string enPassant, out int row, out int col)      // En Passant: <a-h><1-8> or '-'
+        {
+            row = -1; col = -1;
+
+            if (enPassant == "-") return;
+
+            col = enPassant[0] - 'a';
+            row = 8 - (enPassant[1] - '0');
+        }
+
+        private void AddPieces(string locations, bool K, bool Q, bool k, bool q)
+        {
+            string[] rows = locations.Split('/');
+
+            for (int r = 0; r < 8; r++)
+            {
+                int c = 0;
+                int strIndex = 0;
+                string pos = rows[r];
+
+                while (strIndex < pos.Length)
+                {
+                    if (char.IsDigit(pos[strIndex]))
+                    {
+                        int emptyCount = pos[strIndex] - '0';
+                        c += emptyCount;
+                        strIndex++;
+                    }
+
+                    if (c >= 8 || strIndex >= pos.Length) break;
+
+                    switch (pos[strIndex])
+                    {
+                        // White pieces
+                        case 'P':
+                            pieces[r, c] = new Pawn(Player.White);
+                            if (r != 6) pieces[r, c].HasMoved = true;
+                            break;
+                        case 'R':
+                            pieces[r, c] = new Rook(Player.White);
+                            if ((K == false && c == 7) || (Q == false && c == 0)) pieces[r, c].HasMoved = true;
+                            break;
+                        case 'N':
+                            pieces[r, c] = new Knight(Player.White);
+                            break;
+                        case 'B':
+                            pieces[r, c] = new Bishop(Player.White);
+                            break;
+                        case 'Q':
+                            pieces[r, c] = new Queen(Player.White);
+                            break;
+                        case 'K':
+                            pieces[r, c] = new King(Player.White);
+                            if (r != 7 || c != 4 || (K == false && Q == false)) pieces[r, c].HasMoved = true;
+                            break;
+                        // Black pieces
+                        case 'p':
+                            pieces[r, c] = new Pawn(Player.Black);
+                            if (r != 1) pieces[r, c].HasMoved = true;
+                            break;
+                        case 'r':
+                            pieces[r, c] = new Rook(Player.Black);
+                            if ((k == false && c == 7) || (q == false && c == 0)) pieces[r, c].HasMoved = true;
+                            break;
+                        case 'n':
+                            pieces[r, c] = new Knight(Player.Black);
+                            break;
+                        case 'b':
+                            pieces[r, c] = new Bishop(Player.Black);
+                            break;
+                        case 'q':
+                            pieces[r, c] = new Queen(Player.Black);
+                            break;
+                        case 'k':
+                            pieces[r, c] = new King(Player.Black);
+                            if (r != 0 || c != 4 || (k == false && q == false)) pieces[r, c].HasMoved = true;
+                            break;
+                    }
+
+                    c++;
+                    strIndex++;
+                }
+            }
         }
         #endregion
 
