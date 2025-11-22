@@ -13,7 +13,8 @@ namespace ChessLogic
         public TimeSpan WhiteTime { get; private set; }
         public TimeSpan BlackTime { get; private set; }
 
-        private int noCaptureOrPawnMoves;
+        public int FullMoveNumber = 0;
+        public int NoCaptureOrPawnMoves;
         private string stateString;
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
 
@@ -28,10 +29,28 @@ namespace ChessLogic
             WhiteTime = initialTime;
             BlackTime = initialTime;
 
-            noCaptureOrPawnMoves = 0;
+            NoCaptureOrPawnMoves = 0;
 
             stateString = new StateString(CurrentPlayer, Board).ToString();
             stateHistory[stateString] = 1;
+        }
+
+        // New GameState from existing GameState (for Undo/Redo or FEN)
+        // ??? Có cần lưu thêm stateHistory ???
+        public GameState(string fen)
+        {
+            string[] parts = fen.Split(' ');
+
+            CurrentPlayer = (parts[1] == "w") ? Player.White : Player.Black;
+            NoCaptureOrPawnMoves = int.Parse(parts[4]);
+            FullMoveNumber = int.Parse(parts[5]);
+            Board = new Board(parts[0], parts[2], parts[3], CurrentPlayer);
+
+            string[] timers = parts[6].Split(':');
+            WhiteTime = TimeSpan.FromSeconds(int.Parse(timers[0]));
+            BlackTime = TimeSpan.FromSeconds(int.Parse(timers[1]));
+
+            FENString = fen;
         }
         #endregion
 
@@ -42,19 +61,27 @@ namespace ChessLogic
 
             bool captureOrPawn = move.Execute(Board);
 
+            if (CurrentPlayer == Player.Black)
+            {
+                FullMoveNumber++;
+            }
+
             if (captureOrPawn)
             {
-                noCaptureOrPawnMoves = 0;
+                NoCaptureOrPawnMoves = 0;
                 stateHistory.Clear();
             }
             else
             {
-                noCaptureOrPawnMoves++;
+                NoCaptureOrPawnMoves++;
             }
 
             UpdateStateString();
 
             CurrentPlayer = CurrentPlayer.Opponent();
+
+            UpdateFENString();
+
             CheckForGameOver();
         }
         #endregion
@@ -143,11 +170,11 @@ namespace ChessLogic
             {
                 Result = Result.Draw(EndReason.InsufficentMaterial);
             }
-            else if (noCaptureOrPawnMoves >= 100)
+            else if (NoCaptureOrPawnMoves >= 100)
             {
                 Result = Result.Draw(EndReason.FiftyMoveRule);
             }
-            else if (stateHistory[stateString] >= 3)
+            else if (stateString != null && stateHistory[stateString] >= 3)
             {
                 Result = Result.Draw(EndReason.ThreefoldRepetition);
             }
@@ -174,5 +201,13 @@ namespace ChessLogic
             }
         }
         #endregion
+
+        #region FEN String
+        private void UpdateFENString()
+        {
+            FENString = new FENString(this).ToString();
+        }
+        #endregion
+
     }
 }
