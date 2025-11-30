@@ -92,8 +92,6 @@ namespace ChessUI.Views.BoardMenu
 
         private void DrawBoard(Board board)
         {
-            try
-            {
                 ImageBrush boardBackGround = BoardGrid.Background as ImageBrush;
 
                 BitmapImage source = new BitmapImage();
@@ -106,11 +104,7 @@ namespace ChessUI.Views.BoardMenu
                 //ImageSource source = new BitmapImage(new Uri($"Assets/Asset{assetIndex}/Board.png", UriKind.Relative));
                 //MessageBox.Show(source.ToString() + "+" + path);
                 boardBackGround.ImageSource = source;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
 
             for (int i = 0; i < 8; i++)
             {

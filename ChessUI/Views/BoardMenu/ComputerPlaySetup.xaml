@@ -94,24 +94,31 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <StackPanel
+                            <RadioButton
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                HorizontalAlignment="Center">
-                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
-                                    <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
-                                    <RadioButton.ToolTip>
-                                        <StackPanel>
-                                            <TextBlock
-                                                FontSize="14"
-                                                FontWeight="Bold"
-                                                Foreground="White"
-                                                Text="Stockfish 8" />
-                                            <TextBlock Foreground="#AAAAAA" Text="Elo: 2200 (Mạnh)" />
-                                        </StackPanel>
-                                    </RadioButton.ToolTip>
-                                </RadioButton>
-                            </StackPanel>
+                                GroupName="BotSelection"
+                                Style="{StaticResource BotTileStyle}">
+                                <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
+                                <RadioButton.ToolTip>
+                                    <ToolTip
+                                        HasDropShadow="false"
+                                        HorizontalOffset="10"
+                                        Placement="Right"
+                                        PlacementRectangle="50,0,0,0"
+                                        VerticalOffset="20">
+                                        <BulletDecorator>
+                                            <BulletDecorator.Bullet>
+                                                <Ellipse
+                                                    Width="20"
+                                                    Height="10"
+                                                    Fill="Blue" />
+                                            </BulletDecorator.Bullet>
+                                            <TextBlock>Uses the ToolTip Class</TextBlock>
+                                        </BulletDecorator>
+                                    </ToolTip>
+                                </RadioButton.ToolTip>
+                            </RadioButton>
                             <RadioButton
                                 Grid.Row="0"
                                 Grid.Column="1"
