@@ -49,7 +49,10 @@
                         Text="400" />
                 </StackPanel>
 
-                <Border x:Name="OpponentTimerBorder" Grid.Column="2" Style="{StaticResource TimerBox}">
+                <Border
+                    x:Name="OpponentTimerBorder"
+                    Grid.Column="2"
+                    Style="{StaticResource TimerBox}">
                     <TextBlock
                         x:Name="OpponentTimerText"
                         Style="{StaticResource TimerText}"
@@ -116,7 +119,10 @@
                         Text="400" />
                 </StackPanel>
 
-                <Border x:Name="PlayerTimerBorder" Grid.Column="2" Style="{StaticResource TimerBox}">
+                <Border
+                    x:Name="PlayerTimerBorder"
+                    Grid.Column="2"
+                    Style="{StaticResource TimerBox}">
                     <TextBlock
                         x:Name="PlayerTimerText"
                         Style="{StaticResource TimerText}"
