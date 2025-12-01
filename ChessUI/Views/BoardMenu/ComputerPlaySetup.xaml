@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Margin="0,20,20,20"
-    d:DesignHeight="600"
+    Margin="20"
+    d:DesignHeight="800"
     d:DesignWidth="300"
     mc:Ignorable="d">
 
@@ -17,10 +17,10 @@
 
         <Border
             Grid.Row="0"
-            Margin="0,0,0,10"
-            Padding="10"
+            Margin="0,0,0,20"
+            Padding="15"
             Background="{StaticResource FrostedGlassBrush}"
-            CornerRadius="8">
+            CornerRadius="12">
             <StackPanel VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -29,59 +29,58 @@
                     </Grid.ColumnDefinitions>
                     <Image
                         Grid.Column="0"
-                        Width="32"
-                        Height="32"
+                        Width="40"
+                        Height="40"
                         Margin="0,0,15,0"
                         VerticalAlignment="Center"
                         Source="/Assets/MenuAssets/play_computer.png" />
-
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
-                            FontSize="16"
+                            FontSize="20"
                             FontWeight="Bold"
                             Foreground="White"
                             Text="Play With Computer" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#AAAAAA"
+                            Text="Thiết lập trận đấu với máy" />
                     </StackPanel>
                 </Grid>
-
             </StackPanel>
         </Border>
 
         <Border
             Grid.Row="1"
-            Padding="10"
+            Padding="20"
             Background="{StaticResource FrostedGlassBrush}"
-            CornerRadius="8">
-            <StackPanel Margin="0,10,0,0">
+            CornerRadius="12">
+            <StackPanel Margin="0">
+
                 <TextBlock
-                    Margin="0,0,0,10"
-                    FontSize="16"
+                    Margin="0,0,0,15"
+                    FontSize="18"
+                    FontWeight="SemiBold"
                     Foreground="White"
-                    Text="Pick your rival" />
+                    Text="⚔️ Chọn đối thủ" />
 
                 <Border
-                    Height="250"
-                    Margin="0,0,0,20"
-                    Padding="10"
+                    Margin="0,0,0,25"
+                    Padding="15"
                     Background="#333333"
-                    CornerRadius="5">
-
+                    CornerRadius="8">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel
+                        <TextBlock
                             Grid.Row="0"
                             Margin="0,0,0,10"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                FontSize="14"
-                                Foreground="#AAA"
-                                Text="5 LEVELS" />
-                        </StackPanel>
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="#FFA274"
+                            Text="CÁC CẤP ĐỘ KHÓ" />
 
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -90,136 +89,168 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <RadioButton
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}">
-                                <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
-                                <RadioButton.ToolTip>
-                                    <ToolTip
-                                        HasDropShadow="false"
-                                        HorizontalOffset="10"
-                                        Placement="Right"
-                                        PlacementRectangle="50,0,0,0"
-                                        VerticalOffset="20">
-                                        <BulletDecorator>
-                                            <BulletDecorator.Bullet>
-                                                <Ellipse
-                                                    Width="20"
-                                                    Height="10"
-                                                    Fill="Blue" />
-                                            </BulletDecorator.Bullet>
-                                            <TextBlock>Uses the ToolTip Class</TextBlock>
-                                        </BulletDecorator>
-                                    </ToolTip>
-                                </RadioButton.ToolTip>
-                            </RadioButton>
-                            <RadioButton
+                                Margin="5">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
+                                </RadioButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="Beginner" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="10"
+                                    Foreground="#AAAAAA"
+                                    Text="Elo: 1000" />
+                            </StackPanel>
+
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}">
-                                <RadioButton.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Lê Quang Liêm Bot" />
-                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 1800 (Trung bình)" />
-                                    </StackPanel>
-                                </RadioButton.ToolTip>
-                                <Image Source="/Assets/MenuAssets/LeQuangLiem_avartar.jpeg" Stretch="UniformToFill" />
-                            </RadioButton>
+                                Margin="5">
+                                <RadioButton
+                                    GroupName="BotSelection"
+                                    IsChecked="True"
+                                    Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/LeQuangLiem_avartar.jpeg" Stretch="UniformToFill" />
+                                </RadioButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="Lê Quang Liêm"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="10"
+                                    Foreground="#AAAAAA"
+                                    Text="Elo: 1500" />
+                            </StackPanel>
 
-                            <RadioButton
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="2"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}">
-                                <RadioButton.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Hikaru Bot" />
-                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 1400 (Dễ)" />
-                                    </StackPanel>
-                                </RadioButton.ToolTip>
-                                <Image Source="/Assets/MenuAssets/Hikaru_Nakamura_avartar.jpeg" Stretch="UniformToFill" />
-                            </RadioButton>
+                                Margin="5">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/Hikaru_Nakamura_avartar.jpeg" Stretch="UniformToFill" />
+                                </RadioButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="Hikaru Bot" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="10"
+                                    Foreground="#AAAAAA"
+                                    Text="Elo: 1800" />
+                            </StackPanel>
 
-                            <RadioButton
+                            <StackPanel
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}">
-                                <RadioButton.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Garry Bot" />
-                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 2500 (Rất Mạnh)" />
-                                    </StackPanel>
-                                </RadioButton.ToolTip>
-                                <Image Source="/Assets/MenuAssets/Garry_Kasparov_avartar.jpeg" Stretch="UniformToFill" />
-                            </RadioButton>
+                                Margin="5,18,5,5">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/Garry_Kasparov_avartar.jpeg" Stretch="UniformToFill" />
+                                </RadioButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="Garry Bot" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="10"
+                                    Foreground="#AAAAAA"
+                                    Text="Elo: 2500" />
+                            </StackPanel>
 
-                            <RadioButton
+                            <StackPanel
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                GroupName="BotSelection"
-                                Style="{StaticResource BotTileStyle}">
-                                <RadioButton.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Magnus Bot" />
-                                        <TextBlock Foreground="#AAAAAA" Text="Elo: 2000 (Khó)" />
-                                    </StackPanel>
-                                </RadioButton.ToolTip>
-                                <Image Source="/Assets/MenuAssets/Magnus_Carlsen_avartar.jpeg" Stretch="UniformToFill" />
-                            </RadioButton>
+                                Margin="5,18,5,5">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                    <Image Source="/Assets/MenuAssets/Magnus_Carlsen_avartar.jpeg" Stretch="UniformToFill" />
+                                </RadioButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="Magnus Bot" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="10"
+                                    Foreground="#AAAAAA"
+                                    Text="Elo: 3000" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="5,18,5,5" />
+
                         </Grid>
                     </Grid>
                 </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="3" CornerRadius="5">
+                        <Ellipse
+                            Width="22"
+                            Height="22"
+                            Margin="0,0,0,15"
+                            Fill="Black"
+                            Stroke="White"
+                            StrokeThickness="0.5" />
+                    </Border>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="0,0,0,15"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Text="⚫ Who first?" />
 
-                <TextBlock
-                    Margin="0,0,0,10"
-                    FontSize="16"
-                    Foreground="White"
-                    Text="Who first ?" />
+                </Grid>
+
 
                 <StackPanel
-                    Margin="0,0,0,30"
+                    Margin="0,0,0,40"
                     HorizontalAlignment="Left"
                     Orientation="Horizontal">
                     <RadioButton
-                        Margin="0,0,5,0"
-                        Padding="10,5"
+                        Margin="0,0,10,0"
+                        Padding="15,8"
                         Content="Trắng"
                         GroupName="ColorChoice"
                         IsChecked="True"
                         Style="{StaticResource FlyoutButton}" />
                     <RadioButton
-                        Margin="5,0"
-                        Padding="10,5"
+                        Margin="10,0"
+                        Padding="15,8"
                         Content="Đen"
                         GroupName="ColorChoice"
                         Style="{StaticResource FlyoutButton}" />
                     <RadioButton
-                        Margin="5,0,0,0"
-                        Padding="10,5"
+                        Margin="10,0,0,0"
+                        Padding="15,8"
                         Content="Ngẫu nhiên"
                         GroupName="ColorChoice"
                         Style="{StaticResource FlyoutButton}" />
@@ -227,11 +258,8 @@
 
                 <Button
                     x:Name="StartGameButton"
-                    Padding="15,8"
                     Content="BẮT ĐẦU TRẬN ĐẤU"
-                    FontSize="16"
-                    Style="{StaticResource RegisterButton}" />
-
+                    Style="{StaticResource ModernStartButtonStyle}" />
             </StackPanel>
         </Border>
     </Grid>

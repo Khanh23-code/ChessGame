@@ -9,9 +9,9 @@
         <SolidColorBrush x:Key="FillColor">#cc202020</SolidColorBrush>
         <SolidColorBrush x:Key="TextColor">#00bcd4</SolidColorBrush>
         <SolidColorBrush x:Key="ButtonColor">#0097a7</SolidColorBrush>
-
         <SolidColorBrush x:Key="FrostedGlassBrush">#CC1c1c1c</SolidColorBrush>
 
+        <SolidColorBrush x:Key="PrimaryText">#ffffffff</SolidColorBrush>
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="4" />
             <Setter Property="BorderBrush" Value="{StaticResource StrokeColor}" />
@@ -293,6 +293,45 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="15,8" />
         </Style>
+
+        <Style x:Key="ModernStartButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#FF5252" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="30,12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="#FF5252" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
+                            <ContentPresenter
+                                x:Name="content"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF5252" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D32F2F" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="#D32F2F" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <!--  RegisterButton style  -->
         <Style
             x:Key="RegisterButton"
@@ -300,29 +339,6 @@
             TargetType="Button">
             <Setter Property="Background" Value="#B03030" />
         </Style>
-        <!--  ChatTextBox style  -->
-        <Style x:Key="ChatTextBox" TargetType="TextBox">
-            <Setter Property="Background" Value="#403F3E" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="CaretBrush" Value="White" />
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border
-                            Name="border"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="8">
-                            <ScrollViewer x:Name="PART_ContentHost" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style
             x:Key="MoveNavButton"
             BasedOn="{StaticResource ButtonBorderRadius}"
@@ -465,22 +481,79 @@
         <Style x:Key="BotTileStyle" TargetType="RadioButton">
             <Setter Property="Width" Value="60" />
             <Setter Property="Height" Value="60" />
-            <Setter Property="Margin" Value="5" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Border
-                            x:Name="BotBorder"
-                            BorderThickness="2"
-                            CornerRadius="5">
-                            <ContentPresenter />
-                        </Border>
+                        <Grid>
+                            <Border
+                                x:Name="GlowBorder"
+                                Margin="-4"
+                                Background="Transparent"
+                                CornerRadius="8"
+                                Opacity="0">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="15"
+                                        Direction="0"
+                                        Opacity="0.5"
+                                        ShadowDepth="0"
+                                        Color="#FFA274" />
+                                </Border.Effect>
+                            </Border>
+
+                            <Border
+                                x:Name="MainBorder"
+                                Background="#252525"
+                                BorderBrush="Transparent"
+                                BorderThickness="2"
+                                CornerRadius="8"
+                                RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Border.RenderTransform>
+                                <!--  cắt ảnh theo border  -->
+                                <ContentPresenter
+                                    x:Name="Content"
+                                    Margin="2"
+                                    Opacity="0.5">
+                                    <ContentPresenter.Clip>
+                                        <RectangleGeometry
+                                            RadiusX="4"
+                                            RadiusY="4"
+                                            Rect="0,0,52,52" />
+                                    </ContentPresenter.Clip>
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="BotBorder" Property="BorderBrush" Value="#4CAF50" />
-                            </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BotBorder" Property="Opacity" Value="0.85" />
+                                <Setter TargetName="Content" Property="Opacity" Value="1.0" />
+                                <Setter TargetName="MainBorder" Property="Background" Value="#404040" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Content" Property="Opacity" Value="1.0" />
+                                <Setter TargetName="MainBorder" Property="Background" Value="#353535" />
+
+                                <Setter TargetName="MainBorder" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                            <GradientStop Offset="0.0" Color="#FFA274" />
+                                            <GradientStop Offset="0.5" Color="#FFFFD1F4" />
+                                            <GradientStop Offset="1.0" Color="#a355d0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="GlowBorder" Property="Opacity" Value="1" />
+                                <Setter TargetName="MainBorder" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Panel.ZIndex" Value="10" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -564,7 +637,6 @@
                                 </Grid>
                             </Border>
                         </Grid>
-
                         <ControlTemplate.Resources>
                             <Storyboard x:Key="AnimateToDark">
                                 <ThicknessAnimation
@@ -685,6 +757,92 @@
                                 <Trigger.ExitActions>
                                     <BeginStoryboard Storyboard="{StaticResource AnimateToLight}" />
                                 </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--  Style Move ListView Item  -->
+        <Style x:Key="MoveHeaderStyle" TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#FFA274" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="0,5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+
+                        <Grid>
+                            <Border
+                                x:Name="HeaderBorder"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#50FFFFFF"
+                                BorderThickness="0,0,1,1">
+                                <ContentPresenter
+                                    x:Name="HeaderContent"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    RecognizesAccessKey="True"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+
+                                    <ContentPresenter.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="#FFA274" />
+                                        </Style>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </Border>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="HeaderBorder" Property="Background" Value="#10FFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MoveListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border
+                            x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#50FFFFFF"
+                            BorderThickness="0,0,0,1">
+                            <GridViewRowPresenter
+                                x:Name="Presenter"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Columns="{TemplateBinding GridView.ColumnCollection}"
+                                Content="{TemplateBinding Content}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#40FFFFFF" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#20FFFFFF" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
