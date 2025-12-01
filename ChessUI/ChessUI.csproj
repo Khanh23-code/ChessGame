@@ -160,7 +160,6 @@
     </Resource>
     <Resource Include="Assets\MenuAssets\two_player.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
