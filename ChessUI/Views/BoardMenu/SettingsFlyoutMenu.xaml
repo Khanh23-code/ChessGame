@@ -69,12 +69,14 @@
 
             <RadioButton
                 Margin="0,10,0,0"
+                HorizontalContentAlignment="Stretch"
                 GroupName="SettingsSubMenu"
                 Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
                     <Image
@@ -93,9 +95,16 @@
                         <TextBlock
                             FontSize="12"
                             Foreground="#AAAAAA"
-                            Text="Change your mode if you want dark mode"
+                            Text="Change your mode if you want light mode"
                             TextWrapping="Wrap" />
                     </StackPanel>
+                    <CheckBox
+                        Grid.Column="2"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        IsChecked="{Binding IsDarkMode}"
+                        Style="{StaticResource ImageThemeToggleStyle}" />
                 </Grid>
             </RadioButton>
             <RadioButton

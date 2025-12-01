@@ -66,6 +66,7 @@
     <None Remove="Assets\MenuAssets\logout.png" />
     <None Remove="Assets\MenuAssets\Magnus_Carlsen_avartar.jpeg" />
     <None Remove="Assets\MenuAssets\more.png" />
+    <None Remove="Assets\MenuAssets\night.png" />
     <None Remove="Assets\MenuAssets\play_computer.png" />
     <None Remove="Assets\MenuAssets\play_online.png" />
     <None Remove="Assets\MenuAssets\puzzle.png" />
@@ -73,6 +74,7 @@
     <None Remove="Assets\MenuAssets\puzzle_daily.png" />
     <None Remove="Assets\MenuAssets\rule.png" />
     <None Remove="Assets\MenuAssets\setting.png" />
+    <None Remove="Assets\MenuAssets\sun.png" />
     <None Remove="Assets\MenuAssets\two_player.png" />
     <None Remove="Assets\PawnB.png" />
     <None Remove="Assets\PawnW.png" />
@@ -143,6 +145,9 @@
     <Resource Include="Assets\MenuAssets\logo.png" />
     <Resource Include="Assets\MenuAssets\logout.png" />
     <Resource Include="Assets\MenuAssets\more.png" />
+    <Resource Include="Assets\MenuAssets\night.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MenuAssets\play_computer.png" />
     <Resource Include="Assets\MenuAssets\play_online.png" />
     <Resource Include="Assets\MenuAssets\puzzle.png" />
@@ -150,6 +155,9 @@
     <Resource Include="Assets\MenuAssets\puzzle_daily.png" />
     <Resource Include="Assets\MenuAssets\rule.png" />
     <Resource Include="Assets\MenuAssets\setting.png" />
+    <Resource Include="Assets\MenuAssets\sun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MenuAssets\two_player.png" />
   </ItemGroup>
 

@@ -5,12 +5,12 @@
     xmlns:local="clr-namespace:ChessUI"
     StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="StrokeColor">#260000</SolidColorBrush>
-        <SolidColorBrush x:Key="FillColor">#cc380404</SolidColorBrush>
-        <SolidColorBrush x:Key="TextColor">#ffa274</SolidColorBrush>
-        <SolidColorBrush x:Key="ButtonColor">#730909</SolidColorBrush>
+        <SolidColorBrush x:Key="StrokeColor">#ffeeeeee</SolidColorBrush>
+        <SolidColorBrush x:Key="FillColor">#cc202020</SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor">#00bcd4</SolidColorBrush>
+        <SolidColorBrush x:Key="ButtonColor">#0097a7</SolidColorBrush>
 
-        <SolidColorBrush x:Key="FrostedGlassBrush">#CC262421</SolidColorBrush>
+        <SolidColorBrush x:Key="FrostedGlassBrush">#CC1c1c1c</SolidColorBrush>
 
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="4" />
@@ -32,7 +32,7 @@
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="BorderBrush" Value="{StaticResource StrokeColor}" />
             <Setter Property="Background" Value="{StaticResource ButtonColor}" />
-            <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+            <Setter Property="Foreground" Value="{StaticResource StrokeColor}" />
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
@@ -481,6 +481,210 @@
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="BotBorder" Property="Opacity" Value="0.85" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--  ToogleButton for switch light or dark theme  -->
+        <Style x:Key="ImageThemeToggleStyle" TargetType="CheckBox">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid>
+                            <Border
+                                x:Name="Track"
+                                BorderThickness="0"
+                                CornerRadius="15">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                        <GradientStop Offset="0.0" Color="#FFC4E0FF" />
+                                        <GradientStop Offset="0.5" Color="#FFE6E1FF" />
+                                        <GradientStop Offset="1.0" Color="#FFFFD1F4" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border
+                                    BorderBrush="#20000000"
+                                    BorderThickness="1"
+                                    CornerRadius="15" />
+                            </Border>
+
+                            <Border
+                                x:Name="Thumb"
+                                Width="26"
+                                Height="26"
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                CornerRadius="13">
+                                <Border.Background>
+                                    <SolidColorBrush Color="#dae5ff" />
+                                </Border.Background>
+
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="4"
+                                        Direction="270"
+                                        Opacity="0.4"
+                                        ShadowDepth="1" />
+                                </Border.Effect>
+
+                                <Grid>
+                                    <Image
+                                        x:Name="SunImage"
+                                        Width="18"
+                                        Height="18"
+                                        Opacity="1"
+                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Source="/Assets/MenuAssets/sun.png"
+                                        Stretch="Uniform">
+                                        <Image.RenderTransform>
+                                            <RotateTransform Angle="0" />
+                                        </Image.RenderTransform>
+                                    </Image>
+
+                                    <Image
+                                        x:Name="MoonImage"
+                                        Width="16"
+                                        Height="16"
+                                        Opacity="0"
+                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Source="/Assets/MenuAssets/night.png"
+                                        Stretch="Uniform">
+                                        <Image.RenderTransform>
+                                            <RotateTransform Angle="-45" />
+                                        </Image.RenderTransform>
+                                    </Image>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="AnimateToDark">
+                                <ThicknessAnimation
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="Margin"
+                                    To="32,0,0,0"
+                                    Duration="0:0:0.4">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+
+                                <ColorAnimation
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                    To="#362c4f"
+                                    Duration="0:0:0.4" />
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SunImage"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="0"
+                                    Duration="0:0:0.3" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SunImage"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                    To="90"
+                                    Duration="0:0:0.4" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="MoonImage"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.3" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="MoonImage"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                    To="0"
+                                    Duration="0:0:0.4" />
+
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].Color"
+                                    To="#2d5076"
+                                    Duration="0:0:0.4" />
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].Color"
+                                    To="#4b4470"
+                                    Duration="0:0:0.4" />
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[2].Color"
+                                    To="#FF4A2652"
+                                    Duration="0:0:0.4" />
+                            </Storyboard>
+
+                            <Storyboard x:Key="AnimateToLight">
+                                <ThicknessAnimation
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="Margin"
+                                    To="2,0,0,0"
+                                    Duration="0:0:0.4">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+
+                                <ColorAnimation
+                                    Storyboard.TargetName="Thumb"
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                    To="White"
+                                    Duration="0:0:0.4" />
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SunImage"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.3" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SunImage"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                    To="0"
+                                    Duration="0:0:0.4" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="MoonImage"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="0"
+                                    Duration="0:0:0.3" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="MoonImage"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                    To="-45"
+                                    Duration="0:0:0.4" />
+
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].Color"
+                                    To="#FFC4E0FF"
+                                    Duration="0:0:0.4" />
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].Color"
+                                    To="#FFE6E1FF"
+                                    Duration="0:0:0.4" />
+                                <ColorAnimation
+                                    Storyboard.TargetName="Track"
+                                    Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[2].Color"
+                                    To="#FFFFD1F4"
+                                    Duration="0:0:0.4" />
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource AnimateToDark}" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource AnimateToLight}" />
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

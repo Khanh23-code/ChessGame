@@ -120,7 +120,6 @@
                         Style="{StaticResource EyeButton}" />
                 </Grid>
 
-
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
