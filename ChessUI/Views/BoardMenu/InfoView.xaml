@@ -83,6 +83,5 @@
                 </ListView>
             </Grid>
         </Border>
-
     </Grid>
 </UserControl>
