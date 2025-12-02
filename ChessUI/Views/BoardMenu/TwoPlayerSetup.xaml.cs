@@ -24,5 +24,12 @@ namespace ChessUI.Views.BoardMenu
         {
             InitializeComponent();
         }
+        private void SwapSideButton_Click(object sender, RoutedEventArgs e)
+        {
+            string temp = WhitePlayerName.Text;
+
+            WhitePlayerName.Text = BlackPlayerName.Text;
+            BlackPlayerName.Text = temp;
+        }
     }
 }
