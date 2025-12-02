@@ -72,6 +72,7 @@
     <None Remove="Assets\MenuAssets\puzzle.png" />
     <None Remove="Assets\MenuAssets\puzzles.png" />
     <None Remove="Assets\MenuAssets\puzzle_daily.png" />
+    <None Remove="Assets\MenuAssets\randomBox.png" />
     <None Remove="Assets\MenuAssets\rule.png" />
     <None Remove="Assets\MenuAssets\setting.png" />
     <None Remove="Assets\MenuAssets\sun.png" />
@@ -153,6 +154,9 @@
     <Resource Include="Assets\MenuAssets\puzzle.png" />
     <Resource Include="Assets\MenuAssets\puzzles.png" />
     <Resource Include="Assets\MenuAssets\puzzle_daily.png" />
+    <Resource Include="Assets\MenuAssets\randomBox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MenuAssets\rule.png" />
     <Resource Include="Assets\MenuAssets\setting.png" />
     <Resource Include="Assets\MenuAssets\sun.png">

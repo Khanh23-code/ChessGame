@@ -3,7 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChessUI.Views.BoardMenu"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="SetupRoot"
     Margin="20"
     d:DesignHeight="800"
     d:DesignWidth="300"
@@ -97,7 +99,10 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Margin="5">
-                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
+                                <RadioButton
+                                    GroupName="BotSelection"
+                                    IsChecked="True"
+                                    Style="{StaticResource BotTileStyle}">
                                     <Image Source="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
                                 </RadioButton>
                                 <TextBlock
@@ -117,10 +122,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Margin="5">
-                                <RadioButton
-                                    GroupName="BotSelection"
-                                    IsChecked="True"
-                                    Style="{StaticResource BotTileStyle}">
+                                <RadioButton GroupName="BotSelection" Style="{StaticResource BotTileStyle}">
                                     <Image Source="/Assets/MenuAssets/LeQuangLiem_avartar.jpeg" Stretch="UniformToFill" />
                                 </RadioButton>
                                 <TextBlock
@@ -222,7 +224,7 @@
                     </Border>
                     <TextBlock
                         Grid.Column="1"
-                        Margin="0,0,0,15"
+                        Margin="0,0,0,10"
                         FontSize="18"
                         FontWeight="SemiBold"
                         Foreground="White"
@@ -230,36 +232,51 @@
 
                 </Grid>
 
+                <!--  selected choice who first  -->
+                <Grid Height="100" Margin="0,0,0,25">
+                    <ItemsControl x:Name="SideSelectionCarousel">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <local:CarouselPanel
+                                    RadiusX="80"
+                                    RadiusY="20"
+                                    RotationAngle="{Binding ElementName=SetupRoot, Path=CurrentRotation}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                <StackPanel
-                    Margin="0,0,0,40"
-                    HorizontalAlignment="Left"
-                    Orientation="Horizontal">
-                    <RadioButton
-                        Margin="0,0,10,0"
-                        Padding="15,8"
-                        Content="Trắng"
-                        GroupName="ColorChoice"
-                        IsChecked="True"
-                        Style="{StaticResource FlyoutButton}" />
-                    <RadioButton
-                        Margin="10,0"
-                        Padding="15,8"
-                        Content="Đen"
-                        GroupName="ColorChoice"
-                        Style="{StaticResource FlyoutButton}" />
-                    <RadioButton
-                        Margin="10,0,0,0"
-                        Padding="15,8"
-                        Content="Ngẫu nhiên"
-                        GroupName="ColorChoice"
-                        Style="{StaticResource FlyoutButton}" />
-                </StackPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Width="60"
+                                    Height="80"
+                                    Background="Transparent"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="Side_MouseLeftButtonDown">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="{Binding ImagePath}"
+                                        Stretch="Uniform" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="#AAAAAA"
+                                        Text="{Binding Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
 
                 <Button
                     x:Name="StartGameButton"
                     Content="BẮT ĐẦU TRẬN ĐẤU"
-                    Style="{StaticResource ModernStartButtonStyle}" />
+                    Style="{StaticResource StartButtonStyle}" />
             </StackPanel>
         </Border>
     </Grid>
