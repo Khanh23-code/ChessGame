@@ -272,7 +272,6 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>
-
                 <Button
                     x:Name="StartGameButton"
                     Content="BẮT ĐẦU TRẬN ĐẤU"
