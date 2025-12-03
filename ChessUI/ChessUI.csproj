@@ -11,7 +11,6 @@
   <ItemGroup>
     <None Remove="Assets\Asset1\BishopB.png" />
     <None Remove="Assets\Asset1\BishopW.png" />
-    <None Remove="Assets\Asset1\Board.png" />
     <None Remove="Assets\Asset1\KingB.png" />
     <None Remove="Assets\Asset1\KingW.png" />
     <None Remove="Assets\Asset1\KnightB.png" />
@@ -103,7 +102,9 @@
   <ItemGroup>
     <Resource Include="Assets\Asset1\BishopB.png" />
     <Resource Include="Assets\Asset1\BishopW.png" />
-    <Resource Include="Assets\Asset1\Board.png" />
+    <Resource Include="Assets\Asset1\Board.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Asset1\KingB.png" />
     <Resource Include="Assets\Asset1\KingW.png" />
     <Resource Include="Assets\Asset1\KnightB.png" />
