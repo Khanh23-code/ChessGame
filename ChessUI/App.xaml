@@ -307,17 +307,6 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Border
-                                x:Name="ShadowBorder"
-                                Margin="4,4,-4,-4"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="25"
-                                Opacity="0.4">
-                                <Border.Effect>
-                                    <BlurEffect KernelType="Gaussian" Radius="15" />
-                                </Border.Effect>
-                            </Border>
-
-                            <Border
                                 x:Name="MainBorder"
                                 BorderBrush="White"
                                 BorderThickness="0"
@@ -375,7 +364,6 @@
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="MainBorder" Property="Background" Value="#444444" />
                                 <Setter Property="Foreground" Value="#888888" />
-                                <Setter TargetName="ShadowBorder" Property="Opacity" Value="0" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
