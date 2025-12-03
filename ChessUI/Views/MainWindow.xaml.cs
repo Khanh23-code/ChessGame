@@ -91,13 +91,28 @@ namespace ChessUI
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
-
             NavigationView navView = (NavigationView)sender;
-            Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
-            if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
+            navView.SelectionChanged += OnMainNavigationChanged;
+        }
+
+        private void OnMainNavigationChanged(object sender, ChessUI.Views.BoardMenu.NavigationEventArgs e)
+        {
+            if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Collapsed;
+
+            switch (e.Page)
             {
-                playFlyoutMenu.PlayComputerClicked += PlayFlyoutMenu_PlayComputerClicked;
-                playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
+                case MenuPage.Learn:
+                    if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Visible;
+                    break;
+                case MenuPage.Play:
+                    NavigationView navView = (NavigationView)sender;
+                    Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
+                    if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
+                    {
+                        playFlyoutMenu.PlayComputerClicked += PlayFlyoutMenu_PlayComputerClicked;
+                        playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
+                    }
+                    break;
             }
         }
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
@@ -114,8 +129,10 @@ namespace ChessUI
             RightPanelContentHost.Content = setupControl; 
             setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
         }
-
-
+        private void HideAllOverlays()
+        {
+            if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Collapsed;
+        }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
             RightPanelContentHost.Content = DefaultInfoView; 

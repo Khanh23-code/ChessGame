@@ -51,6 +51,7 @@
     <None Remove="Assets\MenuAssets\appearance.png" />
     <None Remove="Assets\MenuAssets\BackgroundMenu1.jpeg" />
     <None Remove="Assets\MenuAssets\BackgroundMenu2.jpeg" />
+    <None Remove="Assets\MenuAssets\background_tutorial.jpeg" />
     <None Remove="Assets\MenuAssets\board.png" />
     <None Remove="Assets\MenuAssets\board_and_pieces.png" />
     <None Remove="Assets\MenuAssets\chess_openings.png" />
@@ -86,6 +87,9 @@
 
   <ItemGroup>
     <Resource Include="Assets\MenuAssets\admin_avartar.png" />
+    <Resource Include="Assets\MenuAssets\background_tutorial.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MenuAssets\Hikaru_Nakamura_avartar.jpeg" />
     <Resource Include="Assets\MenuAssets\LeQuangLiem_avartar.jpeg" />
     <Resource Include="Assets\MenuAssets\Magnus_Carlsen_avartar.jpeg" />
