@@ -11,7 +11,7 @@
         Background="#1a1a1a"
         ClipToBounds="True"
         CornerRadius="30">
-        <Grid>
+        <Grid RenderOptions.BitmapScalingMode="HighQuality">
             <Border>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
@@ -29,8 +29,7 @@
             <Border>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                        <GradientStop Offset="0.0" Color="#CC000000" />
-                        <GradientStop Offset="0.6" Color="#88000000" />
+                        <GradientStop Offset="0.12" Color="#CC000000" />
                         <GradientStop Offset="1.0" Color="#44000000" />
                     </LinearGradientBrush>
                 </Border.Background>
@@ -118,144 +117,124 @@
                     Grid.Column="1"
                     Margin="20,0,0,0"
                     VerticalAlignment="Center">
+                    <Button HorizontalContentAlignment="Left" Style="{StaticResource ChooseButtonLearnStyle}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="0,0,20,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="01." />
+                                <StackPanel Grid.Column="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="White"
+                                            Text="How chess pieces move across the table"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="0,5,0,0"
+                                            FontSize="12"
+                                            Foreground="#AAAAAAAA"
+                                            Text="🕒 5 min read" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
 
-                    <Border Style="{StaticResource ChooseBorderLearnStyle}">
-                        <Button
-                            HorizontalAlignment="Left"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Bold">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Margin="0,0,20,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="16"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="01." />
-                                    <StackPanel Grid.Column="1">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock
-                                                Grid.Row="0"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                Foreground="White"
-                                                Text="Everything related to setting up a chessboard"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Margin="0,5,0,0"
-                                                FontSize="12"
-                                                Foreground="#88FFFFFF"
-                                                Text="🕒 2 min read" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Button>
-                    </Border>
-
-                    <Border Style="{StaticResource ChooseBorderLearnStyle}">
-                        <Button
-                            HorizontalAlignment="Left"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Bold">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Margin="0,0,20,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="16"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="02." />
-                                    <StackPanel Grid.Column="1">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock
-                                                Grid.Row="0"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                Foreground="White"
-                                                Text="How chess pieces move across the table"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Margin="0,5,0,0"
-                                                FontSize="12"
-                                                Foreground="#88FFFFFF"
-                                                Text="🕒 4 min read" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Button>
-                    </Border>
-
-                    <Border Style="{StaticResource ChooseBorderLearnStyle}">
-                        <Button
-                            HorizontalAlignment="Left"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontWeight="Bold">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Margin="0,0,20,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="16"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="03." />
-                                    <StackPanel Grid.Column="1">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock
-                                                Grid.Row="0"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                Foreground="White"
-                                                Text="How to capture the opponents"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Margin="0,5,0,0"
-                                                FontSize="12"
-                                                Foreground="#88FFFFFF"
-                                                Text="🕒 1 min read" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Button>
-                    </Border>
+                    <Button HorizontalContentAlignment="Left" Style="{StaticResource ChooseButtonLearnStyle}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="0,0,20,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="02." />
+                                <StackPanel Grid.Column="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="White"
+                                            Text="Everything related to setting up a chessboard"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="0,5,0,0"
+                                            FontSize="12"
+                                            Foreground="#FAAAAAAA"
+                                            Text="🕒 4 min read" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalContentAlignment="Left" Style="{StaticResource ChooseButtonLearnStyle}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="0,0,20,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="03." />
+                                <StackPanel Grid.Column="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="White"
+                                            Text="How to capture the opponents"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="0,5,0,0"
+                                            FontSize="12"
+                                            Foreground="#AAAAAAAA"
+                                            Text="🕒 1 min read" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>
