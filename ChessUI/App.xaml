@@ -949,5 +949,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--  style Border Choose in LearnTutorial  -->
+        <Style x:Key="ChooseBorderLearnStyle" TargetType="Border">
+            <Setter Property="Margin" Value="0,0,0,15" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="#80FFFFFF" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#40FFFFFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

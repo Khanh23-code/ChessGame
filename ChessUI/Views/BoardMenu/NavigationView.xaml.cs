@@ -18,11 +18,39 @@ namespace ChessUI.Views.BoardMenu
     /// <summary>
     /// Interaction logic for NavigationView.xaml
     /// </summary>
-    public partial class NavigationView : UserControl
-    {
-        public NavigationView()
+        public enum MenuPage
         {
-            InitializeComponent();
+            Play,
+            Puzzle,
+            Learn,
+            More,
+            Settings
         }
-    }
+        public class NavigationEventArgs : EventArgs
+        {
+            public MenuPage Page { get; set; }
+        }
+
+        public partial class NavigationView : UserControl
+        {
+            // Sự kiện bắn ra ngoài
+            public event EventHandler<NavigationEventArgs> SelectionChanged;
+
+            public NavigationView()
+            {
+                InitializeComponent();
+            }
+
+            private void OnMenuButtonClick(object sender, RoutedEventArgs e)
+            {
+                if (sender is RadioButton btn && btn.CommandParameter != null)
+                {
+                    string pageName = btn.CommandParameter.ToString();
+                    if (Enum.TryParse(pageName, out MenuPage selectedPage))
+                    {
+                        SelectionChanged?.Invoke(this, new NavigationEventArgs { Page = selectedPage });
+                    }
+                }
+            }
+        }
 }
