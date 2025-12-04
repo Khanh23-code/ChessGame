@@ -88,31 +88,67 @@ namespace ChessUI
             }
         }
 
-
+        #region Navigation Menu
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
             NavigationView navView = (NavigationView)sender;
             navView.SelectionChanged += OnMainNavigationChanged;
         }
 
+        private void NavigateToPage(MenuPage page)
+        {
+            OverlayContainer.Content = null;
+            OverlayContainer.Visibility = Visibility.Collapsed;
+            GameContainer.Visibility = Visibility.Visible;
+
+            switch (page)
+            {
+                case MenuPage.Play:
+                    break;
+
+                case MenuPage.Learn:
+                    OpenOverlay(new Views.BoardMenu.LearnFlyoutMenu());
+                    break;
+
+                case MenuPage.Settings: 
+                    break;
+
+                case MenuPage.More:
+                    break;
+            }
+        }
+        #endregion
+        private void OpenOverlay(UserControl content)
+        {
+            GameContainer.Visibility = Visibility.Collapsed;
+            OverlayContainer.Content = content;
+            OverlayContainer.Visibility = Visibility.Visible;
+
+            if (content is LearnFlyoutMenu learnMenu)
+            {
+                learnMenu.ChessMovesLessonClicked += LearnMenu_ChessMovesLessonClicked;
+            }
+        }
+        private void LearnMenu_ChessMovesLessonClicked(object sender, EventArgs e)
+        {
+            OpenOverlay(new Views.BoardMenu.ChessMovesLesson());
+        }
         private void OnMainNavigationChanged(object sender, ChessUI.Views.BoardMenu.NavigationEventArgs e)
         {
-            if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Collapsed;
+            NavigateToPage(e.Page);
 
-            switch (e.Page)
+            if (e.Page == MenuPage.Play)
             {
-                case MenuPage.Learn:
-                    if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Visible;
-                    break;
-                case MenuPage.Play:
-                    NavigationView navView = (NavigationView)sender;
-                    Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
-                    if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
-                    {
-                        playFlyoutMenu.PlayComputerClicked += PlayFlyoutMenu_PlayComputerClicked;
-                        playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
-                    }
-                    break;
+                NavigationView navView = (NavigationView)sender;
+                Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
+                if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
+                {
+                    playFlyoutMenu.PlayComputerClicked -= PlayFlyoutMenu_PlayComputerClicked;
+                    playFlyoutMenu.PlayComputerClicked += PlayFlyoutMenu_PlayComputerClicked;
+
+                    playFlyoutMenu.PlayTwoPlayerClicked -= PlayFlyoutMenu_PlayTwoPlayerClicked;
+                    playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
+                }
             }
         }
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
@@ -128,10 +164,6 @@ namespace ChessUI
             // change InfoView to TwoPlayerSetup View
             RightPanelContentHost.Content = setupControl; 
             setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
-        }
-        private void HideAllOverlays()
-        {
-            if (LearnOverlay != null) LearnOverlay.Visibility = Visibility.Collapsed;
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {

@@ -77,6 +77,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Button
+                            x:Name="btnStartLearning"
                             Width="180"
                             Height="40"
                             Margin="0,0,15,0"
@@ -85,7 +86,7 @@
                             FontFamily="Times New Roman"
                             FontSize="18"
                             FontWeight="SemiBold"
-                            Style="{StaticResource ButtonBorderRadius}" />
+                            Style="{StaticResource ButtonBorderRadius}" Click="btnStartLearning_Click" />
                     </StackPanel>
 
                     <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
@@ -117,7 +118,11 @@
                     Grid.Column="1"
                     Margin="20,0,0,0"
                     VerticalAlignment="Center">
-                    <Button HorizontalContentAlignment="Left" Style="{StaticResource ChooseButtonLearnStyle}">
+                    <Button
+                        x:Name="btnChessMovesLesson"
+                        HorizontalContentAlignment="Left"
+                        Click="btnChessMovesLesson_Click"
+                        Style="{StaticResource ChooseButtonLearnStyle}">
                         <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>
