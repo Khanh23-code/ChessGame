@@ -469,7 +469,7 @@
                         <Border
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="4,0,0,0"
+                            BorderThickness="2.5,0,0,0"
                             CornerRadius="0,5,5,0">
 
                             <ContentPresenter
@@ -950,16 +950,34 @@
             </Setter>
         </Style>
         <!--  style Border Choose in LearnTutorial  -->
-        <Style x:Key="ChooseBorderLearnStyle" TargetType="Border">
-            <Setter Property="Margin" Value="0,0,0,15" />
+        <Style
+            x:Key="ChooseButtonLearnStyle"
+            BasedOn="{StaticResource ButtonBorderRadius}"
+            TargetType="Button">
+            <Setter Property="Margin" Value="0,0,0,20" />
             <Setter Property="Padding" Value="20" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="#80FFFFFF" />
+            <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="12" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#40FFFFFF" />
+                    <Setter Property="Background" Value="#30FFFFFF" />
+                    <Setter Property="BorderBrush" Value="#80FFFFFF" />
+                    <Setter Property="BorderBrush" Value="#80FFFFFF" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect
+                                BlurRadius="20"
+                                Opacity="0.4"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#80FFFFFF" />
+                    <Setter Property="BorderBrush" Value="#50FFFFFF" />
                 </Trigger>
             </Style.Triggers>
         </Style>
