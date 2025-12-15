@@ -30,6 +30,8 @@ namespace ChessUI
             {
                 NavigationViewControl.Loaded += NavigationView_Loaded;
             }
+
+            BoardViewControl._infoView = DefaultInfoView;
         }
         #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
