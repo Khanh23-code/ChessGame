@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,33 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class InfoView : UserControl
     {
+        private int count = 1;
+        private string whiteData = "";
+        private MoveData moveData;
+
         public InfoView()
         {
             InitializeComponent();
+
+            lvMovementInfo.Items.Clear();
+        }
+
+        public void ShowData(string data, Player current) 
+        {
+            if (current == Player.White)
+            {
+                moveData = new MoveData(count, data, "");
+                lvMovementInfo.Items.Add(moveData);
+                whiteData = data;
+            }
+            else if (current == Player.Black)
+            {
+                lvMovementInfo.Items.RemoveAt(lvMovementInfo.Items.Count - 1);
+
+                moveData = new MoveData(count, whiteData, data);
+                lvMovementInfo.Items.Add(moveData);
+                count++;
+            }
         }
     }
 }

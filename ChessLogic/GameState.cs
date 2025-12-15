@@ -19,6 +19,8 @@ namespace ChessLogic
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
 
         public string FENString;
+
+        public MovementInfo MovementInfo { get; private set; }
         #endregion
 
         #region Constructors
@@ -33,6 +35,8 @@ namespace ChessLogic
 
             stateString = new StateString(CurrentPlayer, Board).ToString();
             stateHistory[stateString] = 1;
+
+            MovementInfo = new MovementInfo();
         }
 
         // New GameState from existing GameState (for Undo/Redo or FEN)
@@ -58,6 +62,8 @@ namespace ChessLogic
         public void MakeMove(Move move)
         {
             Board.SetPawnSkipPostion(CurrentPlayer, null);
+
+            UpdateMovementInfo(move, Board.Copy());
 
             bool captureOrPawn = move.Execute(Board);
 
@@ -209,5 +215,21 @@ namespace ChessLogic
         }
         #endregion
 
+        private void UpdateMovementInfo(Move move, Board board)
+        {
+            string data = MovementInfo.SetData(move, board, CurrentPlayer);
+        }
+
+        public string GetMovementData(Player player)
+        {
+            if (player == Player.White)
+            {
+                return MovementInfo.whiteMoves.Last().ToString();
+            }
+            else
+            {
+                return MovementInfo.blackMoves.Last().ToString();
+            }
+        }
     }
 }
