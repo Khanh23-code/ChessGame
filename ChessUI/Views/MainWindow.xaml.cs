@@ -19,11 +19,13 @@ namespace ChessUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private AIController aiController; //Trinh dieu khien AI
         private readonly Views.BoardMenu.InfoView DefaultInfoView = new Views.BoardMenu.InfoView();
         public MainWindow()
         {
             InitializeComponent();
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight; 
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            aiController = new AIController(Player.Black, AIController.Difficulty.Medium); //Khoi tao AI
             RightPanelContentHost.Content = DefaultInfoView; 
 
             if (NavigationViewControl != null)
@@ -117,10 +119,25 @@ namespace ChessUI
         }
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
         {
+            // 1. Tạo và hiển thị Menu cài đặt
             var setupControl = new Views.BoardMenu.ComputerPlaySetup();
-            // change InfoView to ComputerPlaySetup View
-            RightPanelContentHost.Content = setupControl; 
-            setupControl.StartGameButton.Click += StartGameButton_Click;
+            RightPanelContentHost.Content = setupControl;
+
+            // 2. Lắng nghe sự kiện Bắt đầu
+            setupControl.OnStartGameClicked += (s, settings) =>
+            {
+                // --- SỬA ĐOẠN NÀY ---
+
+                // A. Tắt menu cài đặt đi (để lộ bàn cờ chính ra)
+                RightPanelContentHost.Content = DefaultInfoView;
+
+                // B. Gọi hàm StartVsComputerGame trên BÀN CỜ CHÍNH (BoardViewControl)
+                // Lưu ý: BoardViewControl là tên biến x:Name bạn đặt trong MainWindow.xaml
+                if (BoardViewControl != null)
+                {
+                    BoardViewControl.StartVsComputerGame(settings.AiDepth, settings.PlayerSide);
+                }
+            };
         }
         private void PlayFlyoutMenu_PlayTwoPlayerClicked(object sender, EventArgs e)
         {

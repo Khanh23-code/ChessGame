@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLogic;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,10 +9,19 @@ using System.Windows.Media.Animation;
 
 namespace ChessUI.Views.BoardMenu
 {
+    // 1. Đưa class Settings ra ngoài class chính để dễ gọi (Optional nhưng khuyến khích)
+    public class ComputerMatchSettings
+    {
+        public int AiDepth { get; set; }
+        public Player PlayerSide { get; set; }
+    }
+
     public partial class ComputerPlaySetup : UserControl
     {
+        // Khai báo Event - ĐÚNG
+        public event EventHandler<ComputerMatchSettings> OnStartGameClicked;
+
         #region CurrentRotation 
-        // Using a DependencyProperty as the backing store for CurrentRotation.
         public double CurrentRotation
         {
             get { return (double)GetValue(CurrentRotationProperty); }
@@ -19,18 +29,18 @@ namespace ChessUI.Views.BoardMenu
         }
         public static readonly DependencyProperty CurrentRotationProperty =
             DependencyProperty.Register("CurrentRotation", typeof(double), typeof(ComputerPlaySetup), new PropertyMetadata(0.0));
+
         public string SelectedSide { get; private set; } = "white";
 
         public ComputerPlaySetup()
         {
             InitializeComponent();
             LoadSideOptions();
-
-            // Start with first item at front
-            CurrentRotation = Math.PI / 2; 
+            CurrentRotation = Math.PI / 2;
         }
 
-        //Load side options into the carousel
+        // ... (Giữ nguyên các hàm LoadSideOptions, Side_MouseLeftButtonDown, RotateToItem...) ...
+
         private void LoadSideOptions()
         {
             var options = new List<SideOption>
@@ -42,7 +52,6 @@ namespace ChessUI.Views.BoardMenu
             SideSelectionCarousel.ItemsSource = options;
         }
 
-        // Handle side selection
         private void Side_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var grid = sender as FrameworkElement;
@@ -53,7 +62,7 @@ namespace ChessUI.Views.BoardMenu
                 RotateToItem(index);
             }
         }
-        // Rotate carousel to bring selected item to front
+
         private void RotateToItem(int index)
         {
             int totalItems = SideSelectionCarousel.Items.Count;
@@ -77,7 +86,38 @@ namespace ChessUI.Views.BoardMenu
             this.BeginAnimation(CurrentRotationProperty, animation);
         }
         #endregion
-    }
+
+        // --- XỬ LÝ NÚT BẮT ĐẦU ---
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            int depth = 1;
+
+            // Lưu ý: Cần chắc chắn các RadioButton trong XAML đã có x:Name và Tag
+            if (rbBeginner.IsChecked == true) depth = int.Parse(rbBeginner.Tag.ToString());
+            else if (rbLiem.IsChecked == true) depth = int.Parse(rbLiem.Tag.ToString());
+            else if (rbHikaru.IsChecked == true) depth = int.Parse(rbHikaru.Tag.ToString());
+            else if (rbGarry.IsChecked == true) depth = int.Parse(rbGarry.Tag.ToString());
+            else if (rbMagnus.IsChecked == true) depth = int.Parse(rbMagnus.Tag.ToString());
+
+            Player playerSide = Player.White;
+
+            if (SelectedSide == "white") playerSide = Player.White;
+            else if (SelectedSide == "black") playerSide = Player.Black;
+            else playerSide = (new Random().Next(0, 2) == 0) ? Player.White : Player.Black;
+
+            var settings = new ComputerMatchSettings
+            {
+                AiDepth = depth,
+                PlayerSide = playerSide
+            };
+
+            OnStartGameClicked?.Invoke(this, settings);
+        }
+    } // Đóng class ComputerPlaySetup
+
+    // --- CÁC CLASS PHỤ NẰM TRONG CÙNG NAMESPACE ---
+    // (Trong code cũ của bạn, 2 class này bị đẩy ra ngoài Namespace, sẽ gây lỗi XAML)
+
     #region Option Data Model
     public class SideOption
     {
@@ -86,6 +126,7 @@ namespace ChessUI.Views.BoardMenu
         public string Id { get; set; }
     }
     #endregion
+
     #region Carousel Algorithm
     public class CarouselPanel : Panel
     {
@@ -153,4 +194,5 @@ namespace ChessUI.Views.BoardMenu
         }
     }
     #endregion
-}
+
+} 

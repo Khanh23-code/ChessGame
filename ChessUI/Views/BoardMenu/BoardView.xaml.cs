@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-
+using System.Threading.Tasks;
 namespace ChessUI.Views.BoardMenu
 {
     /// <summary>
@@ -27,6 +27,9 @@ namespace ChessUI.Views.BoardMenu
         private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
         // Khi 1 quân cờ được chọn (thay đổi biến selectedPos), tất cả các vị trí có thể di chuyển kèm theo move tương ứng sẽ được lưu vào Dictionary moveCache
         // moveCache lưu key là <Position> tương ứng vị trí có thể di chuyển, với value là <Move>
+
+        private readonly ChessAIService _aiService = new ChessAIService(); // Service AI chúng ta đã tạo
+        public bool IsVsComputer { get; set; } = false; // Biến cờ để biết đang chơi với Người hay Máy
 
         private GameState gameState;
         private Position selectedPos = null;
@@ -243,6 +246,59 @@ namespace ChessUI.Views.BoardMenu
             {
                 ShowGameOverMenu();
             }
+            // Nếu đang là chế độ Đánh với máy, và lượt hiện tại là của MÁY (thường là quân Đen)
+            // Giả sử Người chơi luôn cầm Trắng (White), Máy cầm Đen (Black)
+            if (IsVsComputer && gameState.CurrentPlayer == Player.Black)
+            {
+                PlayAiTurn();
+            }
+        }
+        // --- HÀM XỬ LÝ AI ---
+        private async void PlayAiTurn()
+        {
+            // 1. Kiểm tra game đã kết thúc chưa
+            if (gameState.IsGameOver()) return;
+
+            // 2. Khóa bàn cờ để người chơi không click lung tung khi máy đang nghĩ
+            BoardGrid.IsHitTestVisible = false;
+            Cursor = Cursors.Wait; // Đổi con trỏ chuột thành hình đồng hồ cát
+
+            // 3. Gọi AI tính toán (chạy bất đồng bộ)
+            // Lưu ý: Đảm bảo class ChessAIService đã được cập nhật như hướng dẫn trước
+            Move bestMove = await _aiService.GetBestMoveAsync(gameState);
+
+            // 4. Mở khóa bàn cờ
+            BoardGrid.IsHitTestVisible = true;
+            Cursor = Cursors.Arrow;
+
+            // 5. Thực hiện nước đi của máy
+            if (bestMove != null)
+            {
+                HandleMove(bestMove);
+            }
+        }
+        public void StartVsComputerGame(int aiDepth, Player playerSide)
+        {
+            // 1. Set cờ hiệu là đang đánh với máy
+            this.IsVsComputer = true;
+
+            // 2. Cài đặt độ khó cho AI Service
+            _aiService.SetDifficulty(aiDepth);
+
+            // 3. Khởi tạo lại game mới
+            TimeSpan initialTime = TimeSpan.FromMinutes(10);
+            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+
+            // 4. Vẽ bàn cờ & Bắt đầu đồng hồ
+            DrawBoard(gameState.Board);
+            StartGame();
+
+            // 5. QUAN TRỌNG: Kiểm tra lượt đi đầu tiên
+            // Nếu người chơi chọn cầm quân ĐEN (Player.Black) -> Máy (Trắng) sẽ đi trước
+            if (playerSide == Player.Black)
+            {
+                PlayAiTurn();
+            }
         }
         public void ShowGameOverMenu()
         {
@@ -269,6 +325,9 @@ namespace ChessUI.Views.BoardMenu
             selectedPos = null;
             HideHighLights();
             moveCache.Clear();
+            // Mở khóa bàn cờ đề phòng trường hợp bị kẹt khi restart lúc máy đang nghĩ
+            BoardGrid.IsHitTestVisible = true;
+            Cursor = Cursors.Arrow;
 
             // initial Timer after ResetGame is called
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
