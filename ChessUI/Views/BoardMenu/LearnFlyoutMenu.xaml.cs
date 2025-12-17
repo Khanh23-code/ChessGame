@@ -20,9 +20,20 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class LearnFlyoutMenu : UserControl
     {
+        public event EventHandler ChessMovesLessonClicked;
         public LearnFlyoutMenu()
         {
             InitializeComponent();
+        }
+
+        private void btnChessMovesLesson_Click(object sender, RoutedEventArgs e)
+        {
+            ChessMovesLessonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnStartLearning_Click(object sender, RoutedEventArgs e)
+        {
+            ChessMovesLessonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

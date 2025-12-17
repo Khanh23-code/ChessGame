@@ -67,17 +67,19 @@
                 </StackPanel>
 
                 <ListView
+                    x:Name="lvMovementInfo"
                     Grid.Row="1"
                     Background="Transparent"
                     BorderThickness="0"
                     Foreground="White"
                     ItemContainerStyle="{StaticResource MoveListViewItemStyle}"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    HorizontalAlignment="Center">
                     <ListView.View>
                         <GridView ColumnHeaderContainerStyle="{StaticResource MoveHeaderStyle}">
-                            <GridViewColumn Width="50" Header="Move" />
-                            <GridViewColumn Width="100" Header="White" />
-                            <GridViewColumn Width="100" Header="Black" />
+                            <GridViewColumn Width="50" Header="Move" DisplayMemberBinding="{Binding Move}"/>
+                            <GridViewColumn Width="100" Header="White" DisplayMemberBinding="{Binding White}"/>
+                            <GridViewColumn Width="100" Header="Black" DisplayMemberBinding="{Binding Black}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -34,6 +34,8 @@ namespace ChessUI.Views.BoardMenu
         private GameState gameState;
         private Position selectedPos = null;
 
+        public InfoView _infoView;
+
         public int assetIndex = 1;   // Mặc định sử dụng Asset 1
 
         // DispatcherTimer
@@ -55,7 +57,7 @@ namespace ChessUI.Views.BoardMenu
                 LoadInitialGameState();
             }
 
-        DrawBoard(gameState.Board);
+            DrawBoard(gameState.Board);
             //SetCursor(gameState.CurrentPlayer);
 
             timer = new DispatcherTimer();
@@ -236,6 +238,10 @@ namespace ChessUI.Views.BoardMenu
         private void HandleMove(Move move)
         {
             gameState.MakeMove(move);
+
+            string movementData = gameState.GetMovementData(gameState.CurrentPlayer.Opponent());
+            _infoView.ShowData(movementData, gameState.CurrentPlayer.Opponent());
+
             DrawBoard(gameState.Board);
             // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
 

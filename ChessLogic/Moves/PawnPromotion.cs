@@ -5,7 +5,7 @@
         public override MoveType Type => MoveType.PawnPromotion;
         public override Position FromPos { get; }
         public override Position ToPos { get; }
-        private readonly PieceType newType;
+        public readonly PieceType newType;
 
         public PawnPromotion(Position fromPos, Position toPos, PieceType newType)
         {
