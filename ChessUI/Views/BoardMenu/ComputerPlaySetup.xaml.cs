@@ -36,9 +36,6 @@ namespace ChessUI.Views.BoardMenu
             LoadSideOptions();
             CurrentRotation = Math.PI / 2;
         }
-
-        // ... (Giữ nguyên các hàm LoadSideOptions, Side_MouseLeftButtonDown, RotateToItem...) ...
-
         private void LoadSideOptions()
         {
             var options = new List<SideOption>
@@ -84,28 +81,28 @@ namespace ChessUI.Views.BoardMenu
             this.BeginAnimation(CurrentRotationProperty, animation);
         }
         #endregion
-
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
-            int depth = 1;
-            if (rbBeginner.IsChecked == true) depth = int.Parse(rbBeginner.Tag.ToString());
+            int depth = 1; 
+            if (rbBeginner.IsChecked == true) depth = int.Parse(rbBeginner.Tag.ToString()); 
             else if (rbLiem.IsChecked == true) depth = int.Parse(rbLiem.Tag.ToString());
             else if (rbHikaru.IsChecked == true) depth = int.Parse(rbHikaru.Tag.ToString());
             else if (rbGarry.IsChecked == true) depth = int.Parse(rbGarry.Tag.ToString());
             else if (rbMagnus.IsChecked == true) depth = int.Parse(rbMagnus.Tag.ToString());
-
             Player playerSide = Player.White;
 
-            if (SelectedSide == "white") playerSide = Player.White;
-            else if (SelectedSide == "black") playerSide = Player.Black;
-            else playerSide = (new Random().Next(0, 2) == 0) ? Player.White : Player.Black;
+            if (SelectedSide == "white")
+                playerSide = Player.White;
+            else if (SelectedSide == "black")
+                playerSide = Player.Black;
+            else
+                playerSide = (new Random().Next(0, 2) == 0) ? Player.White : Player.Black;
 
             var settings = new ComputerMatchSettings
             {
                 AiDepth = depth,
                 PlayerSide = playerSide
             };
-
             OnStartGameClicked?.Invoke(this, settings);
         }
     } 

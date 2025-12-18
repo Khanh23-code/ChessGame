@@ -64,7 +64,8 @@ namespace ChessUI.Views.BoardMenu
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
 
-            StartGame();
+            BoardGrid.IsHitTestVisible = false;
+            UpdateTimerDisplay();
         }
 
         private void InitialBoard()
@@ -284,28 +285,53 @@ namespace ChessUI.Views.BoardMenu
                 HandleMove(bestMove);
             }
         }
+
         public void StartVsComputerGame(int aiDepth, Player playerSide)
         {
-            // 1. Set cờ hiệu là đang đánh với máy
+            timer.Stop();                  
+            MenuContainer.Content = null; 
+
+            selectedPos = null;         
+            moveCache.Clear();            
+            HideHighLights(); 
+
+            BoardGrid.IsHitTestVisible = true; 
+            Cursor = Cursors.Arrow;     
             this.IsVsComputer = true;
+            _aiService.SetDifficulty(aiDepth); 
 
-            // 2. Cài đặt độ khó cho AI Service
-            _aiService.SetDifficulty(aiDepth);
-
-            // 3. Khởi tạo lại game mới
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
-            // 4. Vẽ bàn cờ & Bắt đầu đồng hồ
             DrawBoard(gameState.Board);
-            StartGame();
+            UpdateTimerDisplay(); 
+            timer.Start();       
 
-            // 5. QUAN TRỌNG: Kiểm tra lượt đi đầu tiên
-            // Nếu người chơi chọn cầm quân ĐEN (Player.Black) -> Máy (Trắng) sẽ đi trước
             if (playerSide == Player.Black)
             {
                 PlayAiTurn();
             }
+        }
+        public void StartPvPGame(TwoPlayerSettings settings)
+        {
+            timer.Stop();
+            MenuContainer.Content = null;
+            selectedPos = null;
+            moveCache.Clear();
+            HideHighLights();
+
+            BoardGrid.IsHitTestVisible = true;
+            Cursor = Cursors.Arrow;
+
+            this.IsVsComputer = false;
+
+            PlayerNameText.Text = settings.WhiteName;      
+            OpponentNameText.Text = settings.BlackName;
+            gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
+
+            DrawBoard(gameState.Board);
+            UpdateTimerDisplay();
+            timer.Start();
         }
         public void ShowGameOverMenu()
         {
