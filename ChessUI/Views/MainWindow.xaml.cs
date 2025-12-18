@@ -130,12 +130,29 @@ namespace ChessUI
 
             if (content is LearnFlyoutMenu learnMenu)
             {
-                learnMenu.ChessMovesLessonClicked += LearnMenu_ChessMovesLessonClicked;
+                learnMenu.LessonSelected -= LearnMenu_OnLessonSelected;
+                learnMenu.LessonSelected += LearnMenu_OnLessonSelected;
             }
         }
-        private void LearnMenu_ChessMovesLessonClicked(object sender, EventArgs e)
+        private void LearnMenu_OnLessonSelected(object sender, int lessonId)
         {
-            OpenOverlay(new Views.BoardMenu.ChessMovesLesson());
+            switch (lessonId)
+            {
+                case 1:
+                    OpenOverlay(new Views.BoardMenu.ChessMovesLesson());
+                    break;
+
+                case 2:
+                    MessageBox.Show("Bài học số 2 đang được phát triển!");
+                    break;
+
+                case 3:
+                    MessageBox.Show("Bài học số 3 đang được phát triển!");
+                    break;
+
+                default:
+                    break;
+            }
         }
         private void OnMainNavigationChanged(object sender, ChessUI.Views.BoardMenu.NavigationEventArgs e)
         {
@@ -157,20 +174,12 @@ namespace ChessUI
         }
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
         {
-            // 1. Tạo và hiển thị Menu cài đặt
             var setupControl = new Views.BoardMenu.ComputerPlaySetup();
             RightPanelContentHost.Content = setupControl;
 
-            // 2. Lắng nghe sự kiện Bắt đầu
             setupControl.OnStartGameClicked += (s, settings) =>
             {
-                // --- SỬA ĐOẠN NÀY ---
-
-                // A. Tắt menu cài đặt đi (để lộ bàn cờ chính ra)
                 RightPanelContentHost.Content = DefaultInfoView;
-
-                // B. Gọi hàm StartVsComputerGame trên BÀN CỜ CHÍNH (BoardViewControl)
-                // Lưu ý: BoardViewControl là tên biến x:Name bạn đặt trong MainWindow.xaml
                 if (BoardViewControl != null)
                 {
                     BoardViewControl.StartVsComputerGame(settings.AiDepth, settings.PlayerSide);
@@ -180,7 +189,7 @@ namespace ChessUI
         private void PlayFlyoutMenu_PlayTwoPlayerClicked(object sender, EventArgs e)
         {
             var setupControl = new Views.BoardMenu.TwoPlayerSetup();
-            // change InfoView to TwoPlayerSetup View
+
             RightPanelContentHost.Content = setupControl; 
             setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
         }

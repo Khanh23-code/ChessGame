@@ -9,7 +9,6 @@ using System.Windows.Media.Animation;
 
 namespace ChessUI.Views.BoardMenu
 {
-    // 1. Đưa class Settings ra ngoài class chính để dễ gọi (Optional nhưng khuyến khích)
     public class ComputerMatchSettings
     {
         public int AiDepth { get; set; }
@@ -18,7 +17,6 @@ namespace ChessUI.Views.BoardMenu
 
     public partial class ComputerPlaySetup : UserControl
     {
-        // Khai báo Event - ĐÚNG
         public event EventHandler<ComputerMatchSettings> OnStartGameClicked;
 
         #region CurrentRotation 
@@ -87,12 +85,9 @@ namespace ChessUI.Views.BoardMenu
         }
         #endregion
 
-        // --- XỬ LÝ NÚT BẮT ĐẦU ---
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
             int depth = 1;
-
-            // Lưu ý: Cần chắc chắn các RadioButton trong XAML đã có x:Name và Tag
             if (rbBeginner.IsChecked == true) depth = int.Parse(rbBeginner.Tag.ToString());
             else if (rbLiem.IsChecked == true) depth = int.Parse(rbLiem.Tag.ToString());
             else if (rbHikaru.IsChecked == true) depth = int.Parse(rbHikaru.Tag.ToString());
@@ -113,10 +108,7 @@ namespace ChessUI.Views.BoardMenu
 
             OnStartGameClicked?.Invoke(this, settings);
         }
-    } // Đóng class ComputerPlaySetup
-
-    // --- CÁC CLASS PHỤ NẰM TRONG CÙNG NAMESPACE ---
-    // (Trong code cũ của bạn, 2 class này bị đẩy ra ngoài Namespace, sẽ gây lỗi XAML)
+    } 
 
     #region Option Data Model
     public class SideOption
