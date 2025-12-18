@@ -32,7 +32,7 @@
             <Border Background="Black"/>
 
             <Image Margin="0,0,0,0"
-                   Opacity="0.6" 
+                   Opacity="0.8" 
                    Source="/Assets/MenuAssets/background_tutorial.jpeg"
                    Stretch="UniformToFill" />
 

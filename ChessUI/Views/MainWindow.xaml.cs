@@ -19,13 +19,13 @@ namespace ChessUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AIController aiController; //Trinh dieu khien AI
+        private AIController aiController; 
         private readonly Views.BoardMenu.InfoView DefaultInfoView = new Views.BoardMenu.InfoView();
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            aiController = new AIController(Player.Black, AIController.Difficulty.Medium); //Khoi tao AI
+            aiController = new AIController(Player.Black, AIController.Difficulty.Medium); 
             RightPanelContentHost.Content = DefaultInfoView; 
 
             if (NavigationViewControl != null)
@@ -176,7 +176,6 @@ namespace ChessUI
         {
             var setupControl = new Views.BoardMenu.ComputerPlaySetup();
             RightPanelContentHost.Content = setupControl;
-
             setupControl.OnStartGameClicked += (s, settings) =>
             {
                 RightPanelContentHost.Content = DefaultInfoView;
@@ -189,9 +188,15 @@ namespace ChessUI
         private void PlayFlyoutMenu_PlayTwoPlayerClicked(object sender, EventArgs e)
         {
             var setupControl = new Views.BoardMenu.TwoPlayerSetup();
-
-            RightPanelContentHost.Content = setupControl; 
-            setupControl.StartTwoPlayerButton.Click += StartGameButton_Click;
+            RightPanelContentHost.Content = setupControl;
+            setupControl.OnStartGameClicked += (s, settings) =>
+            {
+                RightPanelContentHost.Content = DefaultInfoView;
+                if (BoardViewControl != null)
+                {
+                    BoardViewControl.StartPvPGame(settings);
+                }
+            };
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {

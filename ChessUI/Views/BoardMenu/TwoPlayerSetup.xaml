@@ -254,7 +254,7 @@
                     <Button
                         x:Name="StartTwoPlayerButton"
                         Content="BẮT ĐẦU"
-                        Style="{StaticResource StartButtonStyle}" />
+                        Style="{StaticResource StartButtonStyle}" Click="StartTwoPlayerButton_Click" />
                 </StackPanel>
             </Grid>
         </Border>
