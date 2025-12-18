@@ -341,7 +341,6 @@ namespace ChessUI.Views.BoardMenu
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
             DrawBoard(gameState.Board);
-            _infoView.ClearData();
             StartGame();
         }
 
@@ -404,6 +403,10 @@ namespace ChessUI.Views.BoardMenu
         private void StartGame()
         {
             UpdateTimerDisplay();
+            if (_infoView != null)
+            {
+                _infoView.ClearData();
+            }
             timer.Start();
         }
 
