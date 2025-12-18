@@ -6,130 +6,243 @@
     xmlns:local="clr-namespace:ChessUI.Views.BoardMenu"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="LessonRoot"
-    d:DesignHeight="500"
+    d:DesignHeight="600"
     d:DesignWidth="1000"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="2*" />
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <Grid>
+
+    <Border ClipToBounds="True" CornerRadius="0">
+        <Grid>
+            <Border>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                        <GradientStop Offset="0.0" Color="#11191F" />
+                        <GradientStop Offset="0.7" Color="#143334" />
+                        <GradientStop Offset="1.0" Color="#11191F" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Grid Margin="50,40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="6*" />
                 </Grid.ColumnDefinitions>
-                <Ellipse
-                    Grid.Column="0"
-                    Width="30"
-                    Height="30"
-                    Margin="15,0,15,15"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Fill="White"
-                    Stroke="White"
-                    StrokeThickness="0.5" />
-                <Ellipse
-                    Grid.Column="1"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,0,15"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Fill="Black"
-                    Stroke="White"
-                    StrokeThickness="0.5" />
-            </Grid>
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="100"
-                FontWeight="Bold"
-                Foreground="White"
-                Opacity="0.05"
-                RenderTransformOrigin="0.5,0.5"
-                Text="{Binding SelectedPiece.Name}">
-                <TextBlock.RenderTransform>
-                    <RotateTransform Angle="-10" />
-                </TextBlock.RenderTransform>
-            </TextBlock>
 
-            <Image
-                Width="200"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Source="{Binding SelectedPiece.ImagePath}">
-                <Image.Effect>
-                    <DropShadowEffect
-                        BlurRadius="20"
-                        Opacity="0.5"
-                        ShadowDepth="10" />
-                </Image.Effect>
-            </Image>
-        </Grid>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
 
-        <ItemsControl
-            x:Name="PieceCarousel"
-            Grid.Row="2"
-            ClipToBounds="False"
-            ItemsSource="{Binding Pieces}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <local:CarouselPanelLearning
-                        RadiusX="120"
-                        RadiusY="40"
-                        RotationAngle="{Binding ElementName=LessonRoot, Path=CurrentRotation}" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource ChessMovesLessonTextColor}"
+                        Text="CHESS MOVES"/>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid
-                        Width="60"
-                        Height="80"
-                        Background="Transparent"
-                        Cursor="Hand"
-                        MouseLeftButtonDown="Piece_MouseLeftButtonDown">
+                    <Grid HorizontalAlignment="Left" Margin="0,0,0,25">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Image
-                            Grid.Row="0"
-                            Source="{Binding IconPath}"
-                            Stretch="Uniform" />
-
                         <TextBlock
+                            Grid.Row="0"
+                            FontFamily="Georgia"
+                            FontSize="56"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="{Binding SelectedPiece.Name, NotifyOnTargetUpdated=True}" />
+                        <Border
                             Grid.Row="1"
+                            Height="4"
                             Margin="0,5,0,0"
-                            HorizontalAlignment="Center"
-                            FontSize="10"
-                            Foreground="#AAAAAA"
-                            Text="{Binding Name}" />
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                            HorizontalAlignment="Stretch"
+                            Background="{DynamicResource ChessMovesLessonTextColor}"
+                            CornerRadius="2"
+                            RenderTransformOrigin="0,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="LineScale" ScaleX="1" />
+                            </Border.RenderTransform>
 
-        <StackPanel Grid.Row="3" Margin="40,10,40,0">
-            <TextBlock
-                Margin="0,0,0,15"
-                FontSize="22"
-                FontWeight="Bold"
-                Foreground="White"
-                Text="{Binding SelectedPiece.Title}" />
-            <TextBlock
-                FontSize="14"
-                Foreground="#CCCCCC"
-                LineHeight="22"
-                Text="{Binding SelectedPiece.Description}"
-                TextWrapping="Wrap" />
-        </StackPanel>
-    </Grid>
+                        </Border>
+
+                        <Grid.Triggers>
+                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="LineScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="0" 
+                                            To="1" 
+                                            Duration="0:0:0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
+                    </Grid>
+                    <TextBlock
+                        Margin="0,0,0,15"
+                        FontSize="22"
+                        FontFamily="Georgia"
+                        Foreground="#E0E0E0"
+                        Text="{Binding SelectedPiece.Title}"
+                        TextWrapping="Wrap" />
+
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto"
+                                  Padding="0,0,15,0">
+                        <TextBlock
+                            FontSize="16"
+                            Foreground="#AAAAAA"
+                            LineHeight="26"
+                            Text="{Binding SelectedPiece.Description}"
+                            TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </StackPanel>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="180" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Ellipse
+                            x:Name="BtnWhite"
+                            Width="30"
+                            Height="30"
+                            Margin="0,0,10,0"
+                            Cursor="Hand"
+                            Fill="White"
+                            MouseLeftButtonDown="BtnWhite_Click"/>
+
+                        <Ellipse
+                            x:Name="BtnBlack"
+                            Width="30"
+                            Height="30"
+                            Cursor="Hand"
+                            Fill="#222"
+                            MouseLeftButtonDown="BtnBlack_Click"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" ClipToBounds="False">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Georgia"
+                            FontSize="200"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Opacity="0.03"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="{Binding SelectedPiece.Name}">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="-15" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+
+                        <Image
+                            Width="280"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Source="{Binding SelectedPiece.ImagePath}">
+                            <Image.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="40"
+                                    Direction="270"
+                                    Opacity="0.6"
+                                    ShadowDepth="10"
+                                    Color="Black" />
+                            </Image.Effect>
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Opacity"
+                                                From="0"
+                                                To="1"
+                                                Duration="0:0:0.5" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                From="0.8"
+                                                To="1"
+                                                Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                From="0.8"
+                                                To="1"
+                                                Duration="0:0:0.5">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+
+                    <ItemsControl
+                        x:Name="PieceCarousel"
+                        Grid.Row="2"
+                        ClipToBounds="False"
+                        ItemsSource="{Binding Pieces}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <local:CarouselPanelLearning
+                                    RadiusX="180" 
+                                    RadiusY="30"
+                                    RotationAngle="{Binding ElementName=LessonRoot, Path=CurrentRotation}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Width="60"
+                                    Height="80"
+                                    Background="Transparent"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="Piece_MouseLeftButtonDown">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="{Binding IconPath}"
+                                        Stretch="Uniform" />
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Center"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Foreground="#888888"
+                                        Text="{Binding Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </UserControl>
