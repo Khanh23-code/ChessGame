@@ -428,5 +428,11 @@ namespace ChessLogic
             return HasPawnPosition(player, pawnPositions, skipPos);
         }
         #endregion
+
+        public IEnumerable<Move> LegalMovesForPiece(Position pos)
+        {
+            Piece piece = this[pos];
+            return piece.GetMoves(pos, this).Where(move => move.IsLegal(this));
+        }
     }
 }

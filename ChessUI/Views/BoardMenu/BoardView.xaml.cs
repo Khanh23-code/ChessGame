@@ -259,6 +259,7 @@ namespace ChessUI.Views.BoardMenu
                 PlayAiTurn();
             }
         }
+
         // --- HÀM XỬ LÝ AI ---
         private async void PlayAiTurn()
         {
@@ -340,6 +341,7 @@ namespace ChessUI.Views.BoardMenu
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
             DrawBoard(gameState.Board);
+            _infoView.ClearData();
             StartGame();
         }
 
@@ -377,7 +379,6 @@ namespace ChessUI.Views.BoardMenu
             timer.Stop();
             PauseMenu pauseMenu = new PauseMenu();
             MenuContainer.Content = pauseMenu;
-
 
             MessageBox.Show(gameState.FENString);
 
