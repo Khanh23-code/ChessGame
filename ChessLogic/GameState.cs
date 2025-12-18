@@ -215,6 +215,7 @@ namespace ChessLogic
         }
         #endregion
 
+        #region Movement Info
         private void UpdateMovementInfo(Move move, Board board)
         {
             string data = MovementInfo.SetData(move, board, CurrentPlayer);
@@ -231,5 +232,19 @@ namespace ChessLogic
                 return MovementInfo.blackMoves.Last().ToString();
             }
         }
+
+        public bool IsCheckMateMove(Player opponent, Board cpyBoard)
+        {
+            if (!cpyBoard.PiecePositionsFor(opponent).SelectMany(pos => LegalMovesForPiece(pos)).Any())
+            {
+                if (cpyBoard.IsInCheck(opponent))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

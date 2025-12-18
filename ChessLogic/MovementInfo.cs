@@ -40,7 +40,18 @@ namespace ChessLogic
                 data += ToFile(move.ToPos) + ToRank(move.ToPos);
 
                 move.Execute(board);
-                if (board.IsInCheck(current.Opponent())) data += "+";
+                if (board.IsInCheck(current.Opponent()))
+                {
+                    if (board.PiecePositionsFor(current.Opponent()).SelectMany(pos => board.LegalMovesForPiece(pos)).Any())
+                    {
+                        data += "+";
+                    }
+                    else
+                    {
+                        data += "#";
+                    }
+                }
+                
             }
 
             if (current == Player.White)

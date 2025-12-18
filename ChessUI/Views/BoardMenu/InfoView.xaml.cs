@@ -49,5 +49,12 @@ namespace ChessUI.Views.BoardMenu
                 count++;
             }
         }
+
+        public void ClearData()
+        {
+            lvMovementInfo.Items.Clear();
+            count = 1;
+            whiteData = "";
+        }
     }
 }
