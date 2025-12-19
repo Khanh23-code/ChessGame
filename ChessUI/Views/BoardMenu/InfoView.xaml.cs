@@ -39,6 +39,7 @@ namespace ChessUI.Views.BoardMenu
                 moveData = new MoveData(count, data, "");
                 lvMovementInfo.Items.Add(moveData);
                 whiteData = data;
+                lvMovementInfo.ScrollIntoView(moveData);
             }
             else if (current == Player.Black)
             {
@@ -47,6 +48,8 @@ namespace ChessUI.Views.BoardMenu
                 moveData = new MoveData(count, whiteData, data);
                 lvMovementInfo.Items.Add(moveData);
                 count++;
+
+                lvMovementInfo.ScrollIntoView(moveData);
             }
         }
 

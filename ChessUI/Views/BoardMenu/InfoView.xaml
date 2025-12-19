@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:ChessUI.Views.BoardMenu"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="700"
-    d:DesignWidth="300"
+    d:DesignWidth="500"
     mc:Ignorable="d">
 
     <Grid Margin="0,20,20,20">
@@ -74,12 +74,42 @@
                     Foreground="White"
                     ItemContainerStyle="{StaticResource MoveListViewItemStyle}"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    HorizontalAlignment="Center">
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    HorizontalAlignment="Center"   
+                    HorizontalContentAlignment="Stretch">
                     <ListView.View>
                         <GridView ColumnHeaderContainerStyle="{StaticResource MoveHeaderStyle}">
-                            <GridViewColumn Width="50" Header="Move" DisplayMemberBinding="{Binding Move}"/>
-                            <GridViewColumn Width="100" Header="White" DisplayMemberBinding="{Binding White}"/>
-                            <GridViewColumn Width="100" Header="Black" DisplayMemberBinding="{Binding Black}"/>
+                            <GridViewColumn Width="50" Header="Move">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Move}" 
+                                                   Foreground="#AAAAAA"
+                                                   HorizontalAlignment="Center" 
+                                                   TextAlignment="Center"
+                                                   Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="115" Header="White">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding White}" 
+                                                   HorizontalAlignment="Center" 
+                                                   TextAlignment="Center"
+                                                   Width="105"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="115" Header="Black">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Black}" 
+                                                   HorizontalAlignment="Center" 
+                                                   TextAlignment="Center"
+                                                   Width="105"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

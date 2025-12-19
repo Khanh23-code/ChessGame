@@ -317,7 +317,7 @@ namespace ChessUI.Views.BoardMenu
             }
         }
 
-        public void StartVsComputerGame(int aiDepth, Player playerSide)
+        public async void StartVsComputerGame(int aiDepth, Player playerSide)
         {
             timer.Stop();                  
             MenuContainer.Content = null;
@@ -352,15 +352,18 @@ namespace ChessUI.Views.BoardMenu
                 PlayerNameText.Text = "You (Black)";
                 OpponentNameText.Text = "Computer (White)";
             }
-            StartGame();
+
             DrawBoard(gameState.Board);
+            await RunCountdown();
+            StartGame();
+
 
             if (playerSide == Player.Black)
             {
                 PlayAiTurn();
             }
         }
-        public void StartPvPGame(TwoPlayerSettings settings)
+        public async void StartPvPGame(TwoPlayerSettings settings)
         {
             timer.Stop();
             MenuContainer.Content = null;
@@ -372,13 +375,16 @@ namespace ChessUI.Views.BoardMenu
             Cursor = Cursors.Arrow;
 
             this.IsVsComputer = false;
+            this.clientSide = Player.White;
 
-            PlayerNameText.Text = settings.WhiteName;      
-            OpponentNameText.Text = settings.BlackName;
+            PlayerNameText.Text = string.IsNullOrEmpty(settings.WhiteName) ? "Player 1" : settings.WhiteName;
+            OpponentNameText.Text = string.IsNullOrEmpty(settings.BlackName) ? "Player 2" : settings.BlackName;
+
             gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
 
-            StartGame();
             DrawBoard(gameState.Board);
+            await RunCountdown();
+            StartGame();
         }
         public void ShowGameOverMenu()
         {
@@ -546,6 +552,16 @@ namespace ChessUI.Views.BoardMenu
                 assetIndex = 1;
             }
             DrawBoard(gameState.Board);
+        }
+        // function to run countdown animation
+        private async Task RunCountdown()
+        {
+            CountDownView countDown = new CountDownView();
+            MenuContainer.Content = countDown;
+            BoardGrid.IsHitTestVisible = false;
+            await countDown.StartCountDownAsync();
+            MenuContainer.Content = null;
+            BoardGrid.IsHitTestVisible = true;
         }
     }
 }
