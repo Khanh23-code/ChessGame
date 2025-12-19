@@ -32,7 +32,7 @@
             <Border Background="Black"/>
 
             <Image Margin="0,0,0,0"
-                   Opacity="0.8" 
+                   Opacity="0.85" 
                    Source="/Assets/MenuAssets/background_tutorial.jpeg"
                    Stretch="UniformToFill" />
 
@@ -40,7 +40,7 @@
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                         <GradientStop Offset="0.0" Color="#F211191F" />
-                        <GradientStop Offset="0.6" Color="#CC143334" />
+                        <GradientStop Offset="0.6" Color="#CC143330" />
                         <GradientStop Offset="1.0" Color="#11191F" />
                     </LinearGradientBrush>
                 </Border.Background>

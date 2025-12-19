@@ -7,39 +7,16 @@
     <Application.Resources>
         <SolidColorBrush x:Key="StrokeColor">#ffeeeeee</SolidColorBrush>
         <SolidColorBrush x:Key="FillColor">#cc202020</SolidColorBrush>
-        <SolidColorBrush x:Key="TextColor">#00bcd4</SolidColorBrush>
-        <SolidColorBrush x:Key="ButtonColor">#0097a7</SolidColorBrush>
         <SolidColorBrush x:Key="FrostedGlassBrush">#CC1c1c1c</SolidColorBrush>
         <SolidColorBrush x:Key="ChessMovesLessonTextColor">#00DC82</SolidColorBrush>
-
         <SolidColorBrush x:Key="PrimaryText">#ffffffff</SolidColorBrush>
-        <Style x:Key="BorderStyle" TargetType="Border">
-            <Setter Property="BorderThickness" Value="4" />
-            <Setter Property="BorderBrush" Value="{StaticResource StrokeColor}" />
-            <Setter Property="Background" Value="{StaticResource FillColor}" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
+        <SolidColorBrush x:Key="SmallTitleText">#AAAAAA</SolidColorBrush>
 
-        <Style x:Key="TextStyle" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Segoe UI Light" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Foreground" Value="{StaticResource TextColor}" />
-        </Style>
+        <LinearGradientBrush x:Key="PlayGradientBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FFA274" Offset="0.0"/>
+            <GradientStop Color="#a355d0" Offset="1.0"/>
+        </LinearGradientBrush>
 
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="FontFamily" Value="Segoe UI Light" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="BorderBrush" Value="{StaticResource StrokeColor}" />
-            <Setter Property="Background" Value="{StaticResource ButtonColor}" />
-            <Setter Property="Foreground" Value="{StaticResource StrokeColor}" />
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-            </Style.Resources>
-        </Style>
         <!--  style button border radius  -->
         <Style x:Key="ButtonBorderRadius" TargetType="Button">
             <Setter Property="Template">
@@ -71,6 +48,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <!--  style border blur in LoginWindow  -->
         <Style x:Key="BorderStyleLogin" TargetType="Border">
             <Setter Property="Effect">
@@ -296,7 +274,7 @@
         </Style>
         <!--start button style-->
         <Style x:Key="StartButtonStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Padding" Value="0,12" />
@@ -312,14 +290,8 @@
                                 BorderBrush="White"
                                 BorderThickness="0"
                                 CornerRadius="10"
-                                SnapsToDevicePixels="True">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                                        <GradientStop Offset="0.0" Color="#FFA274" />
-                                        <GradientStop Offset="1.0" Color="#a355d0" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
-
+                                SnapsToDevicePixels="True"
+                                Background="{DynamicResource PlayGradientBrush}">
                                 <ContentPresenter
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -374,7 +346,7 @@
         <!--  choice Style Who First ?  -->
         <Style x:Key="ChoiceStyle" TargetType="RadioButton">
             <Setter Property="Background" Value="#252525" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
             <Setter Property="Width" Value="90" />
             <Setter Property="Height" Value="80" />
             <Setter Property="Margin" Value="0,0,15,0" />
@@ -914,7 +886,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <!--style MoveListView Item-->
         <Style x:Key="MoveListViewItemStyle" TargetType="ListViewItem">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{StaticResource PrimaryText}" />
@@ -1067,7 +1039,114 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
+
+        <!--GameMenus Style-->
+        <Style x:Key="MenuOuterBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Background" Value="{DynamicResource PlayGradientBrush}">
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="5" Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MenuInnerBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="CornerRadius" Value="13"/>
+        </Style>
+
+        <Style x:Key="RestartGradientButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBorderRadius}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource PlayGradientBrush}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GameMenuGrayButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBorderRadius}">
+            <Setter Property="Background" Value="#353535"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#454545"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PromotionPieceStyle" TargetType="Image">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="White" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.15" Duration="0:0:0.15"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.15" Duration="0:0:0.15"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.0" Duration="0:0:0.15"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.0" Duration="0:0:0.15"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MenuAnimationStyle" TargetType="UserControl">
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             From="0" To="1" Duration="0:0:0.3"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" 
+                                             From="0.8" To="1" Duration="0:0:0.3">
+                                <DoubleAnimation.EasingFunction>
+                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" 
+                                             From="0.8" To="1" Duration="0:0:0.3">
+                                <DoubleAnimation.EasingFunction>
+                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
