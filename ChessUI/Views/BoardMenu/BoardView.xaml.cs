@@ -38,6 +38,7 @@ namespace ChessUI.Views.BoardMenu
 
         public int assetIndex = 1;   // Mặc định sử dụng Asset 1
 
+        private Player clientSide = Player.White;
         // DispatcherTimer
         private DispatcherTimer timer;
 
@@ -116,7 +117,15 @@ namespace ChessUI.Views.BoardMenu
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    Piece piece = board[i, j];
+                    int r = i;
+                    int c = j;
+
+                    if (clientSide == Player.Black)
+                    {
+                        r = 7 - i;
+                        c = 7 - j;
+                    }
+                    Piece piece = board[r, c];
                     pieceImages[i, j].Source = Images.GetImage(piece, assetIndex);
                 }
             }
@@ -138,6 +147,11 @@ namespace ChessUI.Views.BoardMenu
             double squareSize = BoardGrid.ActualWidth / 8;
             int row = (int)(point.Y / squareSize);
             int column = (int)(point.X / squareSize);
+
+            if (clientSide == Player.Black)
+            {
+                return new Position (7-row, 7-column);
+            }
             return new Position(row, column);
         }
 
@@ -163,7 +177,15 @@ namespace ChessUI.Views.BoardMenu
 
             foreach (Position to in moveCache.Keys)
             {
-                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
+                int r = to.Row;
+                int c = to.Column;
+
+                if (clientSide == Player.Black)
+                {
+                    r = 7 - to.Row;
+                    c = 7 - to.Column;
+                }
+                highlights[r, c].Fill = new SolidColorBrush(color);
             }
         }
 
@@ -171,7 +193,15 @@ namespace ChessUI.Views.BoardMenu
         {
             foreach (Position to in moveCache.Keys)
             {
-                highlights[to.Row, to.Column].Fill = Brushes.Transparent;
+                int r = to.Row;
+                int c = to.Column;
+
+                if (clientSide == Player.Black)
+                {
+                    r = 7 - to.Row;
+                    c = 7 - to.Column;
+                }
+                highlights[r, c].Fill = Brushes.Transparent;
             }
         }
 
@@ -252,10 +282,11 @@ namespace ChessUI.Views.BoardMenu
             if (gameState.IsGameOver())     // if (gameState.Result != null)
             {
                 ShowGameOverMenu();
+                return;
             }
             // Nếu đang là chế độ Đánh với máy, và lượt hiện tại là của MÁY (thường là quân Đen)
             // Giả sử Người chơi luôn cầm Trắng (White), Máy cầm Đen (Black)
-            if (IsVsComputer && gameState.CurrentPlayer == Player.Black)
+            if (IsVsComputer && gameState.CurrentPlayer != clientSide)
             {
                 PlayAiTurn();
             }
@@ -289,7 +320,10 @@ namespace ChessUI.Views.BoardMenu
         public void StartVsComputerGame(int aiDepth, Player playerSide)
         {
             timer.Stop();                  
-            MenuContainer.Content = null; 
+            MenuContainer.Content = null;
+
+            this.clientSide = playerSide;
+            this.IsVsComputer = true;
 
             selectedPos = null;         
             moveCache.Clear();            
@@ -297,15 +331,29 @@ namespace ChessUI.Views.BoardMenu
 
             BoardGrid.IsHitTestVisible = true; 
             Cursor = Cursors.Arrow;     
-            this.IsVsComputer = true;
-            _aiService.SetDifficulty(aiDepth); 
+
+
+            _aiService.SetDifficulty(aiDepth);
+            // set up who first
+            Player aiSide = (playerSide == Player.White) ? Player.Black : Player.White;
+            _aiService.SetAIPlayer(aiSide);
+
 
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
+            if (playerSide == Player.White)
+            {
+                PlayerNameText.Text = "You (White)";
+                OpponentNameText.Text = "Computer (Black)";
+            }
+            else
+            {
+                PlayerNameText.Text = "You (Black)";
+                OpponentNameText.Text = "Computer (White)";
+            }
+            StartGame();
             DrawBoard(gameState.Board);
-            UpdateTimerDisplay(); 
-            timer.Start();       
 
             if (playerSide == Player.Black)
             {
@@ -329,9 +377,8 @@ namespace ChessUI.Views.BoardMenu
             OpponentNameText.Text = settings.BlackName;
             gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
 
+            StartGame();
             DrawBoard(gameState.Board);
-            UpdateTimerDisplay();
-            timer.Start();
         }
         public void ShowGameOverMenu()
         {
@@ -378,6 +425,15 @@ namespace ChessUI.Views.BoardMenu
 
             pieceImages[to.Row, to.Column].Source = Images.GetImage(gameState.CurrentPlayer, PieceType.Pawn);
             pieceImages[from.Row, from.Column].Source = null;
+
+            int rTo = move.ToPos.Row;
+            int cTo = move.ToPos.Column;
+
+            if (clientSide == Player.Black)
+            {
+                rTo = 7 - rTo;
+                cTo = 7 - cTo;
+            }
 
             // B2: Show PromotionMenu => Nhận event click để xem người dùng chọn quân nào
             PromotionMenu promMenu = new PromotionMenu(gameState.CurrentPlayer);
@@ -439,12 +495,12 @@ namespace ChessUI.Views.BoardMenu
         private void Timer_Tick(object sender, EventArgs e)
         {
             gameState.Tick();
-            if (gameState.CurrentPlayer == Player.White)
+            if (gameState.CurrentPlayer == clientSide)
             {
                 PlayerTimerBorder.Background = Brushes.White;
                 PlayerTimerText.Foreground = Brushes.Black;
 
-                OpponentTimerBorder.Background = null;
+                OpponentTimerBorder.Background = null;                           
                 OpponentTimerText.Foreground = Brushes.White;
             }
             else
@@ -465,8 +521,17 @@ namespace ChessUI.Views.BoardMenu
         }
         private void UpdateTimerDisplay()
         {
-            PlayerTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
-            OpponentTimerText.Text = gameState.BlackTime.ToString(@"mm\:ss");
+            if (clientSide == Player.White)
+            {
+                PlayerTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
+                OpponentTimerText.Text = gameState.BlackTime.ToString(@"mm\:ss");
+                return;
+            }
+            else
+            {
+                PlayerTimerText.Text = gameState.BlackTime.ToString(@"mm\:ss");
+                OpponentTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
+            }
         }
         #endregion
 
