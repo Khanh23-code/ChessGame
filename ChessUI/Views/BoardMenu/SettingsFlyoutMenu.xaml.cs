@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,14 @@ namespace ChessUI.Views.BoardMenu
         public SettingsFlyoutMenu()
         {
             InitializeComponent();
+        }
+
+        private void LogOutRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            // close the current main window
+            Application.Current.MainWindow.Close();
         }
     }
 }

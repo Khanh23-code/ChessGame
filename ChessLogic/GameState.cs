@@ -38,7 +38,6 @@ namespace ChessLogic
 
             MovementInfo = new MovementInfo();
         }
-
         // New GameState from existing GameState (for Undo/Redo or FEN)
         // ??? Có cần lưu thêm stateHistory ???
         public GameState(string fen)

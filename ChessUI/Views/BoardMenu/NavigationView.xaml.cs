@@ -52,5 +52,12 @@ namespace ChessUI.Views.BoardMenu
                     }
                 }
             }
+
+        private void LogoButton_Click(object sender, RoutedEventArgs e)
+        {
+            // refresh main window by close and open again
+            var newMainWindow = new MainWindow();
+            newMainWindow.Show();
         }
+    }
 }

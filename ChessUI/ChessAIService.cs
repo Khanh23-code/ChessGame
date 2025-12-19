@@ -6,11 +6,10 @@ namespace ChessUI
     public class ChessAIService
     {
         private ChessAI _ai;
+        public Player AIPlayer { get; private set; }
 
         public ChessAIService()
-        {
-            // Mặc định độ sâu là 3. 
-            // Nếu máy mạnh có thể tăng lên 4 (nhưng sẽ chậm hơn nhiều vì C# chậm hơn C++ của Stockfish).
+        { 
             _ai = new ChessAI(depth: 3);
         }
 
@@ -18,6 +17,12 @@ namespace ChessUI
         {
             // Cho phép chỉnh độ khó bằng độ sâu (1: Dễ, 2: Trung bình, 3-4: Khó)
             _ai = new ChessAI(depth);
+        }
+
+        public void SetAIPlayer(Player player)
+        {
+            // Lưu vào biến của class này thay vì gọi aiController
+            this.AIPlayer = player;
         }
 
         // Thay vì trả về string (như "e2e4"), ta trả về đối tượng Move chính xác

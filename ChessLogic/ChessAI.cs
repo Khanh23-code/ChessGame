@@ -190,10 +190,11 @@ namespace ChessLogic
 
         private GameState SimulateMove(GameState currentState, Move move)
         {
-            // Do Board không có Undo, ta phải Copy (hơi chậm nhưng an toàn logic)
             Board newBoard = currentState.Board.Copy();
             move.Execute(newBoard);
+            //////
             return new GameState(currentState.CurrentPlayer.Opponent(), newBoard, currentState.WhiteTime);
+            /////
         }
 
         // --- 4. HÀM ĐÁNH GIÁ THÔNG MINH (EVALUATION) ---
