@@ -495,6 +495,8 @@ namespace ChessUI.Views.BoardMenu
             {
                 _infoView.ClearData();
             }
+            PlayerTimerBorder.Visibility = Visibility.Visible;
+            OpponentTimerBorder.Visibility = Visibility.Visible;
             timer.Start();
         }
 

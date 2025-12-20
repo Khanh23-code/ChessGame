@@ -35,7 +35,9 @@
                     Foreground="White"
                     Text="Puzzle" />
             </Grid>
-            <RadioButton GroupName="PuzzleSubMenu" Style="{StaticResource FlyoutButton}">
+            <RadioButton GroupName="PuzzleSubMenu" 
+                         Style="{StaticResource FlyoutButton}"
+                         Click="NormalPuzzle_Click">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -61,7 +63,8 @@
             <RadioButton
                 Margin="0,10,0,0"
                 GroupName="PuzzleSubMenu"
-                Style="{StaticResource FlyoutButton}">
+                Style="{StaticResource FlyoutButton}"
+                Click="DailyPuzzle_Click">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -75,12 +78,37 @@
                         Margin="0,0,15,0"
                         Source="/Assets/MenuAssets/puzzle_daily.png" />
 
+                    <Border Grid.Column="0" 
+                            Width="16" Height="16" 
+                            Background="#00DC82" 
+                            CornerRadius="8" 
+                            VerticalAlignment="Top" 
+                            HorizontalAlignment="Right" 
+                            Margin="0,-4,10,0"
+                            BorderBrush="#2C2B29"
+                            BorderThickness="2">
+                        <TextBlock Text="&#xE73E;" 
+                                   FontFamily="Segoe Fluent Icons" 
+                                   FontSize="8" 
+                                   Foreground="#11191F" 
+                                   FontWeight="Bold" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Daily Puzzle" />
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Daily Puzzle" />
+
+                        <TextBlock 
+                                Text="Dec 20" 
+                                FontSize="12" 
+                                Foreground="#888888" 
+                                Margin="0,2,0,0"
+                                FontWeight="SemiBold"/>
                     </StackPanel>
                 </Grid>
             </RadioButton>
