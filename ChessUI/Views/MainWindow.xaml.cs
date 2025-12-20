@@ -143,7 +143,7 @@ namespace ChessUI
                     break;
 
                 case 2:
-                    MessageBox.Show("Bài học số 2 đang được phát triển!");
+                    OpenOverlay(new Views.BoardMenu.ChessOpeningsLesson());
                     break;
 
                 case 3:
