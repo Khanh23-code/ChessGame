@@ -83,6 +83,32 @@
     <None Remove="Assets\QueenW.png" />
     <None Remove="Assets\RookB.png" />
     <None Remove="Assets\RookW.png" />
+    <None Remove="Assets\Videos\ChessOpeningNimzoIndianDefense.mp4" />
+    <None Remove="Assets\Videos\ChessOpeningQUeen%27sGambit.mp4" />
+    <None Remove="Assets\Videos\ChessOpeningRuyLopez.mp4" />
+    <None Remove="Assets\Videos\ChessOpeningSicilianDefense.mp4" />
+    <None Remove="Assets\Videos\ChessOpeningTwoKnight.mp4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Videos\ChessOpeningNimzoIndianDefense.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningQueen%27sGambit.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningRuyLopez.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningSicilianDefense.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningItalian.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningTwoKnight.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

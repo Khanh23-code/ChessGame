@@ -10,31 +10,32 @@
 
     <UserControl.Resources>
         <Style x:Key="LessonNumberStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="#4A6A7A"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#4A6A7A" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,0,20,0" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=IsChecked, RelativeSource={RelativeSource AncestorType=RadioButton}}" Value="True">
-                    <Setter Property="Foreground" Value="#00DC82"/>
+                    <Setter Property="Foreground" Value="#00DC82" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType=RadioButton}}" Value="True">
-                    <Setter Property="Foreground" Value="#00DC82"/>
+                    <Setter Property="Foreground" Value="#00DC82" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Border ClipToBounds="True" CornerRadius="30">
         <Grid RenderOptions.BitmapScalingMode="HighQuality">
 
-            <Border Background="Black"/>
+            <Border Background="Black" />
 
-            <Image Margin="0,0,0,0"
-                   Opacity="0.85" 
-                   Source="/Assets/MenuAssets/background_tutorial.jpeg"
-                   Stretch="UniformToFill" />
+            <Image
+                Margin="0,0,0,0"
+                Opacity="0.85"
+                Source="/Assets/MenuAssets/background_tutorial.jpeg"
+                Stretch="UniformToFill" />
 
             <Border>
                 <Border.Background>
@@ -54,104 +55,151 @@
 
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
 
-                    <TextBlock FontFamily="Georgia"
-                               FontSize="56"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               LineHeight="60"
-                               Text="Play chess like&#x0a;Queen's Gambit" 
-                               Margin="0,0,0,20"/>
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        FontFamily="Georgia"
+                        FontSize="56"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        LineHeight="60"
+                        Text="Play chess like&#x0a;Queen's Gambit" />
 
-                    <TextBlock MaxWidth="450"
-                               HorizontalAlignment="Left"
-                               FontSize="16"
-                               Foreground="#AAAAAA"
-                               LineHeight="24"
-                               Margin="0,0,0,30"
-                               TextWrapping="Wrap">
-                        Learn first-hand how a 
-                        <Run 
-                            Foreground="White" 
-                            FontWeight="Bold">game of chess can be simple
-                        </Run> 
-                        and yet endlessly complex at the same time.
-                    </TextBlock>
+                    <TextBlock
+                        MaxWidth="450"
+                        Margin="0,0,0,30"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        Foreground="#AAAAAA"
+                        LineHeight="24"
+                        TextWrapping="Wrap">
+                        Learn first-hand how a<Run FontWeight="Bold" Foreground="White">
+                            game of chess can be simple
+                        </Run>
+                        and yet endlessly complex at the same time.</TextBlock>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnStartLearning"
-                                Content="Learn Chess Now!"
-                                Width="200"
-                                Height="50"
-                                Click="btnStartLearning_Click"
-                                Style="{StaticResource MainLearnButtonStyle}" />
+                        <Button
+                            x:Name="btnStartLearning"
+                            Width="200"
+                            Height="50"
+                            Click="btnStartLearning_Click"
+                            Content="Learn Chess Now!"
+                            Style="{StaticResource MainLearnButtonStyle}" />
                     </StackPanel>
 
-                    <StackPanel Margin="0,40,0,0" Orientation="Horizontal" Opacity="0.8">
-                        <TextBlock Text="♟" FontSize="30" Foreground="#00DC82" Margin="0,0,15,0" VerticalAlignment="Center"/>
+                    <StackPanel
+                        Margin="0,40,0,0"
+                        Opacity="0.8"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,15,0"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Foreground="#00DC82"
+                            Text="♟" />
                         <TextBlock VerticalAlignment="Center" Foreground="#888">
-                            <Run Foreground="White" FontWeight="Bold">1,024</Run> People mastered <LineBreak/>
-                            the basics with this guide
-                        </TextBlock>
+                            <Run FontWeight="Bold" Foreground="White">1,024</Run>
+                            People mastered<LineBreak />
+                            the basics with this guide</TextBlock>
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0">
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="30,0,0,0"
+                    VerticalAlignment="Center">
 
-                    <RadioButton x:Name="rbtnChessMovesLesson"
-                                 GroupName="LearnLesson"
-                                Click="rbtnChessLesson_Click"
-                                IsChecked="True"
-                                Style="{StaticResource rButtonLearnItemStyle}">
+                    <RadioButton
+                        x:Name="rbtnChessMovesLesson"
+                        Click="rbtnChessLesson_Click"
+                        GroupName="LearnLesson"
+                        IsChecked="True"
+                        Style="{StaticResource rButtonLearnItemStyle}"
+                        Tag="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="01." 
-                                       Style="{StaticResource LessonNumberStyle}"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                Style="{StaticResource LessonNumberStyle}"
+                                Text="01." />
 
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="How chess pieces move across the table" FontSize="16" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                                <TextBlock Text="⏱ 5 min read" FontSize="13" Foreground="#AAAAAA"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="How chess pieces move across the table"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    FontSize="13"
+                                    Foreground="#AAAAAA"
+                                    Text="⏱ 5 min read" />
                             </StackPanel>
                         </Grid>
                     </RadioButton>
 
-                    <RadioButton x:Name="btnSetupChessboardLesson"
-                                Click="rbtnChessLesson_Click"
-                                GroupName="LearnLesson"
-                                Style="{StaticResource rButtonLearnItemStyle}">
+                    <RadioButton
+                        x:Name="btnChessOpeningsLesson"
+                        Click="rbtnChessLesson_Click"
+                        GroupName="LearnLesson"
+                        Style="{StaticResource rButtonLearnItemStyle}"
+                        Tag="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="02." 
-                                       Style="{StaticResource LessonNumberStyle}"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                Style="{StaticResource LessonNumberStyle}"
+                                Text="02." />
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="Everything related to setting up a chessboard" FontSize="16" FontWeight="SemiBold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                                <TextBlock Text="⏱ 4 min read" FontSize="13" Foreground="#AAAAAA"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Text="Everything related to chess openings"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    FontSize="13"
+                                    Foreground="#AAAAAA"
+                                    Text="⏱ 4 min read" />
                             </StackPanel>
                         </Grid>
                     </RadioButton>
 
-                    <RadioButton x:Name="rbtnCaptureOpponentsLesson"
-                                Click="rbtnChessLesson_Click"
-                                 GroupName="LearnLesson"
-                                 Style="{StaticResource rButtonLearnItemStyle}">
+                    <RadioButton
+                        x:Name="rbtnCaptureOpponentsLesson"
+                        Click="rbtnChessLesson_Click"
+                        GroupName="LearnLesson"
+                        Style="{StaticResource rButtonLearnItemStyle}"
+                        Tag="3">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="03." 
-                                       Style="{StaticResource LessonNumberStyle}"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                Style="{StaticResource LessonNumberStyle}"
+                                Text="03." />
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="How to capture the opponents" FontSize="16" FontWeight="SemiBold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                                <TextBlock Text="⏱ 1 min read" FontSize="13" Foreground="#AAAAAA"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Text="How to capture the opponents"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    FontSize="13"
+                                    Foreground="#AAAAAA"
+                                    Text="⏱ 1 min read" />
                             </StackPanel>
                         </Grid>
                     </RadioButton>
