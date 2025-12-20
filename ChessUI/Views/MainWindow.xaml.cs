@@ -157,10 +157,10 @@ namespace ChessUI
         private void OnMainNavigationChanged(object sender, ChessUI.Views.BoardMenu.NavigationEventArgs e)
         {
             NavigateToPage(e.Page);
+            NavigationView navView = (NavigationView)sender;
 
             if (e.Page == MenuPage.Play)
             {
-                NavigationView navView = (NavigationView)sender;
                 Popup playSubMenuPopup = (Popup)navView.FindName("PlaySubMenu");
                 if (playSubMenuPopup != null && playSubMenuPopup.Child is PlayFlyoutMenu playFlyoutMenu)
                 {
@@ -169,6 +169,19 @@ namespace ChessUI
 
                     playFlyoutMenu.PlayTwoPlayerClicked -= PlayFlyoutMenu_PlayTwoPlayerClicked;
                     playFlyoutMenu.PlayTwoPlayerClicked += PlayFlyoutMenu_PlayTwoPlayerClicked;
+                }
+            }
+            else if (e.Page == MenuPage.Puzzle)
+            {
+                Popup puzzlePopup = (Popup)navView.FindName("PuzzleSubMenu");
+
+                if (puzzlePopup != null && puzzlePopup.Child is PuzzleFlyoutMenu puzzleMenu)
+                {
+                    puzzleMenu.NormalPuzzleClicked -= PuzzleMenu_NormalClicked;
+                    puzzleMenu.DailyPuzzleClicked -= PuzzleMenu_DailyClicked;
+
+                    puzzleMenu.NormalPuzzleClicked += PuzzleMenu_NormalClicked;
+                    puzzleMenu.DailyPuzzleClicked += PuzzleMenu_DailyClicked;
                 }
             }
         }
@@ -197,6 +210,19 @@ namespace ChessUI
                     BoardViewControl.StartPvPGame(settings);
                 }
             };
+        }
+
+        private void PuzzleMenu_NormalClicked(object sender, EventArgs e)
+        {
+            var puzzleView = new Views.BoardMenu.PuzzleInfoView();
+            puzzleView.IsDailyMode = false; 
+            RightPanelContentHost.Content = puzzleView;
+        }
+        private void PuzzleMenu_DailyClicked(object sender, EventArgs e)
+        {
+            var puzzleView = new Views.BoardMenu.PuzzleInfoView();
+            puzzleView.IsDailyMode = true;
+            RightPanelContentHost.Content = puzzleView;
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {

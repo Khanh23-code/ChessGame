@@ -52,6 +52,7 @@
 
                 <Border
                     x:Name="OpponentTimerBorder"
+                    Visibility="Collapsed"
                     Grid.Column="2"
                     Style="{StaticResource TimerBox}">
                     <TextBlock
@@ -122,6 +123,7 @@
 
                 <Border
                     x:Name="PlayerTimerBorder"
+                    Visibility="Collapsed"
                     Grid.Column="2"
                     Style="{StaticResource TimerBox}">
                     <TextBlock

@@ -17,6 +17,33 @@
             <GradientStop Color="#a355d0" Offset="1.0"/>
         </LinearGradientBrush>
 
+        <!--UserControl SlideInAnimation Style-->
+        <Style x:Key="SlideInAnimation" TargetType="UserControl">
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform X="50" Y="0"/>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                     From="0" To="1" Duration="0:0:0.4"/>
+
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
+                                     From="50" To="0" Duration="0:0:0.4">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
         <!--  style button border radius  -->
         <Style x:Key="ButtonBorderRadius" TargetType="Button">
             <Setter Property="Template">

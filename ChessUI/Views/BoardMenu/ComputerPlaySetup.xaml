@@ -9,6 +9,7 @@
     Margin="20"
     d:DesignHeight="800"
     d:DesignWidth="300"
+    Style="{StaticResource SlideInAnimation}"
     mc:Ignorable="d">
 
     <Grid>
