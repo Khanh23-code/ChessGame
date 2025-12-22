@@ -54,6 +54,7 @@ namespace ChessLogic
             BlackTime = TimeSpan.FromSeconds(int.Parse(timers[1]));
 
             FENString = fen;
+            MovementInfo = new MovementInfo();
         }
         #endregion
 

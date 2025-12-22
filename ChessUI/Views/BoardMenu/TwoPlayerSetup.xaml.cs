@@ -38,7 +38,7 @@ namespace ChessUI.Views.BoardMenu
         }
         private void StartTwoPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan selectedTime = TimeSpan.FromMinutes(10);
+            TimeSpan selectedTime = TimeSpan.FromMinutes(0);
             if (TimeComboBox.SelectedItem is ComboBoxItem selectedItem)
             {
                 string content = selectedItem.Content.ToString();
@@ -46,7 +46,7 @@ namespace ChessUI.Views.BoardMenu
                 else if (content.Contains("3 phút")) selectedTime = TimeSpan.FromMinutes(3);
                 else if (content.Contains("10 phút")) selectedTime = TimeSpan.FromMinutes(10);
                 else if (content.Contains("30 phút")) selectedTime = TimeSpan.FromMinutes(30);
-                else if (content.Contains("No limts")) selectedTime = TimeSpan.FromHours(24);
+                else if (content.Contains("No limts")) selectedTime = TimeSpan.Zero;
             }
             string wName = WhitePlayerName.Text;
             string bName = BlackPlayerName.Text;

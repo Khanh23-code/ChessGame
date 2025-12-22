@@ -46,7 +46,7 @@
                         Text="Garry Kasparov" />
                     <TextBlock
                         FontSize="14"
-                        Foreground="#AAAAAA"
+                        Foreground="{DynamicResource SmallTitleText}"
                         Text="400" />
                 </StackPanel>
 
@@ -117,7 +117,7 @@
                         Text="Magnus Carlsen" />
                     <TextBlock
                         FontSize="14"
-                        Foreground="#AAAAAA"
+                        Foreground="{DynamicResource SmallTitleText}"
                         Text="400" />
                 </StackPanel>
 

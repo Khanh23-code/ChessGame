@@ -97,6 +97,7 @@ namespace ChessUI.Views.BoardMenu
             if (_allLessons.Count > 0)
                 VideoList.SelectedIndex = 0;
         }
+        #region Event Handlers Video Player and Controls
         private void VideoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (VideoList.SelectedItem is OpeningVideo selectedVideo)
@@ -169,5 +170,6 @@ namespace ChessUI.Views.BoardMenu
             var filteredList = _allLessons.Where(v => v.Title.ToLower().Contains(filter)).ToList();
             VideoList.ItemsSource = filteredList;
         }
+        #endregion
     }
 }

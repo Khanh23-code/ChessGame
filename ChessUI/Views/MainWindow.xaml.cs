@@ -147,7 +147,14 @@ namespace ChessUI
                     break;
 
                 case 3:
-                    MessageBox.Show("Bài học số 3 đang được phát triển!");
+                    OverlayContainer.Visibility = Visibility.Collapsed;
+                    OverlayContainer.Content = null;
+                    GameContainer.Visibility = Visibility.Visible;
+
+                    var endgameView = new Views.BoardMenu.EndgameLesson();
+                    endgameView.OptionSelected += Endgame_OptionSelected;
+
+                    RightPanelContentHost.Content = endgameView;
                     break;
 
                 default:
@@ -185,6 +192,7 @@ namespace ChessUI
                 }
             }
         }
+        #region Play Menu UX
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
         {
             var setupControl = new Views.BoardMenu.ComputerPlaySetup();
@@ -211,7 +219,8 @@ namespace ChessUI
                 }
             };
         }
-
+        #endregion
+        #region Puzzle Menu UX
         private void PuzzleMenu_NormalClicked(object sender, EventArgs e)
         {
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
@@ -223,6 +232,45 @@ namespace ChessUI
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
             puzzleView.IsDailyMode = true;
             RightPanelContentHost.Content = puzzleView;
+        }
+        #endregion
+        private void Endgame_OptionSelected(object sender, string tag)
+        {
+            // 1. Lấy chuỗi FEN
+            string fen = GetFenEndgameLesson(tag);
+
+            // 2. Khởi động bài tập trên bàn cờ
+            if (BoardViewControl != null)
+            {
+                BoardViewControl.StartEndgameLesson(fen);
+            }
+            RightPanelContentHost.Content = DefaultInfoView;
+        }
+        private string GetFenEndgameLesson(string tag)
+        {
+            switch (tag)
+            {
+                case "TwoRooks":
+                    return "8/8/8/8/8/4k3/2R5/R3K3 w - - 0 1 600:600";
+
+                case "Queen":
+                    return "8/8/8/8/8/4k3/8/4Q1K1 w - - 0 1 600:600";
+
+                case "Rook":
+                    return "8/8/8/8/8/4k3/8/4R1K1 w - - 0 1 600:600";
+
+                case "TwoBishops":
+                    return "8/8/8/8/8/4k3/8/2B1KB2 w - - 0 1 600:600";
+
+                case "BishopKnight":
+                    return "8/8/8/8/8/4k3/8/2N1KB2 w - - 0 1 600:600";
+
+                case "QueenRook":
+                    return "2r5/8/8/8/8/4k3/8/4Q1K1 w - - 0 1 600:600";
+
+                default:
+                    return "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 600:600";
+            }
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
