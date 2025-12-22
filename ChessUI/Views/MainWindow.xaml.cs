@@ -86,10 +86,10 @@ namespace ChessUI
                 return;
             }
 
-            if (BoardViewControl != null && !BoardViewControl.IsMenuOnScreen() && e.Key == Key.Space)
-            {
-                BoardViewControl.ChangeAsset();
-            }
+            //if (BoardViewControl != null && !BoardViewControl.IsMenuOnScreen() && e.Key == Key.Space)
+            //{
+            //    BoardViewControl.ChangeAsset();
+            //}
         }
 
         #region Navigation Menu
@@ -277,6 +277,20 @@ namespace ChessUI
             RightPanelContentHost.Content = DefaultInfoView; 
 
             // start logic game
+        }
+        private void OpenCustomBoard_Click(object sender, RoutedEventArgs e)
+        {
+            CustomBoardPieces customWindow = new CustomBoardPieces();
+
+            if (customWindow.ShowDialog() == true)
+            {
+                int AssetId = customWindow.SelectedTheme.AssetId;
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow != null)
+                {
+                    mainWindow.BoardViewControl.UpdateTheme(AssetId);
+                }
+            }
         }
     }
 }

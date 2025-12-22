@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Assets\Asset1\BishopB.png" />
     <None Remove="Assets\Asset1\BishopW.png" />
+    <None Remove="Assets\Asset1\BoardPreview.png" />
     <None Remove="Assets\Asset1\KingB.png" />
     <None Remove="Assets\Asset1\KingW.png" />
     <None Remove="Assets\Asset1\KnightB.png" />
@@ -112,6 +113,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Asset1\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MenuAssets\admin_avartar.png" />
     <Resource Include="Assets\MenuAssets\background_tutorial.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
