@@ -1,0 +1,128 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.BoardMenu.EndgameLesson"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="600"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style x:Key="TransparentListItemStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Height" Value="60" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderBrush" Value="#30FFFFFF" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#20FFFFFF" />
+                                <Setter Property="Foreground" Value="#00DC82" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#40FFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Image
+            Opacity="0.6"
+            Source="/Assets/MenuAssets/background_tutorial.jpeg"
+            Stretch="UniformToFill" />
+
+        <Border Background="#E6101010" />
+
+        <ScrollViewer Margin="0,20,0,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+
+                <StackPanel Margin="0,0,0,30">
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center"
+                        FontFamily="Georgia"
+                        FontSize="36"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Chiếu hết" />
+
+                    <Border
+                        Width="100"
+                        Height="100"
+                        Background="Transparent">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="90"
+                            Foreground="White"
+                            Text="♚">
+                            <TextBlock.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="20"
+                                    Opacity="0.3"
+                                    Color="White" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Margin="20,0">
+                    <Button
+                        Click="BtnOption_Click"
+                        Content="Hai xe chiếu hết"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="TwoRooks" />
+
+                    <Button
+                        Click="BtnOption_Click"
+                        Content="Hậu chiếu hết"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="Queen" />
+
+                    <Button
+                        Click="BtnOption_Click"
+                        Content="Xe chiếu hết"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="Rook" />
+
+                    <Button
+                        Click="BtnOption_Click"
+                        Content="Hai tượng chiếu hết"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="TwoBishops" />
+
+                    <Button
+                        Click="BtnOption_Click"
+                        Content="Chiếu với Tượng và Mã"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="BishopKnight" />
+
+                    <Button
+                        BorderThickness="0"
+                        Click="BtnOption_Click"
+                        Content="Hậu với Xe"
+                        Style="{StaticResource TransparentListItemStyle}"
+                        Tag="QueenRook" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

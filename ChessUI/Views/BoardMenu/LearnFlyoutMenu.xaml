@@ -113,7 +113,6 @@
                         x:Name="rbtnChessMovesLesson"
                         Click="rbtnChessLesson_Click"
                         GroupName="LearnLesson"
-                        IsChecked="True"
                         Style="{StaticResource rButtonLearnItemStyle}"
                         Tag="1">
                         <Grid>
@@ -132,7 +131,7 @@
                                     FontSize="16"
                                     FontWeight="Bold"
                                     Foreground="White"
-                                    Text="How chess pieces move across the table"
+                                    Text="How chess pieces move on the table"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     FontSize="13"
@@ -174,7 +173,7 @@
                     </RadioButton>
 
                     <RadioButton
-                        x:Name="rbtnCaptureOpponentsLesson"
+                        x:Name="rbtnEndgameLesson"
                         Click="rbtnChessLesson_Click"
                         GroupName="LearnLesson"
                         Style="{StaticResource rButtonLearnItemStyle}"
@@ -194,7 +193,7 @@
                                     FontSize="16"
                                     FontWeight="SemiBold"
                                     Foreground="White"
-                                    Text="How to capture the opponents"
+                                    Text="Endgame of Chess board"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     FontSize="13"

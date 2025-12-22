@@ -31,7 +31,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border Background="{StaticResource FrostedGlassBrush}" CornerRadius="8"/>
+        <Border Background="{StaticResource FrostedGlassBrush}"/>
 
         <TextBlock x:Name="CountText"
                    Text=""

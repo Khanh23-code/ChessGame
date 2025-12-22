@@ -42,6 +42,9 @@ namespace ChessUI.Views.BoardMenu
         // DispatcherTimer
         private DispatcherTimer timer;
 
+        // check isLimits 
+       private bool isUnlimitedTime = false;
+
         public BoardView()
         {
             InitializeComponent();
@@ -380,8 +383,17 @@ namespace ChessUI.Views.BoardMenu
             PlayerNameText.Text = string.IsNullOrEmpty(settings.WhiteName) ? "Player 1" : settings.WhiteName;
             OpponentNameText.Text = string.IsNullOrEmpty(settings.BlackName) ? "Player 2" : settings.BlackName;
 
-            gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
-
+            if (settings.TimeLimit == TimeSpan.Zero)
+            { 
+                isUnlimitedTime = true;
+                gameState = new GameState(Player.White, Board.Initial(), TimeSpan.FromDays(1)); 
+            }
+            else
+            {
+                isUnlimitedTime = false;
+                gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
+            }
+            
             DrawBoard(gameState.Board);
             await RunCountdown();
             StartGame();
@@ -529,6 +541,12 @@ namespace ChessUI.Views.BoardMenu
         }
         private void UpdateTimerDisplay()
         {
+            if (isUnlimitedTime == true)
+            {
+                PlayerTimerText.Text = "∞";
+                OpponentTimerText.Text = "∞";
+                return;
+            }
             if (clientSide == Player.White)
             {
                 PlayerTimerText.Text = gameState.WhiteTime.ToString(@"mm\:ss");
@@ -564,6 +582,34 @@ namespace ChessUI.Views.BoardMenu
             await countDown.StartCountDownAsync();
             MenuContainer.Content = null;
             BoardGrid.IsHitTestVisible = true;
+        }
+
+        public void StartEndgameLesson(string fenString)
+        {
+            timer.Stop();
+            MenuContainer.Content = null;
+            selectedPos = null;
+            moveCache.Clear();
+            HideHighLights();
+            this.IsVsComputer = true; 
+            this.clientSide = Player.White; 
+
+            _aiService.SetDifficulty(3); 
+            _aiService.SetAIPlayer(Player.Black);
+
+            gameState = new GameState(fenString);
+
+            PlayerNameText.Text = "You (Training)";
+            OpponentNameText.Text = "Computer (Defender)";
+
+            DrawBoard(gameState.Board);
+
+            BoardGrid.IsHitTestVisible = true;
+            Cursor = Cursors.Arrow;
+            UpdateTimerDisplay();
+            PlayerTimerBorder.Visibility = Visibility.Visible;
+            OpponentTimerBorder.Visibility = Visibility.Visible;
+            timer.Start();
         }
     }
 }
