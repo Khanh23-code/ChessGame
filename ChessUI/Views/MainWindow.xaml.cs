@@ -21,6 +21,9 @@ namespace ChessUI
     {
         private AIController aiController; 
         private readonly Views.BoardMenu.InfoView DefaultInfoView = new Views.BoardMenu.InfoView();
+
+        private readonly CloudService _cloudService;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +37,9 @@ namespace ChessUI
             }
 
             BoardViewControl._infoView = DefaultInfoView;
+
+            // Khởi tạo dịch vụ đám mây để load game
+            _cloudService = new CloudService();
         }
         #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -192,6 +198,7 @@ namespace ChessUI
                 }
             }
         }
+
         #region Play Menu UX
         private void PlayFlyoutMenu_PlayComputerClicked(object sender, EventArgs e)
         {
@@ -220,6 +227,7 @@ namespace ChessUI
             };
         }
         #endregion
+
         #region Puzzle Menu UX
         private void PuzzleMenu_NormalClicked(object sender, EventArgs e)
         {
