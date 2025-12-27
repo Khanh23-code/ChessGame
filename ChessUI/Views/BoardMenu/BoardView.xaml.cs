@@ -43,18 +43,24 @@ namespace ChessUI.Views.BoardMenu
         private DispatcherTimer timer;
 
         // check isLimits 
-       private bool isUnlimitedTime = false;
+        private bool isUnlimitedTime = false;
+
+        private bool loadFromFEN = false;   
+
+        private CloudService _cloudService = new CloudService();
+        private string userID = "Player_Default";
 
         public BoardView()
         {
             InitializeComponent();
             InitialBoard();
 
-            if (false) 
+            if (loadFromFEN) 
             {
                 //LoadGameStateFromFEN("r1bqkbnr/pp1ppppp/2n5/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3 485:470");
                 //LoadGameStateFromFEN("rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3 30:45");      // Test En Passant
                 //LoadGameStateFromFEN("8/8/8/4k3/8/8/4R3/4K3 b - - 10 45 15:10");      // Test Endgame
+                LoadGameStateFromFEN(gameState.FENString);
             }
             else
             {
@@ -95,9 +101,10 @@ namespace ChessUI.Views.BoardMenu
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
         }
 
-        private void LoadGameStateFromFEN(string fen)
+        public void LoadGameStateFromFEN(string fen)
         {
-            gameState = new GameState(fen);
+            //gameState = new GameState(fen);
+            loadFromFEN = true;
         }
 
         private void DrawBoard(Board board)
@@ -343,7 +350,19 @@ namespace ChessUI.Views.BoardMenu
 
 
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
-            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+
+            string modeKey = "PvE";
+            string fenToLoad = await CheckForSavedGame(modeKey);
+            if (fenToLoad != null)
+            {
+                // Load saved game from cloud
+                gameState = new GameState(fenToLoad, modeKey);
+            }
+            else
+            {
+                // Load new game
+                gameState = new GameState(Player.White, Board.Initial(), initialTime, modeKey);
+            }
 
             if (playerSide == Player.White)
             {
@@ -385,15 +404,40 @@ namespace ChessUI.Views.BoardMenu
             PlayerNameText.Text = string.IsNullOrEmpty(settings.WhiteName) ? "Player 1" : settings.WhiteName;
             OpponentNameText.Text = string.IsNullOrEmpty(settings.BlackName) ? "Player 2" : settings.BlackName;
 
+            string modeKey = "PvP";
+            string fenToLoad = await CheckForSavedGame(modeKey);
+
             if (settings.TimeLimit == TimeSpan.Zero)
             { 
                 isUnlimitedTime = true;
-                gameState = new GameState(Player.White, Board.Initial(), TimeSpan.FromDays(1)); 
+
+                if (fenToLoad != null)
+                {
+                    // Load saved game from cloud
+                    gameState = new GameState(fenToLoad, modeKey);
+                }
+                else
+                {
+                    // Load new game
+                    gameState = new GameState(Player.White, Board.Initial(), TimeSpan.FromDays(1), modeKey);
+                    gameState.ClearCloudSave();
+                }
             }
             else
             {
                 isUnlimitedTime = false;
-                gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
+
+                if (fenToLoad != null)
+                {
+                    // Load saved game from cloud
+                    gameState = new GameState(fenToLoad, modeKey);
+                }
+                else
+                {
+                    // Load new game
+                    gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit, modeKey);
+                    gameState.ClearCloudSave();
+                }
             }
             
 
@@ -416,6 +460,7 @@ namespace ChessUI.Views.BoardMenu
                 }
                 else
                 {
+                    gameState.ClearCloudSave();
                     Application.Current.Shutdown();
                 }
             };
@@ -433,6 +478,7 @@ namespace ChessUI.Views.BoardMenu
             // initial Timer after ResetGame is called
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
+            gameState.ClearCloudSave();
 
             DrawBoard(gameState.Board);
             StartGame();
