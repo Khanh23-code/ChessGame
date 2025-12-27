@@ -665,5 +665,37 @@ namespace ChessUI.Views.BoardMenu
                 DrawBoard(gameState.Board);
             }
         }
+
+        private async Task<string> CheckForSavedGame(string mode)
+        {
+            try
+            {
+                if (IsVsComputer)
+                {
+                    mode = "PvE";
+                }
+                else
+                {
+                    mode = "PvP";
+                }
+                string savedFen = await _cloudService.LoadGameAsync(userID, mode);
+
+                if (!string.IsNullOrEmpty(savedFen))
+                {
+                    var result = MessageBox.Show($"A saved game in {mode} was found in the cloud. Do you want to load it?", "Load Saved Game", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        return savedFen;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Báo lỗi ở debug output phía coder, không hiện MessageBox làm phiền với user, user vẫn có thể chơi bình thường
+                System.Diagnostics.Debug.WriteLine("Lỗi load game: " + ex.Message);
+            }
+
+            return null;
+        }
     }
 }
