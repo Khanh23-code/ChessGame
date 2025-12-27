@@ -1,0 +1,71 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.GameMenus.ResumeMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="220"
+    d:DesignWidth="400"
+    Style="{StaticResource MenuAnimationStyle}"
+    mc:Ignorable="d">
+
+    <Border
+        Width="350"
+        Height="200"
+        Style="{StaticResource MenuOuterBorderStyle}">
+        <Border Style="{StaticResource MenuInnerBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    FontFamily="Segoe UI"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="RESUME GAME?" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontFamily="Segoe UI"
+                    FontSize="14"
+                    Foreground="{DynamicResource SmallTitleText}"
+                    Text="Found an unfinished game." />
+
+                <StackPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Button
+                        x:Name="btnNewGame"
+                        Width="110"
+                        Height="40"
+                        Margin="0,0,15,0"
+                        Click="BtnNewGame_Click"
+                        Content="NEW GAME"
+                        Style="{StaticResource GameMenuGrayButtonStyle}" />
+
+                    <Button
+                        x:Name="btnResume"
+                        Width="110"
+                        Height="40"
+                        Click="BtnResume_Click"
+                        Content="RESUME"
+                        Style="{StaticResource RestartGradientButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>
