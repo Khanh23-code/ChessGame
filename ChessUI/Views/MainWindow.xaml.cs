@@ -232,13 +232,29 @@ namespace ChessUI
         private void PuzzleMenu_NormalClicked(object sender, EventArgs e)
         {
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
-            puzzleView.IsDailyMode = false; 
+            puzzleView.IsDailyMode = false;
+            puzzleView.OnPuzzleSelected += (fen) =>
+            {
+                if (BoardViewControl != null)
+                {
+                    BoardViewControl.StartPuzzle(fen);
+                }
+            };
+
             RightPanelContentHost.Content = puzzleView;
         }
         private void PuzzleMenu_DailyClicked(object sender, EventArgs e)
         {
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
             puzzleView.IsDailyMode = true;
+            puzzleView.OnPuzzleSelected += (fen) =>
+            {
+                if (BoardViewControl != null)
+                {
+                    BoardViewControl.StartPuzzle(fen);
+                }
+            };
+
             RightPanelContentHost.Content = puzzleView;
         }
         #endregion

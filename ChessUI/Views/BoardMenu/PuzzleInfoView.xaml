@@ -164,39 +164,56 @@
                             Text="Find the best move for White" />
                     </StackPanel>
                 </Border>
+                <Grid Margin="0,20,0,0">
+                    <ListBox
+                        x:Name="PuzzleListBox"
+                        MaxHeight="320"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemContainerStyle="{StaticResource PuzzleListBoxItemStyle}"
+                        ItemsSource="{Binding PuzzleList}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectionChanged="PuzzleListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                <WrapPanel Margin="0,0,0,20" Orientation="Horizontal">
-                    <Border
-                        Margin="0,0,8,8"
-                        Padding="14,6"
-                        Background="#25FFFFFF"
-                        CornerRadius="12">
-                        <TextBlock
-                            FontSize="13"
-                            Foreground="#E0E0E0"
-                            Text="Pin" />
-                    </Border>
-                    <Border
-                        Margin="0,0,8,8"
-                        Padding="14,6"
-                        Background="#25FFFFFF"
-                        CornerRadius="12">
-                        <TextBlock
-                            FontSize="13"
-                            Foreground="#E0E0E0"
-                            Text="Endgame" />
-                    </Border>
-                    <Border
-                        Margin="0,0,8,8"
-                        Padding="14,6"
-                        Background="#25FFFFFF"
-                        CornerRadius="12">
-                        <TextBlock
-                            FontSize="13"
-                            Foreground="#E0E0E0"
-                            Text="Mate in 2" />
-                    </Border>
-                </WrapPanel>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            Foreground="White"
+                                            Text="{Binding Title}" />
+                                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="#AAAAAA"
+                                                Text="{Binding Difficulty}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Border
+                                        Grid.Column="1"
+                                        Padding="10,5"
+                                        VerticalAlignment="Center"
+                                        Background="#2000DC82"
+                                        CornerRadius="6">
+                                        <TextBlock
+                                            FontSize="13"
+                                            FontWeight="Bold"
+                                            Foreground="#00DC82"
+                                            Text="{Binding Rating}" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
                 <Border
                     x:Name="FeedbackBox"
                     Padding="15"
