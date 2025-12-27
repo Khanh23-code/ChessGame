@@ -374,6 +374,8 @@ namespace ChessUI.Views.BoardMenu
             moveCache.Clear();
             HideHighLights();
 
+            MessageBox.Show("This is PVP game");
+
             BoardGrid.IsHitTestVisible = true;
             Cursor = Cursors.Arrow;
 
@@ -394,6 +396,7 @@ namespace ChessUI.Views.BoardMenu
                 gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit);
             }
             
+
             DrawBoard(gameState.Board);
             await RunCountdown();
             StartGame();
