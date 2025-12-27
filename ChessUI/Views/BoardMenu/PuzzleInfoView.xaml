@@ -1,147 +1,319 @@
-﻿<UserControl x:Class="ChessUI.Views.BoardMenu.PuzzleInfoView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             Margin="20"
-             Style="{StaticResource SlideInAnimation}"
-             d:DesignHeight="700" d:DesignWidth="300">
+﻿<UserControl
+    x:Class="ChessUI.Views.BoardMenu.PuzzleInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="20"
+    d:DesignHeight="700"
+    d:DesignWidth="300"
+    Style="{StaticResource SlideInAnimation}"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="GradientTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource PlayGradientBrush}">
-            </Setter>
+            <Setter Property="Foreground" Value="{DynamicResource PlayGradientBrush}" />
         </Style>
     </UserControl.Resources>
     <Border Background="{StaticResource FrostedGlassBrush}">
-    <Grid>
-        <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,0,0,25">
+            <Grid Grid.Row="0" Margin="0,0,0,25">
 
-            <Border x:Name="NormalHeader" Style="{StaticResource MenuInnerBorderStyle}" Padding="20" Visibility="Visible">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="NormalHeader"
+                    Padding="20"
+                    Style="{StaticResource MenuInnerBorderStyle}"
+                    Visibility="Visible">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock Text="PUZZLE RATING" Foreground="{StaticResource SmallTitleText}" FontSize="12" FontWeight="SemiBold"/>
-                        <TextBlock Text="1452" Foreground="White" FontSize="36" FontWeight="Bold" Margin="0,2,0,4"/>
-                        <Border Background="#1500DC82" HorizontalAlignment="Left" CornerRadius="4" Padding="6,2">
-                            <TextBlock Text="+8 today" Foreground="#00DC82" FontSize="11" FontWeight="Bold"/>
-                        </Border>
-                    </StackPanel>
-
-                    <Border Grid.Column="1" Width="56" Height="56" CornerRadius="28" Background="#353535" Margin="10,0,0,0">
-                        <Grid>
-                            <TextBlock Text="&#xE9D2;" FontFamily="Segoe Fluent Icons" FontSize="30" 
-                                   Foreground="#FFA274" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                        <Border.Effect>
-                            <DropShadowEffect Color="#FFA274" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
-                        </Border.Effect>
-                    </Border>
-                </Grid>
-            </Border>
-
-            <Border x:Name="DailyHeader" Style="{StaticResource MenuInnerBorderStyle}" Padding="20" Visibility="Collapsed">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                        <TextBlock Text="&#xE787;" FontFamily="Segoe Fluent Icons" Foreground="#AAAAAA" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="DAILY CHALLENGE" Foreground="{StaticResource SmallTitleText}" FontSize="11" FontWeight="Bold" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <Border Grid.Row="1" BorderBrush="#30FFFFFF" BorderThickness="0,1,0,0" Padding="0,12,0,0">
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock x:Name="txtDate" Text="Dec 20" Style="{StaticResource GradientTextStyle}" FontSize="42" FontWeight="Black" HorizontalAlignment="Center"/>
-                            <TextBlock x:Name="txtDayOfWeek" Text="Saturday" Foreground="White" Opacity="0.6" FontSize="14" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="{StaticResource SmallTitleText}"
+                                Text="PUZZLE RATING" />
+                            <TextBlock
+                                Margin="0,2,0,4"
+                                FontSize="36"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="1452" />
+                            <Border
+                                Padding="6,2"
+                                HorizontalAlignment="Left"
+                                Background="#1500DC82"
+                                CornerRadius="4">
+                                <TextBlock
+                                    FontSize="11"
+                                    FontWeight="Bold"
+                                    Foreground="#00DC82"
+                                    Text="+8 today" />
+                            </Border>
                         </StackPanel>
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
 
-        <StackPanel Grid.Row="1">
-            <Border Background="#303030" CornerRadius="8" Padding="15,12" Margin="0,0,0,20">
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Width="12" Height="12" Fill="White" Margin="0,0,12,0"/>
-                    <TextBlock Text="Find the best move for White" Foreground="White" FontSize="15" FontWeight="SemiBold"/>
-                </StackPanel>
-            </Border>
-
-            <WrapPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Border Background="#25FFFFFF" CornerRadius="12" Padding="14,6" Margin="0,0,8,8">
-                    <TextBlock Text="Pin" Foreground="#E0E0E0" FontSize="13"/>
+                        <Border
+                            Grid.Column="1"
+                            Width="56"
+                            Height="56"
+                            Margin="10,0,0,0"
+                            Background="#353535"
+                            CornerRadius="28">
+                            <Grid>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="30"
+                                    Foreground="#FFA274"
+                                    Text="&#xE9D2;" />
+                            </Grid>
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="20"
+                                    Opacity="0.5"
+                                    ShadowDepth="0"
+                                    Color="#FFA274" />
+                            </Border.Effect>
+                        </Border>
+                    </Grid>
                 </Border>
-                <Border Background="#25FFFFFF" CornerRadius="12" Padding="14,6" Margin="0,0,8,8">
-                    <TextBlock Text="Endgame" Foreground="#E0E0E0" FontSize="13"/>
+
+                <Border
+                    x:Name="DailyHeader"
+                    Padding="20"
+                    Style="{StaticResource MenuInnerBorderStyle}"
+                    Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel
+                            Grid.Row="0"
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Foreground="#AAAAAA"
+                                Text="&#xE787;" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource SmallTitleText}"
+                                Text="DAILY CHALLENGE" />
+                        </StackPanel>
+
+                        <Border
+                            Grid.Row="1"
+                            Padding="0,12,0,0"
+                            BorderBrush="#30FFFFFF"
+                            BorderThickness="0,1,0,0">
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock
+                                    x:Name="txtDate"
+                                    HorizontalAlignment="Center"
+                                    FontSize="42"
+                                    FontWeight="Black"
+                                    Style="{StaticResource GradientTextStyle}"
+                                    Text="Dec 20" />
+                                <TextBlock
+                                    x:Name="txtDayOfWeek"
+                                    Margin="0,2,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Opacity="0.6"
+                                    Text="Saturday" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Border>
-                <Border Background="#25FFFFFF" CornerRadius="12" Padding="14,6" Margin="0,0,8,8">
-                    <TextBlock Text="Mate in 2" Foreground="#E0E0E0" FontSize="13"/>
-                </Border>
-            </WrapPanel>
-
-            <Border x:Name="FeedbackBox" Visibility="Collapsed" 
-                Background="#2000DC82" BorderBrush="#00DC82" BorderThickness="1" CornerRadius="12" Padding="15">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Border Width="32" Height="32" CornerRadius="16" Background="#00DC82" Margin="0,0,15,0">
-                        <TextBlock Text="&#xE73E;" FontFamily="Segoe Fluent Icons" Foreground="#11191F" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="Success!" Foreground="#00DC82" FontWeight="Bold" FontSize="16"/>
-                        <TextBlock Text="+12 Rating points" Foreground="#CCFFFFFF" FontSize="12" Margin="0,2,0,0"/>
-                    </StackPanel>
-                </Grid>
-                <Border.Effect>
-                    <DropShadowEffect Color="#00DC82" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
-                </Border.Effect>
-            </Border>
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
-            <Grid Margin="0,0,0,15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="0" Style="{StaticResource NeutralButton}" Height="48" FontSize="15">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE9A6;" FontFamily="Segoe Fluent Icons" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Hint" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Grid.Column="2" Style="{StaticResource NeutralButton}" Height="48" FontSize="15">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Retry" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
             </Grid>
 
-            <Button x:Name="ActionBtn" Style="{StaticResource StartButtonStyle}" Content="Next Puzzle" Height="52" FontSize="18"/>
-        </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Border
+                    Margin="0,0,0,20"
+                    Padding="15,12"
+                    Background="#303030"
+                    CornerRadius="8">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,12,0"
+                            Fill="White" />
+                        <TextBlock
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Text="Find the best move for White" />
+                    </StackPanel>
+                </Border>
+                <Grid Margin="0,20,0,0">
+                    <ListBox
+                        x:Name="PuzzleListBox"
+                        MaxHeight="320"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemContainerStyle="{StaticResource PuzzleListBoxItemStyle}"
+                        ItemsSource="{Binding PuzzleList}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectionChanged="PuzzleListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            Foreground="White"
+                                            Text="{Binding Title}" />
+                                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="#AAAAAA"
+                                                Text="{Binding Difficulty}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Border
+                                        Grid.Column="1"
+                                        Padding="10,5"
+                                        VerticalAlignment="Center"
+                                        Background="#2000DC82"
+                                        CornerRadius="6">
+                                        <TextBlock
+                                            FontSize="13"
+                                            FontWeight="Bold"
+                                            Foreground="#00DC82"
+                                            Text="{Binding Rating}" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <Border
+                    x:Name="FeedbackBox"
+                    Padding="15"
+                    Background="#2000DC82"
+                    BorderBrush="#00DC82"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,15,0"
+                            Background="#00DC82"
+                            CornerRadius="16">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="#11191F"
+                                Text="&#xE73E;" />
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="#00DC82"
+                                Text="Success!" />
+                            <TextBlock
+                                Margin="0,2,0,0"
+                                FontSize="12"
+                                Foreground="#CCFFFFFF"
+                                Text="+12 Rating points" />
+                        </StackPanel>
+                    </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="20"
+                            Opacity="0.2"
+                            ShadowDepth="0"
+                            Color="#00DC82" />
+                    </Border.Effect>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Height="48"
+                        FontSize="15"
+                        Style="{StaticResource NeutralButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                Text="&#xE9A6;" />
+                            <TextBlock VerticalAlignment="Center" Text="Hint" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button
+                        Grid.Column="2"
+                        Height="48"
+                        FontSize="15"
+                        Style="{StaticResource NeutralButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe Fluent Icons"
+                                Text="&#xE72C;" />
+                            <TextBlock VerticalAlignment="Center" Text="Retry" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Button
+                    x:Name="ActionBtn"
+                    Height="52"
+                    Content="Next Puzzle"
+                    FontSize="18"
+                    Style="{StaticResource StartButtonStyle}" />
+            </StackPanel>
         </Grid>
     </Border>
-    
+
 </UserControl>

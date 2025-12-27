@@ -13,16 +13,16 @@
         <SolidColorBrush x:Key="SmallTitleText">#AAAAAA</SolidColorBrush>
 
         <LinearGradientBrush x:Key="PlayGradientBrush" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Color="#FFA274" Offset="0.0"/>
-            <GradientStop Color="#a355d0" Offset="1.0"/>
+            <GradientStop Offset="0.0" Color="#FFA274" />
+            <GradientStop Offset="1.0" Color="#a355d0" />
         </LinearGradientBrush>
 
-        <!--UserControl SlideInAnimation Style-->
+        <!--  UserControl SlideInAnimation Style  -->
         <Style x:Key="SlideInAnimation" TargetType="UserControl">
-            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Opacity" Value="0" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <TranslateTransform X="50" Y="0"/>
+                    <TranslateTransform X="50" Y="0" />
                 </Setter.Value>
             </Setter>
 
@@ -30,13 +30,19 @@
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
-                                     From="0" To="1" Duration="0:0:0.4"/>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.4" />
 
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
-                                     From="50" To="0" Duration="0:0:0.4">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                From="50"
+                                To="0"
+                                Duration="0:0:0.4">
                                 <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
+                                    <CubicEase EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
                         </Storyboard>
@@ -299,7 +305,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="15,8" />
         </Style>
-        <!--start button style-->
+        <!--  start button style  -->
         <Style x:Key="StartButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
             <Setter Property="FontSize" Value="16" />
@@ -314,11 +320,11 @@
                         <Grid>
                             <Border
                                 x:Name="MainBorder"
+                                Background="{DynamicResource PlayGradientBrush}"
                                 BorderBrush="White"
                                 BorderThickness="0"
                                 CornerRadius="10"
-                                SnapsToDevicePixels="True"
-                                Background="{DynamicResource PlayGradientBrush}">
+                                SnapsToDevicePixels="True">
                                 <ContentPresenter
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -913,7 +919,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--style MoveListView Item-->
+        <!--  style MoveListView Item  -->
         <Style x:Key="MoveListViewItemStyle" TargetType="ListViewItem">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{StaticResource PrimaryText}" />
@@ -951,87 +957,102 @@
         </Style>
         <!--  style Buttons in LearnTutorial  -->
         <Style x:Key="MainLearnButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#00DC82"/>
-            <Setter Property="Foreground" Value="#11191F"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#00DC82" />
+            <Setter Property="Foreground" Value="#11191F" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="8"
-                                Padding="20,10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            Padding="20,10"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="15" Color="#00DC82" Opacity="1" ShadowDepth="0"/>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Opacity="1"
+                                    ShadowDepth="0"
+                                    Color="#00DC82" />
                             </Border.Effect>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#00FF99"/>
+                                <Setter TargetName="border" Property="Background" Value="#00FF99" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--Item learn style-->
+        <!--  Item learn style  -->
         <Style x:Key="rButtonLearnItemStyle" TargetType="RadioButton">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Margin" Value="0,0,0,15" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Border x:Name="border"
-                        Background="#20FFFFFF" 
-                        BorderBrush="Transparent"
-                        BorderThickness="2"
-                        CornerRadius="12"
-                        Padding="15">
-                            <ContentPresenter/>
+                        <Border
+                            x:Name="border"
+                            Padding="15"
+                            Background="#20FFFFFF"
+                            BorderBrush="Transparent"
+                            BorderThickness="2"
+                            CornerRadius="12">
+                            <ContentPresenter />
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="0" Opacity="0"/>
+                                <DropShadowEffect
+                                    BlurRadius="0"
+                                    Opacity="0"
+                                    ShadowDepth="0" />
                             </Border.Effect>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82" />
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--style Scroll bar-->
+        <!--  style Scroll bar  -->
         <Style x:Key="Scrollthumb" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
-                   <Setter.Value>
+                <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Thumb}">
                         <Grid x:Name="Grid">
-                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent"/>
-                            <Border x:Name="RectangleScroll"
-                                        CornerRadius="4"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Width="Auto"
-                                        Height="Auto"
-                                        Background="#30FFFFFF"/>
+                            <Rectangle
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Transparent" />
+                            <Border
+                                x:Name="RectangleScroll"
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="#30FFFFFF"
+                                CornerRadius="4" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Tag" Value="Horizontal">
-                                <Setter TargetName="RectangleScroll" Property="Width" Value="Auto"/>
-                                <Setter TargetName="RectangleScroll" Property="Height" Value="7"/>
+                                <Setter TargetName="RectangleScroll" Property="Width" Value="Auto" />
+                                <Setter TargetName="RectangleScroll" Property="Height" Value="7" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="RectangleScroll" Property="Background" Value="#30FFFFFF"/>
+                                <Setter TargetName="RectangleScroll" Property="Background" Value="#30FFFFFF" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -1040,25 +1061,43 @@
         </Style>
 
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-            <Setter Property= "Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Foreground" Value="#8C8C8C"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Width" Value="8"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="Foreground" Value="#8C8C8C" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
-                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="True" Focusable="False" >
+                        <Grid
+                            x:Name="GridRoot"
+                            Width="8"
+                            Background="{TemplateBinding Background}">
+                            <Track
+                                x:Name="PART_Track"
+                                Grid.Row="0"
+                                Focusable="False"
+                                IsDirectionReversed="True">
                                 <Track.Thumb>
-                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{StaticResource Scrollthumb}"/>
+                                    <Thumb
+                                        x:Name="Thumb"
+                                        Background="{TemplateBinding Foreground}"
+                                        Style="{StaticResource Scrollthumb}" />
                                 </Track.Thumb>
 
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton x:Name="PageUp" Command ="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                    <RepeatButton
+                                        x:Name="PageUp"
+                                        Command="ScrollBar.PageDownCommand"
+                                        Focusable="False"
+                                        Opacity="0" />
                                 </Track.IncreaseRepeatButton>
 
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton x:Name="PageDown" Command ="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                    <RepeatButton
+                                        x:Name="PageDown"
+                                        Command="ScrollBar.PageUpCommand"
+                                        Focusable="False"
+                                        Opacity="0" />
                                 </Track.DecreaseRepeatButton>
                             </Track>
                         </Grid>
@@ -1067,78 +1106,103 @@
             </Setter>
         </Style>
 
-        <!--GameMenus Style-->
+        <!--  GameMenus Style  -->
         <Style x:Key="MenuOuterBorderStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="15"/>
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Background" Value="{DynamicResource PlayGradientBrush}">
-            </Setter>
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Background" Value="{DynamicResource PlayGradientBrush}" />
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="5" Opacity="0.5"/>
+                    <DropShadowEffect
+                        BlurRadius="20"
+                        Opacity="0.5"
+                        ShadowDepth="5"
+                        Color="Black" />
                 </Setter.Value>
             </Setter>
         </Style>
 
         <Style x:Key="MenuInnerBorderStyle" TargetType="Border">
-            <Setter Property="Background" Value="#252525"/>
-            <Setter Property="CornerRadius" Value="13"/>
+            <Setter Property="Background" Value="#252525" />
+            <Setter Property="CornerRadius" Value="13" />
         </Style>
 
-        <Style x:Key="RestartGradientButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBorderRadius}">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Background" Value="{StaticResource PlayGradientBrush}"/>
+        <Style
+            x:Key="RestartGradientButtonStyle"
+            BasedOn="{StaticResource ButtonBorderRadius}"
+            TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="{StaticResource PlayGradientBrush}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Opacity" Value="0.9"/>
+                    <Setter Property="Opacity" Value="0.9" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="GameMenuGrayButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBorderRadius}">
-            <Setter Property="Background" Value="#353535"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
+        <Style
+            x:Key="GameMenuGrayButtonStyle"
+            BasedOn="{StaticResource ButtonBorderRadius}"
+            TargetType="Button">
+            <Setter Property="Background" Value="#353535" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#454545"/>
+                    <Setter Property="Background" Value="#454545" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="PromotionPieceStyle" TargetType="Image">
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Effect">
                         <Setter.Value>
-                            <DropShadowEffect Color="White" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Opacity="0.6"
+                                ShadowDepth="0"
+                                Color="White" />
                         </Setter.Value>
                     </Setter>
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.15" Duration="0:0:0.15"/>
-                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.15" Duration="0:0:0.15"/>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.15"
+                                    Duration="0:0:0.15" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.15"
+                                    Duration="0:0:0.15" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
                     <Trigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.0" Duration="0:0:0.15"/>
-                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.0" Duration="0:0:0.15"/>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.0"
+                                    Duration="0:0:0.15" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.0"
+                                    Duration="0:0:0.15" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -1146,28 +1210,37 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="MenuAnimationStyle" TargetType="UserControl">
-            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
-                                             From="0" To="1" Duration="0:0:0.3"/>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" 
-                                             From="0.8" To="1" Duration="0:0:0.3">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.3" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                From="0.8"
+                                To="1"
+                                Duration="0:0:0.3">
                                 <DoubleAnimation.EasingFunction>
-                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                    <BackEase Amplitude="0.3" EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" 
-                                             From="0.8" To="1" Duration="0:0:0.3">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                From="0.8"
+                                To="1"
+                                Duration="0:0:0.3">
                                 <DoubleAnimation.EasingFunction>
-                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                    <BackEase Amplitude="0.3" EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
                         </Storyboard>
@@ -1175,5 +1248,37 @@
                 </EventTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="PuzzleListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border
+                            x:Name="ItemBorder"
+                            Padding="15,12"
+                            Background="#353535"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#454545" />
+                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource PlayGradientBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#505050" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -438,9 +438,51 @@ namespace ChessUI.Views.BoardMenu
                 }
             }
             
+
             DrawBoard(gameState.Board);
             await RunCountdown();
             StartGame();
+        }
+
+        public void StartPuzzle(string fen)
+        {
+            timer.Stop();
+            MenuContainer.Content = null;
+            selectedPos = null;
+            moveCache.Clear();
+            HideHighLights();
+
+            this.IsVsComputer = true;
+
+            gameState = new GameState(fen);
+            this.clientSide = gameState.CurrentPlayer;
+
+            Player aiSide = (clientSide == Player.White) ? Player.Black : Player.White;
+            _aiService.SetAIPlayer(aiSide);
+            _aiService.SetDifficulty(3); 
+            if (clientSide == Player.White)
+            {
+                PlayerNameText.Text = "You (Solver)";
+                OpponentNameText.Text = "Puzzle (Black)";
+            }
+            else
+            {
+                PlayerNameText.Text = "You (Solver)";
+                OpponentNameText.Text = "Puzzle (White)";
+            }
+            DrawBoard(gameState.Board);
+            BoardGrid.IsHitTestVisible = true;
+            Cursor = Cursors.Arrow;
+
+            UpdateTimerDisplay();
+            PlayerTimerBorder.Visibility = Visibility.Visible;
+            OpponentTimerBorder.Visibility = Visibility.Visible;
+
+            timer.Start();
+            if (gameState.CurrentPlayer != clientSide)
+            {
+                PlayAiTurn();
+            }
         }
         public void ShowGameOverMenu()
         {
