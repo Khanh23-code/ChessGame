@@ -483,7 +483,6 @@ namespace ChessUI.Views.BoardMenu
 
         private void HandlePromotionMove(Move move)
         {
-            // B1: hiển thị quân tốt đã di chuyển cho người dùng (nhưng thực sự chưa thực thi PromotionMove)
             Position from = move.FromPos;
             Position to = move.ToPos;
 
@@ -607,21 +606,19 @@ namespace ChessUI.Views.BoardMenu
         }
         #endregion
 
-        public void ChangeAsset(int index = 1)
-        {
-            assetIndex = index;
-
-            if (assetIndex == 1)
-            {
-                assetIndex = 2;
-            }
-            else
-            {
-                assetIndex = 1;
-            }
-            DrawBoard(gameState.Board);
-        }
-        // function to run countdown animation
+        //public void ChangeAsset()
+        //{
+        //    if (assetIndex == 1)
+        //    {
+        //        assetIndex = 2;
+        //    }
+        //    else
+        //    {
+        //        assetIndex = 1;
+        //    }
+        //    DrawBoard(gameState.Board);
+        //}
+        //function to run countdown animation
         private async Task RunCountdown()
         {
             CountDownView countDown = new CountDownView();
@@ -659,37 +656,14 @@ namespace ChessUI.Views.BoardMenu
             OpponentTimerBorder.Visibility = Visibility.Visible;
             timer.Start();
         }
-
-        private async Task<string> CheckForSavedGame(string mode)
+     
+        public void UpdateTheme(int AssetId)
         {
-            try
+            this.assetIndex = AssetId;
+            if (gameState != null)
             {
-                if (IsVsComputer)
-                {
-                    mode = "PvE";
-                }
-                else
-                {
-                    mode = "PvP";
-                }
-                string savedFen = await _cloudService.LoadGameAsync(userID, mode);
-
-                if (!string.IsNullOrEmpty(savedFen))
-                {
-                    var result = MessageBox.Show($"A saved game in {mode} was found in the cloud. Do you want to load it?", "Load Saved Game", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        return savedFen;
-                    }
-                }
+                DrawBoard(gameState.Board);
             }
-            catch (Exception ex)
-            {
-                // Báo lỗi ở debug output phía coder, không hiện MessageBox làm phiền với user, user vẫn có thể chơi bình thường
-                System.Diagnostics.Debug.WriteLine("Lỗi load game: " + ex.Message);
-            }
-
-            return null;
         }
     }
 }

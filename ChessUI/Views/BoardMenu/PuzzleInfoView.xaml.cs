@@ -9,13 +9,10 @@ namespace ChessUI.Views.BoardMenu
         public PuzzleInfoView()
         {
             InitializeComponent();
-
-            // Tự động cập nhật ngày tháng hiện tại khi mở
             txtDate.Text = DateTime.Now.ToString("MMM dd");
             txtDayOfWeek.Text = DateTime.Now.DayOfWeek.ToString();
         }
 
-        // Property để chuyển đổi chế độ
         private bool _isDailyMode;
         public bool IsDailyMode
         {

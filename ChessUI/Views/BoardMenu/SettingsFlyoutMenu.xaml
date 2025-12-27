@@ -38,7 +38,10 @@
                     Text="Settings" />
             </Grid>
 
-            <RadioButton GroupName="SettingsSubMenu" Style="{StaticResource FlyoutButton}">
+            <RadioButton
+                Checked="CustomRadioButton_Checked"
+                GroupName="SettingsSubMenu"
+                Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
