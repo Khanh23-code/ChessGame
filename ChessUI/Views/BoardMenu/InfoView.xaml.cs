@@ -43,7 +43,10 @@ namespace ChessUI.Views.BoardMenu
             }
             else if (current == Player.Black)
             {
-                lvMovementInfo.Items.RemoveAt(lvMovementInfo.Items.Count - 1);
+                if (lvMovementInfo.Items.Count > 0)
+                {
+                    lvMovementInfo.Items.RemoveAt(lvMovementInfo.Items.Count - 1);
+                }
 
                 moveData = new MoveData(count, whiteData, data);
                 lvMovementInfo.Items.Add(moveData);

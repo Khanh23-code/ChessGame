@@ -21,10 +21,18 @@ namespace ChessLogic
         public string FENString;
 
         public MovementInfo MovementInfo { get; private set; }
+
+        private readonly CloudService _cloudService;
+        private readonly string _mode;
+        // Mode: "PvP", "PvE", "Online"
+
+        // Tạm thời dùng ID mặc định để lưu trữ đám mây
+        // Sau này: mỗi account người dùng sẽ có ID riêng
+        private const string UserID = "Player_Default";
         #endregion
 
         #region Constructors
-        public GameState(Player player, Board board, TimeSpan initialTime)
+        public GameState(Player player, Board board, TimeSpan initialTime, string mode = "")
         {
             CurrentPlayer = player;
             Board = board;
@@ -37,10 +45,13 @@ namespace ChessLogic
             stateHistory[stateString] = 1;
 
             MovementInfo = new MovementInfo();
+
+            _cloudService = new CloudService();
+            _mode = mode;
         }
         // New GameState from existing GameState (for Undo/Redo or FEN)
         // ??? Có cần lưu thêm stateHistory ???
-        public GameState(string fen)
+        public GameState(string fen, string mode = "")
         {
             string[] parts = fen.Split(' ');
 
@@ -55,6 +66,9 @@ namespace ChessLogic
 
             FENString = fen;
             MovementInfo = new MovementInfo();
+
+            _cloudService = new CloudService();
+            _mode = mode;
         }
         #endregion
 
@@ -87,6 +101,10 @@ namespace ChessLogic
             CurrentPlayer = CurrentPlayer.Opponent();
 
             UpdateFENString();
+
+            // Khởi tạo dịch vụ đám mây để save game
+            // Gọi hàm lưu cloud. Cú pháp _ báo C# không cần chờ kết quả trả về
+            _ = _cloudService.SaveGameAsync(UserID, _mode, FENString);
 
             CheckForGameOver();
         }
@@ -246,5 +264,10 @@ namespace ChessLogic
             return false;
         }
         #endregion
+
+        public void ClearCloudSave()
+        {
+            _ = _cloudService.DeleteGameAsync(UserID, _mode);
+        }
     }
 }

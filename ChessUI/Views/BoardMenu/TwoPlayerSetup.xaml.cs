@@ -28,7 +28,7 @@ namespace ChessUI.Views.BoardMenu
         public TwoPlayerSetup()
         {
             InitializeComponent();
-            StartTwoPlayerButton.Click += StartTwoPlayerButton_Click;
+            //StartTwoPlayerButton.Click += StartTwoPlayerButton_Click;
         }
         private void SwapSideButton_Click(object sender, RoutedEventArgs e)
         {
