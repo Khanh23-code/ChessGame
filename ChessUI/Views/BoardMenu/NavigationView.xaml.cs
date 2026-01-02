@@ -33,7 +33,6 @@ namespace ChessUI.Views.BoardMenu
 
         public partial class NavigationView : UserControl
         {
-            // Sự kiện bắn ra ngoài
             public event EventHandler<NavigationEventArgs> SelectionChanged;
 
             public NavigationView()
@@ -56,8 +55,12 @@ namespace ChessUI.Views.BoardMenu
         private void LogoButton_Click(object sender, RoutedEventArgs e)
         {
             // refresh main window by close and open again
-            var newMainWindow = new MainWindow();
-            newMainWindow.Show();
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow != null)
+            {
+                mainWindow.ResetToHome();
+            }
         }
     }
 }
