@@ -20,7 +20,7 @@
             Grid.Row="0"
             Margin="0,0,0,10"
             Padding="10"
-            Background="{StaticResource FrostedGlassBrush}"
+            Background="{DynamicResource Brush.Glass}"
             CornerRadius="8">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -46,15 +46,15 @@
                         Text="Garry Kasparov" />
                     <TextBlock
                         FontSize="14"
-                        Foreground="{DynamicResource SmallTitleText}"
+                        Foreground="{DynamicResource Brush.Text.Secondary}"
                         Text="400" />
                 </StackPanel>
 
                 <Border
                     x:Name="OpponentTimerBorder"
-                    Visibility="Collapsed"
                     Grid.Column="2"
-                    Style="{StaticResource TimerBox}">
+                    Style="{StaticResource TimerBox}"
+                    Visibility="Collapsed">
                     <TextBlock
                         x:Name="OpponentTimerText"
                         Style="{StaticResource TimerText}"
@@ -91,7 +91,7 @@
             Grid.Row="2"
             Margin="0,10,0,0"
             Padding="10"
-            Background="{StaticResource FrostedGlassBrush}"
+            Background="{DynamicResource Brush.Glass}"
             CornerRadius="8">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -117,15 +117,15 @@
                         Text="Magnus Carlsen" />
                     <TextBlock
                         FontSize="14"
-                        Foreground="{DynamicResource SmallTitleText}"
+                        Foreground="{DynamicResource Brush.Text.Secondary}"
                         Text="400" />
                 </StackPanel>
 
                 <Border
                     x:Name="PlayerTimerBorder"
-                    Visibility="Collapsed"
                     Grid.Column="2"
-                    Style="{StaticResource TimerBox}">
+                    Style="{StaticResource TimerBox}"
+                    Visibility="Collapsed">
                     <TextBlock
                         x:Name="PlayerTimerText"
                         Style="{StaticResource TimerText}"
