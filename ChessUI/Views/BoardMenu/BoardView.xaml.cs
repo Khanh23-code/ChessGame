@@ -50,6 +50,8 @@ namespace ChessUI.Views.BoardMenu
         private CloudService _cloudService = new CloudService();
         private string userID = "Player_Default";
 
+        public TimeSpan TimeLimit { get; set; }
+
         public BoardView()
         {
             InitializeComponent();
@@ -348,7 +350,7 @@ namespace ChessUI.Views.BoardMenu
             Player aiSide = (playerSide == Player.White) ? Player.Black : Player.White;
             _aiService.SetAIPlayer(aiSide);
 
-
+            isUnlimitedTime = true;
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
 
             string modeKey = "PvE";
@@ -515,7 +517,18 @@ namespace ChessUI.Views.BoardMenu
             Cursor = Cursors.Arrow;
 
             // initial Timer after ResetGame is called
-            TimeSpan initialTime = TimeSpan.FromMinutes(10);
+            TimeSpan initialTime;
+
+            if (isUnlimitedTime)
+            {
+                initialTime = TimeSpan.FromDays(1);
+            }
+            else
+            {
+                initialTime = TimeLimit;
+            }
+
+            //TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState = new GameState(Player.White, Board.Initial(), initialTime);
             gameState.ClearCloudSave();
 
