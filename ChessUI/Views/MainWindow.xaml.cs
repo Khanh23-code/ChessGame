@@ -236,6 +236,7 @@ namespace ChessUI
                 RightPanelContentHost.Content = DefaultInfoView;
                 if (BoardViewControl != null)
                 {
+                    BoardViewControl.TimeLimit = settings.TimeLimit;
                     BoardViewControl.StartPvPGame(settings);
                 }
             };
