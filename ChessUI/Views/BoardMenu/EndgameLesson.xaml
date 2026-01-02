@@ -73,6 +73,7 @@
                             VerticalAlignment="Center"
                             FontSize="90"
                             Foreground="White"
+                            RenderTransformOrigin="0.5,0.5"
                             Text="♚">
                             <TextBlock.Effect>
                                 <DropShadowEffect
@@ -80,6 +81,9 @@
                                     Opacity="0.3"
                                     Color="White" />
                             </TextBlock.Effect>
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="70" />
+                            </TextBlock.RenderTransform>
                         </TextBlock>
                     </Border>
                 </StackPanel>

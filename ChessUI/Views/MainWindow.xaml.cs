@@ -41,6 +41,20 @@ namespace ChessUI
             // Khởi tạo dịch vụ đám mây để load game
             _cloudService = new CloudService();
         }
+        public void ResetToHome ()
+        {
+            RightPanelContentHost.Content = DefaultInfoView;
+            OverlayContainer.Content = null;
+            OverlayContainer.Visibility = Visibility.Collapsed;
+            GameContainer.Visibility = Visibility.Visible;
+
+            if (BoardViewControl != null)
+            {
+                string startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 0:0";
+                BoardViewControl.StartPuzzle(startFen);
+            }
+        }
+
         #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

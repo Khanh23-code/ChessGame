@@ -505,7 +505,7 @@ namespace ChessUI.Views.BoardMenu
             };
         }
 
-        private void RestartGame()
+        public void RestartGame()
         {
             selectedPos = null;
             HideHighLights();
