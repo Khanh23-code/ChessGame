@@ -14,7 +14,7 @@
     <Border>
         <Grid
             x:Name="NavRootGrid"
-            Background="{StaticResource FrostedGlassBrush}"
+            Background="{DynamicResource Brush.Glass}"
             Grid.IsSharedSizeScope="True"
             RenderOptions.BitmapScalingMode="HighQuality">
             <Grid.RowDefinitions>
@@ -36,19 +36,17 @@
                     <Button
                         x:Name="LogoButton"
                         Grid.Row="0"
-                        Click="LogoButton_Click"
                         Style="{StaticResource LogoButton}">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="IconRow" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" SharedSizeGroup="IconRow" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
                             <Image
                                 Grid.Column="0"
                                 Width="32"
                                 Height="32"
-                                Margin="0,0,10,0"
+                                Margin="0,10,10,0"
                                 RenderTransformOrigin="0.5,0.5"
                                 Source="/Assets/MenuAssets/logo.png">
                                 <Image.RenderTransform>
@@ -64,7 +62,7 @@
                                                         <Storyboard>
                                                             <DoubleAnimation
                                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                                                                To="20"
+                                                                To="30"
                                                                 Duration="0:0:0.15">
                                                                 <DoubleAnimation.EasingFunction>
                                                                     <BackEase Amplitude="0.5" EasingMode="EaseOut" />
@@ -72,11 +70,11 @@
                                                             </DoubleAnimation>
                                                             <DoubleAnimation
                                                                 Storyboard.TargetProperty="Width"
-                                                                To="36"
+                                                                To="32"
                                                                 Duration="0:0:0.15" />
                                                             <DoubleAnimation
                                                                 Storyboard.TargetProperty="Height"
-                                                                To="36"
+                                                                To="32"
                                                                 Duration="0:0:0.15" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -105,13 +103,12 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-
                             <TextBlock
-                                Grid.Column="1"
+                                Grid.Row="1"
                                 VerticalAlignment="Center"
                                 FontFamily="Segoe UI"
                                 FontSize="18"
-                                Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                FontWeight="Bold"
                                 Text="MasterChess" />
                         </Grid>
                     </Button>

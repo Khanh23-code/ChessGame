@@ -13,7 +13,7 @@
     <Grid Margin="0,20,20,20">
         <Border
             Padding="25"
-            Background="{StaticResource FrostedGlassBrush}"
+            Background="{DynamicResource Brush.Glass}"
             BorderBrush="#20FFFFFF"
             BorderThickness="1"
             CornerRadius="20">
@@ -49,7 +49,7 @@
                             VerticalAlignment="Center"
                             FontSize="20"
                             FontWeight="SemiBold"
-                            Foreground="{StaticResource PrimaryText}"
+                            Foreground="{StaticResource Brush.Text.Primary}"
                             Text="TWO PLAYERS"
                             TextAlignment="Center" />
                         <Image
@@ -254,8 +254,9 @@
                     </StackPanel>
                     <Button
                         x:Name="StartTwoPlayerButton"
+                        Click="StartTwoPlayerButton_Click"
                         Content="BẮT ĐẦU"
-                        Style="{StaticResource StartButtonStyle}" Click="StartTwoPlayerButton_Click" />
+                        Style="{StaticResource StartButtonStyle}" />
                 </StackPanel>
             </Grid>
         </Border>
