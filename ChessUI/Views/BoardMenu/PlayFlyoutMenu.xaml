@@ -9,8 +9,7 @@
     mc:Ignorable="d">
     <Border
         Width="300"
-        Background="#2C2B29"
-        BorderBrush="#404040"
+        Background="{DynamicResource Brush.Background.Tertiary}"
         BorderThickness="0,0,1,0"
         RenderOptions.BitmapScalingMode="HighQuality">
         <StackPanel Margin="15">
@@ -26,14 +25,23 @@
                     Width="28"
                     Height="28"
                     Margin="0,0,10,0"
-                    Source="/Assets/MenuAssets/board.png" />
+                    Source="/Assets/MenuAssets/board.png">
+                    <Image.Effect>
+                        <DropShadowEffect
+                            BlurRadius="2"
+                            Direction="0"
+                            Opacity="1"
+                            ShadowDepth="0"
+                            Color="Black" />
+                    </Image.Effect>
+                </Image>
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontFamily="Segoe UI"
                     FontSize="24"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="Play" />
             </Grid>
 
@@ -49,17 +57,26 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/play_online.png" />
+                        Source="/Assets/MenuAssets/play_online.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Play Online" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Play vs a person of similar skill"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -83,17 +100,26 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/play_computer.png" />
+                        Source="/Assets/MenuAssets/play_computer.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Play With Computer" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Challenge a bot from Easy to Master"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -117,16 +143,25 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/two_player.png" />
+                        Source="/Assets/MenuAssets/two_player.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Two Players" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Play with your friend"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -135,7 +170,16 @@
                         Width="32"
                         Height="32"
                         Margin="15,0,0,0"
-                        Source="/Assets/MenuAssets/two_player.png" />
+                        Source="/Assets/MenuAssets/two_player.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
                 </Grid>
             </RadioButton>
         </StackPanel>

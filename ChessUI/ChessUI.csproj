@@ -186,6 +186,8 @@
     <Resource Include="Assets\MenuAssets\night.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\MenuAssets\player2.png" />
+    <Resource Include="Assets\MenuAssets\player1.png" />
     <Resource Include="Assets\MenuAssets\play_computer.png" />
     <Resource Include="Assets\MenuAssets\play_online.png" />
     <Resource Include="Assets\MenuAssets\puzzle.png" />

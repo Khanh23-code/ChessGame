@@ -36,7 +36,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Width" Value="40" />
         <Setter Property="Height" Value="40" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -53,10 +53,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#40FFFFFF" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource Brush.Interact.Hover}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#60FFFFFF" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource Brush.Interact.Pressed}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -232,7 +232,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid
-                                    x:Name="IndicatorGroup"
+                                    x:Name="HoverIndicator"
                                     Grid.Column="0"
                                     Width="4"
                                     Margin="0,0,5,0"
@@ -243,7 +243,21 @@
                                     <Grid.RenderTransform>
                                         <ScaleTransform ScaleY="0" />
                                     </Grid.RenderTransform>
+                                    <Border Background="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="2" />
+                                </Grid>
 
+                                <Grid
+                                    x:Name="ActiveIndicator"
+                                    Grid.Column="0"
+                                    Width="4"
+                                    Margin="0,0,5,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Stretch"
+                                    Opacity="0"
+                                    RenderTransformOrigin="0.5,0.5">
+                                    <Grid.RenderTransform>
+                                        <ScaleTransform ScaleY="0" />
+                                    </Grid.RenderTransform>
                                     <Border Background="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="2" />
                                 </Grid>
 
@@ -260,12 +274,17 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="RootBorder" Property="Background" Value="#10FFFFFF" />
-                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="1" />
-                            <Setter Property="Foreground" Value="White" />
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsChecked" Value="False" />
+                            </MultiTrigger.Conditions>
 
-                            <Trigger.EnterActions>
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="1" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
+
+                            <MultiTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
@@ -277,17 +296,13 @@
                                                 <CircleEase EasingMode="EaseOut" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard>
-                                    <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="HoverIndicator"
                                             Storyboard.TargetProperty="Opacity"
                                             To="1"
                                             Duration="0:0:0.3" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="HoverIndicator"
                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                             To="1"
                                             Duration="0:0:0.3">
@@ -297,8 +312,9 @@
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
+                            </MultiTrigger.EnterActions>
+
+                            <MultiTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
@@ -306,27 +322,23 @@
                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                             To="0"
                                             Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard>
-                                    <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="HoverIndicator"
                                             Storyboard.TargetProperty="Opacity"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="HoverIndicator"
                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                             To="0"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="RootBorder" Property="Background" Value="#15FFFFFF" />
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
                             <Setter TargetName="ContentPresenter" Property="Opacity" Value="1" />
                             <Setter Property="Foreground" Value="{Binding Tag, RelativeSource={RelativeSource Self}}" />
                             <Setter Property="FontWeight" Value="Bold" />
@@ -335,19 +347,15 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="ActiveIndicator"
                                             Storyboard.TargetProperty="Opacity"
                                             To="1"
-                                            Duration="0:0:0.3" />
+                                            Duration="0:0:0" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="ActiveIndicator"
                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                             To="1"
-                                            Duration="0:0:0.3">
-                                            <DoubleAnimation.EasingFunction>
-                                                <BackEase Amplitude="0.4" EasingMode="EaseOut" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
+                                            Duration="0:0:0" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -356,12 +364,12 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="ActiveIndicator"
                                             Storyboard.TargetProperty="Opacity"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="IndicatorGroup"
+                                            Storyboard.TargetName="ActiveIndicator"
                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                             To="0"
                                             Duration="0:0:0.2" />
@@ -396,7 +404,7 @@
                     <Border
                         x:Name="border"
                         Background="{TemplateBinding Background}"
-                        CornerRadius="0,5,5,0">
+                        CornerRadius="0,0,0,0">
                         <ContentPresenter
                             Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -419,8 +427,8 @@
     </Style>
     <!--  Flyout Button  -->
     <Style x:Key="FlyoutButton" TargetType="RadioButton">
-        <Setter Property="Background" Value="#31302E" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Secondary}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="15" />
         <Setter Property="Template">
@@ -439,10 +447,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#404040" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#494847" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.Interact.Selected}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

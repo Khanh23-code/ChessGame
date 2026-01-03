@@ -33,13 +33,13 @@
     </Style>
     <!--  style comboboxItem in SignUpWindow  -->
     <Style x:Key="ComboBoxItemDarkStyle" TargetType="ComboBoxItem">
-        <Setter Property="Background" Value="#333333" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="5" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#555555" />
+                <Setter Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#555555" />
@@ -63,7 +63,7 @@
                     <Border
                         x:Name="MainBorder"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderBrush="{DynamicResource Brush.Text.Primary}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -77,7 +77,7 @@
                                 VerticalContentAlignment="Center"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                CaretBrush="White"
+                                CaretBrush="{DynamicResource Brush.Text.Inverted}"
                                 Foreground="{DynamicResource Brush.Text.Primary}"
                                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ToggleButton
@@ -109,8 +109,8 @@
                                 Placement="Bottom">
                                 <Border
                                     MaxHeight="200"
-                                    Background="#333333"
-                                    BorderBrush="#555555"
+                                    Background="{DynamicResource Brush.Container.Background}"
+                                    BorderBrush="{DynamicResource Brush.Container.Border}"
                                     BorderThickness="1">
                                     <ScrollViewer>
                                         <ItemsPresenter />

@@ -10,8 +10,7 @@
     mc:Ignorable="d">
     <Border
         Width="300"
-        Background="#2C2B29"
-        BorderBrush="#404040"
+        Background="{DynamicResource Brush.Background.Tertiary}"
         BorderThickness="0,0,1,0"
         RenderOptions.BitmapScalingMode="HighQuality">
         <StackPanel Margin="15">
@@ -34,7 +33,7 @@
                     FontFamily="Segoe UI"
                     FontSize="24"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="Settings" />
             </Grid>
 
@@ -53,17 +52,26 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/board_and_pieces.png" />
+                        Source="/Assets/MenuAssets/board_and_pieces.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Board and Pieces Chess" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Custom your board and pieces chess as you want"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -87,17 +95,26 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/appearance.png" />
+                        Source="/Assets/MenuAssets/appearance.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Appearance" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Change your mode if you want light mode"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -128,13 +145,22 @@
                         Width="32"
                         Height="32"
                         Margin="0,0,15,0"
-                        Source="/Assets/MenuAssets/logout.png" />
+                        Source="/Assets/MenuAssets/logout.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Log out" />
                     </StackPanel>
                 </Grid>

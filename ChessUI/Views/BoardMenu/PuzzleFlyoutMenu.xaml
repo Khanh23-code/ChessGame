@@ -9,8 +9,7 @@
     mc:Ignorable="d">
     <Border
         Width="300"
-        Background="#2C2B29"
-        BorderBrush="#404040"
+        Background="{DynamicResource Brush.Background.Tertiary}"
         BorderThickness="0,0,1,0"
         RenderOptions.BitmapScalingMode="HighQuality">
         <StackPanel Margin="15">
@@ -32,12 +31,13 @@
                     FontFamily="Segoe UI"
                     FontSize="24"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="Puzzle" />
             </Grid>
-            <RadioButton GroupName="PuzzleSubMenu" 
-                         Style="{StaticResource FlyoutButton}"
-                         Click="NormalPuzzle_Click">
+            <RadioButton
+                Click="NormalPuzzle_Click"
+                GroupName="PuzzleSubMenu"
+                Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -54,7 +54,7 @@
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Puzzles" />
                     </StackPanel>
                 </Grid>
@@ -62,9 +62,9 @@
 
             <RadioButton
                 Margin="0,10,0,0"
+                Click="DailyPuzzle_Click"
                 GroupName="PuzzleSubMenu"
-                Style="{StaticResource FlyoutButton}"
-                Click="DailyPuzzle_Click">
+                Style="{StaticResource FlyoutButton}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -78,37 +78,40 @@
                         Margin="0,0,15,0"
                         Source="/Assets/MenuAssets/puzzle_daily.png" />
 
-                    <Border Grid.Column="0" 
-                            Width="16" Height="16" 
-                            Background="#00DC82" 
-                            CornerRadius="8" 
-                            VerticalAlignment="Top" 
-                            HorizontalAlignment="Right" 
-                            Margin="0,-4,10,0"
-                            BorderBrush="#2C2B29"
-                            BorderThickness="2">
-                        <TextBlock Text="&#xE73E;" 
-                                   FontFamily="Segoe Fluent Icons" 
-                                   FontSize="8" 
-                                   Foreground="#11191F" 
-                                   FontWeight="Bold" 
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center"/>
+                    <Border
+                        Grid.Column="0"
+                        Width="16"
+                        Height="16"
+                        Margin="0,-4,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="#00DC82"
+                        BorderBrush="#2C2B29"
+                        BorderThickness="2"
+                        CornerRadius="8">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="8"
+                            FontWeight="Bold"
+                            Foreground="#11191F"
+                            Text="&#xE73E;" />
                     </Border>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Daily Puzzle" />
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
+                            Text="Daily Puzzle" />
 
-                        <TextBlock 
-                                Text="Dec 20" 
-                                FontSize="12" 
-                                Foreground="#888888" 
-                                Margin="0,2,0,0"
-                                FontWeight="SemiBold"/>
+                        <TextBlock
+                            Margin="0,2,0,0"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
+                            Text="Dec 20" />
                     </StackPanel>
                 </Grid>
             </RadioButton>

@@ -2,12 +2,12 @@
 
     <!--  timer TextBox style  -->
     <Style x:Key="TimerBox" TargetType="Border">
-        <Setter Property="Background" Value="{DynamicResource Brush.Background.Main}" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Secondary}" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Padding" Value="12,8" />
     </Style>
     <Style x:Key="TimerText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -159,14 +159,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-
                     <Grid>
                         <Border
                             x:Name="HeaderBorder"
                             Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Stretch"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="#50FFFFFF"
+                            BorderBrush="{DynamicResource Brush.Text.Primary}"
                             BorderThickness="0,0,1,1">
                             <ContentPresenter
                                 x:Name="HeaderContent"
@@ -183,12 +182,10 @@
                                 </ContentPresenter.Resources>
                             </ContentPresenter>
                         </Border>
-
                     </Grid>
-
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="#10FFFFFF" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -197,7 +194,7 @@
     </Style>
     <Style x:Key="MoveListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Secondary}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="28" />
         <Setter Property="Focusable" Value="False" />
@@ -207,7 +204,7 @@
                     <Border
                         x:Name="Bd"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="#50FFFFFF"
+                        BorderBrush="{DynamicResource Brush.Text.Primary}"
                         BorderThickness="0,0,0,1">
                         <GridViewRowPresenter
                             x:Name="Presenter"
@@ -219,11 +216,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#40FFFFFF" />
-                            <Setter Property="Foreground" Value="White" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Brush.Interact.Selected}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#20FFFFFF" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -250,7 +247,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#454545" />
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.Interact.Hover}" />
                             <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource Brush.Gradient.Play}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
@@ -278,7 +275,7 @@
     </Style>
 
     <Style x:Key="MenuInnerBorderStyle" TargetType="Border">
-        <Setter Property="Background" Value="#252525" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Secondary}" />
         <Setter Property="CornerRadius" Value="13" />
     </Style>
 

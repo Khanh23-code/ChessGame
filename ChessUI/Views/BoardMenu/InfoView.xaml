@@ -24,7 +24,7 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontSize="16"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="Name User + time" />
                 <StackPanel
                     Margin="0,10,0,0"
@@ -73,7 +73,7 @@
                     HorizontalContentAlignment="Stretch"
                     Background="Transparent"
                     BorderThickness="0"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     ItemContainerStyle="{StaticResource MoveListViewItemStyle}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -85,7 +85,7 @@
                                         <TextBlock
                                             Width="40"
                                             HorizontalAlignment="Center"
-                                            Foreground="#AAAAAA"
+                                            Foreground="{DynamicResource Brush.Text.Secondary}"
                                             Text="{Binding Move}"
                                             TextAlignment="Center" />
                                     </DataTemplate>

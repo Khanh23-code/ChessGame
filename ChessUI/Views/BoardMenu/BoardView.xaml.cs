@@ -342,8 +342,12 @@ namespace ChessUI.Views.BoardMenu
             HideHighLights(); 
 
             BoardGrid.IsHitTestVisible = true; 
-            Cursor = Cursors.Arrow;     
+            Cursor = Cursors.Arrow;
 
+            // Set images for player and bot
+            string botAvatar = GetBotAvatarPath(aiDepth);
+            string playerAvatar = "/Assets/MenuAssets/player1.png"; 
+            SetAvatarImages(playerAvatar, botAvatar);
 
             _aiService.SetDifficulty(aiDepth);
             // set up who first
@@ -397,6 +401,9 @@ namespace ChessUI.Views.BoardMenu
 
             BoardGrid.IsHitTestVisible = true;
             Cursor = Cursors.Arrow;
+
+            // Set default avatar images for both players
+            SetAvatarImages("/Assets/MenuAssets/player1.png", "/Assets/MenuAssets/player2.png");
 
             this.IsVsComputer = false;
             this.clientSide = Player.White;
@@ -751,6 +758,27 @@ namespace ChessUI.Views.BoardMenu
             }
 
             return null;
+        }
+
+        private void SetAvatarImages(string playerPath, string opponentPath)
+        {
+                var playerUri = new Uri($"pack://application:,,,{playerPath}", UriKind.Absolute);
+                PlayerAvatar.ImageSource = new BitmapImage(playerUri);
+
+                var opponentUri = new Uri($"pack://application:,,,{opponentPath}", UriKind.Absolute);
+                OpponentAvatar.ImageSource = new BitmapImage(opponentUri);
+        }
+        private string GetBotAvatarPath(int depth)
+        {
+            switch (depth)
+            {
+                case 1: return "/Assets/MenuAssets/admin_avartar.png"; 
+                case 2: return "/Assets/MenuAssets/LeQuangLiem_avartar.jpeg"; 
+                case 3: return "/Assets/MenuAssets/Hikaru_Nakamura_avartar.jpeg"; 
+                case 4: return "/Assets/MenuAssets/Garry_Kasparov_avartar.jpeg";
+                case 5: return "/Assets/MenuAssets/Magnus_Carlsen_avartar.jpeg"; 
+                default: return "/Assets/MenuAssets/admin_avartar.png";
+            }
         }
     }
 }

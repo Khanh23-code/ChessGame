@@ -34,15 +34,21 @@
                     Width="40"
                     Height="40"
                     Margin="0,0,10,0"
-                    VerticalAlignment="Center"
-                    Fill="#505050" />
+                    VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush
+                            x:Name="OpponentAvatar"
+                            ImageSource="/Assets/MenuAssets/player2.png"
+                            Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock
                         x:Name="OpponentNameText"
                         FontSize="18"
                         FontWeight="Bold"
-                        Foreground="White"
+                        Foreground="{DynamicResource Brush.Text.Primary}"
                         Text="Garry Kasparov" />
                     <TextBlock
                         FontSize="14"
@@ -105,15 +111,20 @@
                     Width="40"
                     Height="40"
                     Margin="0,0,10,0"
-                    VerticalAlignment="Center"
-                    Fill="#505050" />
-
+                    VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush
+                            x:Name="PlayerAvatar"
+                            ImageSource="/Assets/MenuAssets/player1.png"
+                            Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock
                         x:Name="PlayerNameText"
                         FontSize="18"
                         FontWeight="Bold"
-                        Foreground="White"
+                        Foreground="{DynamicResource Brush.Text.Primary}"
                         Text="Magnus Carlsen" />
                     <TextBlock
                         FontSize="14"

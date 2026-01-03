@@ -46,17 +46,17 @@
                 x:Name="btnMinimize"
                 Click="btnMinimize_Click"
                 Content="&#xE921;"
-                Style="{StaticResource TitleBarButton}" />
+                Style="{DynamicResource TitleBarButton}" />
             <Button
                 x:Name="btnMaximize"
                 Click="btnMaximize_Click"
                 Content="&#xE922;"
-                Style="{StaticResource TitleBarButton}" />
+                Style="{DynamicResource TitleBarButton}" />
             <Button
                 x:Name="btnClose"
                 Click="btnClose_Click"
                 Content="&#xE8BB;"
-                Style="{StaticResource TitleBarButtonClose}" />
+                Style="{DynamicResource TitleBarButtonClose}" />
         </StackPanel>
         <Image
             Grid.RowSpan="3"

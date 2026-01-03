@@ -55,12 +55,11 @@ namespace ChessUI.Views.BoardMenu
         private void LogoButton_Click(object sender, RoutedEventArgs e)
         {
             // refresh main window by close and open again
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-
-            if (mainWindow != null)
-            {
-                mainWindow.ResetToHome();
-            }
+            var OldMainWindow = Application.Current.MainWindow;
+            var newMainWindow = new MainWindow();
+            Application.Current.MainWindow = newMainWindow;
+            newMainWindow.Show();
+            OldMainWindow.Close();
         }
     }
 }
