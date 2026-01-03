@@ -109,6 +109,7 @@
                                 FontFamily="Segoe UI"
                                 FontSize="18"
                                 FontWeight="Bold"
+                                Foreground="{DynamicResource Brush.Text.Primary}"
                                 Text="MasterChess" />
                         </Grid>
                     </Button>
@@ -133,7 +134,16 @@
                                 Width="28"
                                 Height="28"
                                 Margin="0,0,10,0"
-                                Source="/Assets/MenuAssets/board.png" />
+                                Source="/Assets/MenuAssets/board.png">
+                                <Image.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="10"
+                                        Direction="0"
+                                        Opacity="1"
+                                        ShadowDepth="0"
+                                        Color="Black" />
+                                </Image.Effect>
+                            </Image>
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
@@ -252,7 +262,16 @@
                             Width="28"
                             Height="28"
                             Margin="0,0,10,0"
-                            Source="/Assets/MenuAssets/setting.png" />
+                            Source="/Assets/MenuAssets/setting.png">
+                            <Image.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="10"
+                                    Direction="0"
+                                    Opacity="1"
+                                    ShadowDepth="0"
+                                    Color="Black" />
+                            </Image.Effect>
+                        </Image>
                         <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"

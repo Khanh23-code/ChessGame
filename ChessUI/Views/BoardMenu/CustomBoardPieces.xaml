@@ -40,7 +40,7 @@
                                 x:Name="HoverBorder"
                                 Width="100"
                                 Height="100"
-                                BorderBrush="#AAAAAA"
+                                BorderBrush="{DynamicResource Brush.Text.Secondary}"
                                 BorderThickness="2"
                                 CornerRadius="8"
                                 IsHitTestVisible="False"
@@ -50,7 +50,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource PlayGradientBrush}" />
-                                <Setter TargetName="Border" Property="Background" Value="#353431" />
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.Interact.Selected}" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="HoverBorder" Property="Opacity" Value="0.5" />
@@ -88,9 +88,9 @@
     </Window.Resources>
 
     <Border
-        Background="#2C2B29"
-        BorderBrush="#404040"
-        BorderThickness="1"
+        Background="{DynamicResource Brush.Background.Tertiary}"
+        BorderBrush="{DynamicResource Brush.Text.Primary}"
+        BorderThickness="2"
         ClipToBounds="True"
         CornerRadius="12">
         <Grid>
@@ -111,14 +111,14 @@
                     Grid.Row="0"
                     FontSize="26"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="Board and Pieces" />
 
                 <TextBlock
                     Grid.Row="1"
                     Margin="0,5,0,20"
                     FontSize="14"
-                    Foreground="{DynamicResource SmallTitleText}"
+                    Foreground="{DynamicResource Brush.Text.Secondary}"
                     Text="Choose style for board và pieces."
                     TextWrapping="Wrap" />
 
@@ -149,7 +149,7 @@
                                     VerticalAlignment="Center">
 
                                     <Border
-                                        BorderBrush="#505050"
+                                        BorderBrush="{DynamicResource Brush.Gradient.Play}"
                                         BorderThickness="1"
                                         ClipToBounds="True"
                                         CornerRadius="6">
@@ -180,7 +180,9 @@
                                         Height="22"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource PlayGradientBrush}"
+                                        Background="Transparent"
+                                        BorderBrush="{DynamicResource Brush.Gradient.Play}"
+                                        BorderThickness="0.75"
                                         CornerRadius="11"
                                         Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Path
@@ -188,8 +190,8 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Data="M 6,11 L 10,15 L 16,7"
-                                            Stroke="White"
-                                            StrokeThickness="2" />
+                                            Stroke="{DynamicResource Brush.Gradient.Play}"
+                                            StrokeThickness="3" />
                                     </Border>
                                 </Grid>
                             </DataTemplate>
@@ -211,57 +213,65 @@
                         Style="{StaticResource DialogButton}" />
 
                     <Button
+                        Width="150"
+                        Height="40"
                         Background="{DynamicResource PlayGradientBrush}"
                         Click="BtnSave_Click"
                         Content="Lưu"
-                        Foreground="White"
-                        Style="{StaticResource DialogButton}" />
+                        Foreground="{DynamicResource Brush.Text.Primary}"
+                        Style="{DynamicResource StartButtonStyle}" />
                 </StackPanel>
             </Grid>
+            <Border
+                Grid.Column="1"
+                Background="{DynamicResource Brush.Background.Main}"
+                ClipToBounds="True"
+                CornerRadius="0,12,12,0">
+                <Grid>
+                    <Viewbox Margin="40">
+                        <Grid Width="600" Height="600">
+                            <Border
+                                BorderBrush="{DynamicResource Br}"
+                                BorderThickness="10"
+                                CornerRadius="4">
+                                <Grid>
+                                    <Image x:Name="PreviewBoardImage" Stretch="Fill" />
 
-            <Grid Grid.Column="1" Background="#22211F">
-                <Viewbox Margin="40">
-                    <Grid Width="600" Height="600">
-                        <Border
-                            BorderBrush="#404040"
-                            BorderThickness="10"
-                            CornerRadius="4">
-                            <Grid>
-                                <Image x:Name="PreviewBoardImage" Stretch="Fill" />
-
-                                <Grid x:Name="PreviewPiecesGrid">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
+                                    <Grid x:Name="PreviewPiecesGrid">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
 
-                <Border
-                    Width="1"
-                    HorizontalAlignment="Left"
-                    Background="#404040"
-                    Opacity="0.5" />
-            </Grid>
+                    <Border
+                        Width="2"
+                        HorizontalAlignment="Left"
+                        Background="{DynamicResource Brush.Text.Primary}"
+                        Opacity="0.5" />
+                </Grid>
+            </Border>
+
         </Grid>
     </Border>
 </Window>

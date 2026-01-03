@@ -45,7 +45,7 @@
                                 Margin="0,2,0,4"
                                 FontSize="36"
                                 FontWeight="Bold"
-                                Foreground="White"
+                                Foreground="{DynamicResource Brush.Text.Primary}"
                                 Text="1452" />
                             <Border
                                 Padding="6,2"
@@ -65,7 +65,7 @@
                             Width="56"
                             Height="56"
                             Margin="10,0,0,0"
-                            Background="#353535"
+                            Background="{DynamicResource Brush.Background.Tertiary}"
                             CornerRadius="28">
                             <Grid>
                                 <TextBlock
@@ -108,7 +108,7 @@
                                 VerticalAlignment="Center"
                                 FontFamily="Segoe Fluent Icons"
                                 FontSize="14"
-                                Foreground="#AAAAAA"
+                                Foreground="{DynamicResource Brush.Text.Secondary}"
                                 Text="&#xE787;" />
                             <TextBlock
                                 VerticalAlignment="Center"
@@ -129,14 +129,14 @@
                                     HorizontalAlignment="Center"
                                     FontSize="42"
                                     FontWeight="Black"
-                                    Style="{StaticResource GradientTextStyle}"
+                                    Style="{DynamicResource GradientTextStyle}"
                                     Text="Dec 20" />
                                 <TextBlock
                                     x:Name="txtDayOfWeek"
                                     Margin="0,2,0,0"
                                     HorizontalAlignment="Center"
                                     FontSize="14"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.6"
                                     Text="Saturday" />
                             </StackPanel>
@@ -149,18 +149,18 @@
                 <Border
                     Margin="0,0,0,20"
                     Padding="15,12"
-                    Background="#303030"
+                    Background="{DynamicResource Brush.Background.Tertiary}"
                     CornerRadius="8">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse
                             Width="12"
                             Height="12"
                             Margin="0,0,12,0"
-                            Fill="White" />
+                            Fill="{DynamicResource Brush.Text.Inverted}" />
                         <TextBlock
                             FontSize="15"
                             FontWeight="SemiBold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Find the best move for White" />
                     </StackPanel>
                 </Border>
@@ -187,12 +187,12 @@
                                         <TextBlock
                                             FontSize="15"
                                             FontWeight="SemiBold"
-                                            Foreground="White"
+                                            Foreground="{DynamicResource Brush.Text.Primary}"
                                             Text="{Binding Title}" />
                                         <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
                                             <TextBlock
                                                 FontSize="12"
-                                                Foreground="#AAAAAA"
+                                                Foreground="{DynamicResource Brush.Text.Secondary}"
                                                 Text="{Binding Difficulty}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -309,11 +309,11 @@
                 <Button
                     x:Name="ActionBtn"
                     Height="52"
-                    Content="Next Puzzle"
+                    Content="Start Puzzle"
                     FontSize="18"
                     Style="{StaticResource StartButtonStyle}" />
             </StackPanel>
         </Grid>
     </Border>
 
-</UserControl>
+</UserControl> 

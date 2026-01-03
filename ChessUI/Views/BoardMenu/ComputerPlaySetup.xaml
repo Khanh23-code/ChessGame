@@ -36,16 +36,26 @@
                         Height="40"
                         Margin="0,0,15,0"
                         VerticalAlignment="Center"
-                        Source="/Assets/MenuAssets/play_computer.png" />
+                        Source="/Assets/MenuAssets/play_computer.png">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="2"
+                                Direction="0"
+                                Opacity="1"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Image.Effect>
+                    </Image>
+
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
-                            Foreground="White"
+                            Foreground="{DynamicResource Brush.Text.Primary}"
                             Text="Play With Computer" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="#AAAAAA"
+                            Foreground="{DynamicResource Brush.Text.Secondary}"
                             Text="Thiết lập trận đấu với máy" />
                     </StackPanel>
                 </Grid>
@@ -63,7 +73,7 @@
                     Margin="0,0,0,15"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="⚔️ Chọn đối thủ" />
 
                 <Border
@@ -230,9 +240,25 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Border Padding="3" CornerRadius="5">
+                    <Border
+                        Grid.Column="0"
+                        Padding="3"
+                        CornerRadius="5">
+                        <Ellipse
+                            Width="22"
+                            Height="22"
+                            Margin="0,0,0,15"
+                            Fill="White"
+                            Stroke="Black"
+                            StrokeThickness="0.5" />
+                    </Border>
+                    <Border
+                        Grid.Column="1"
+                        Padding="3"
+                        CornerRadius="5">
                         <Ellipse
                             Width="22"
                             Height="22"
@@ -242,12 +268,12 @@
                             StrokeThickness="0.5" />
                     </Border>
                     <TextBlock
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Margin="0,0,0,10"
                         FontSize="18"
                         FontWeight="SemiBold"
-                        Foreground="White"
-                        Text="⚫ Who first?" />
+                        Foreground="{DynamicResource Brush.Text.Primary}"
+                        Text="Who first?" />
 
                 </Grid>
 
@@ -279,12 +305,21 @@
                                     <Image
                                         Grid.Row="0"
                                         Source="{Binding ImagePath}"
-                                        Stretch="Uniform" />
+                                        Stretch="Uniform">
+                                        <Image.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="2"
+                                                Direction="0"
+                                                Opacity="1"
+                                                ShadowDepth="0"
+                                                Color="Black" />
+                                        </Image.Effect>
+                                    </Image>
                                     <TextBlock
                                         Grid.Row="1"
                                         HorizontalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="#AAAAAA"
+                                        Foreground="{DynamicResource Brush.Text.Primary}"
                                         Text="{Binding Name}" />
                                 </Grid>
                             </DataTemplate>
