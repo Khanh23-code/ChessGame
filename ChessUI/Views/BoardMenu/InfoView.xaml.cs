@@ -21,6 +21,8 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class InfoView : UserControl
     {
+        public event Action<Option> OptionSelected;
+
         private int count = 1;
         private string whiteData = "";
         private MoveData moveData;
@@ -61,6 +63,15 @@ namespace ChessUI.Views.BoardMenu
             lvMovementInfo.Items.Clear();
             count = 1;
             whiteData = "";
+        }
+        private void ButtonResign_Click(object sender, RoutedEventArgs e)
+        {
+            OptionSelected?.Invoke(Option.Resign);
+        }
+
+        private void ButtonOfferDraw_Click(object sender, RoutedEventArgs e)
+        {
+            OptionSelected?.Invoke(Option.Draw);
         }
     }
 }

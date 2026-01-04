@@ -30,7 +30,7 @@
                     FontFamily="Segoe UI"
                     FontSize="24"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="RESUME GAME?" />
 
                 <TextBlock

@@ -37,7 +37,17 @@ namespace ChessUI
             }
 
             BoardViewControl._infoView = DefaultInfoView;
-
+            DefaultInfoView.OptionSelected += (option) =>
+            {
+                if (option == Option.Resign)
+                {
+                    BoardViewControl.HandleResign();
+                }
+                else if (option == Option.Draw)
+                {
+                    BoardViewControl.HandleDrawOffer();
+                }
+            };
             // Khởi tạo dịch vụ đám mây để load game
             _cloudService = new CloudService();
         }

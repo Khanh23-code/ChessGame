@@ -54,6 +54,10 @@ namespace ChessUI
                 EndReason.InsufficentMaterial => "INSUFFICENT MATERIAL",
                 EndReason.ThreefoldRepetition => "THREE FOLD REPETITION",
                 EndReason.Timeout => $"{PlayerString(currentPlayer.Opponent())} WINS ON TIME",
+                // Xử lý đầu hàng
+                EndReason.Resignation => $"{PlayerString(currentPlayer)} RESIGNED",
+                // Xử lý Draw by Agreement
+                EndReason.DrawAgreement => "DRAW BY AGREEMENT",
                 _ => ""
             };
         }

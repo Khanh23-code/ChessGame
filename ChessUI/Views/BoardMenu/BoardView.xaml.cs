@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using ChessUI.Views.GameMenus;
 namespace ChessUI.Views.BoardMenu
 {
     /// <summary>
@@ -586,7 +587,8 @@ namespace ChessUI.Views.BoardMenu
             PauseMenu pauseMenu = new PauseMenu();
             MenuContainer.Content = pauseMenu;
 
-            MessageBox.Show(gameState.FENString);
+            //MessageBox.Show(gameState.FENString);
+            CustomMessageBox.Show("Current FEN", gameState.FENString);
 
             pauseMenu.OptionSelected += option =>
             {
@@ -744,8 +746,12 @@ namespace ChessUI.Views.BoardMenu
 
                 if (!string.IsNullOrEmpty(savedFen))
                 {
-                    var result = MessageBox.Show($"A saved game in {mode} was found in the cloud. Do you want to load it?", "Load Saved Game", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
+                    bool result = CustomMessageBox.Show(
+                        $"A saved game in {mode} was found in the cloud. Do you want to load it?",
+                        "Load Saved Game",
+                        true); 
+
+                    if (result) 
                     {
                         return savedFen;
                     }
@@ -759,7 +765,7 @@ namespace ChessUI.Views.BoardMenu
 
             return null;
         }
-
+        #region Set Avatar Images
         private void SetAvatarImages(string playerPath, string opponentPath)
         {
                 var playerUri = new Uri($"pack://application:,,,{playerPath}", UriKind.Absolute);
@@ -780,5 +786,46 @@ namespace ChessUI.Views.BoardMenu
                 default: return "/Assets/MenuAssets/admin_avartar.png";
             }
         }
+        #endregion
+        #region Resign and Draw Offer
+        public void HandleResign()
+        {
+            if (gameState == null || gameState.IsGameOver()) return;
+            bool result = CustomMessageBox.Show("Are you sure you want to resign?", "Confirm", true);
+
+            if (result) 
+            {
+                timer.Stop();
+                Player winner = clientSide.Opponent();
+                Result resignResult = Result.Win(winner, EndReason.Resignation);
+                gameState.EndGame(resignResult);
+                gameState.ClearCloudSave();
+
+                ShowGameOverMenu();
+            }
+        }
+        public void HandleDrawOffer()
+        {
+            if (gameState == null || gameState.IsGameOver()) return;
+            if (IsVsComputer) return;
+
+            Player offerPlayer = gameState.CurrentPlayer;
+            Player opponent = offerPlayer.Opponent();
+            bool result = CustomMessageBox.Show(
+                $"{offerPlayer} offers a draw.\n{opponent}, do you accept?",
+                "Draw Offer",
+                true); 
+
+            if (result)
+            {
+                timer.Stop();
+                Result drawResult = Result.Draw(EndReason.DrawAgreement);
+                gameState.EndGame(drawResult);
+                gameState.ClearCloudSave();
+
+                ShowGameOverMenu();
+            }
+        }
+        #endregion
     }
 }
