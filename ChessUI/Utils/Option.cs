@@ -10,6 +10,8 @@ namespace ChessUI
     {
         Restart,
         Exit,
-        Continue
+        Continue,
+        Resign,
+        Draw
     }
 }

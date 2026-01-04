@@ -31,11 +31,15 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Button
+                        x:Name="ButtonOfferDraw"
                         Margin="5"
+                        Click="ButtonOfferDraw_Click"
                         Content="Offer Draw"
                         Style="{StaticResource NeutralButton}" />
                     <Button
+                        x:Name="ButtonResign"
                         Margin="5"
+                        Click="ButtonResign_Click"
                         Content="Resign"
                         Style="{StaticResource RegisterButton}" />
                 </StackPanel>
