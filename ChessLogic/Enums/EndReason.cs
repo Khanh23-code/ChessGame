@@ -7,6 +7,8 @@
         FiftyMoveRule,      // Luật 50 bước => hòa
         InsufficentMaterial,// Không đủ tài nguyên => hòa
         ThreefoldRepetition, // Chiếu 3 lần liên tiếp => hòa
-        Timeout // time out
+        Timeout, // time out
+        Resignation, // đầu hàng
+        DrawAgreement // Hòa do thỏa thuận
     }
 }
