@@ -537,8 +537,8 @@ namespace ChessUI.Views.BoardMenu
             }
 
             //TimeSpan initialTime = TimeSpan.FromMinutes(10);
-            gameState = new GameState(Player.White, Board.Initial(), initialTime);
             gameState.ClearCloudSave();
+            gameState = new GameState(Player.White, Board.Initial(), initialTime);
 
             DrawBoard(gameState.Board);
             StartGame();

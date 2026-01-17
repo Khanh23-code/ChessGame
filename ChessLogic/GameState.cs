@@ -104,7 +104,10 @@ namespace ChessLogic
 
             // Khởi tạo dịch vụ đám mây để save game
             // Gọi hàm lưu cloud. Cú pháp _ báo C# không cần chờ kết quả trả về
-            _ = _cloudService.SaveGameAsync(UserID, _mode, FENString);
+            if (_mode != "")
+            {
+                _ = _cloudService.SaveGameAsync(UserID, _mode, FENString);
+            }
 
             CheckForGameOver();
         }
@@ -267,6 +270,10 @@ namespace ChessLogic
 
         public void ClearCloudSave()
         {
+            if (_mode == "")
+            {
+                return;
+            }
             _ = _cloudService.DeleteGameAsync(UserID, _mode);
         }
     }
