@@ -1,6 +1,11 @@
-﻿using System;
+﻿// remember settings
+using ChessUI.Properties;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,10 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Microsoft.Data.SqlClient;
-using System.Configuration;
-// remember settings
-using ChessUI.Properties;
 
 
 namespace ChessUI
