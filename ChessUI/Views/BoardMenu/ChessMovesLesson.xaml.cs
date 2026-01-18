@@ -52,6 +52,7 @@ namespace ChessUI.Views.BoardMenu
             this.DataContext = this;
             LoadData();
             CurrentRotation = Math.PI / 2;
+            SelectedPiece = Pieces[0];
         }
 
         private string _currentColor = "W";
@@ -93,7 +94,13 @@ namespace ChessUI.Views.BoardMenu
             };
             Pieces = tempPieces;
             OnPropertyChanged("Pieces");
-            SelectedPiece = Pieces[0];
+            // fix bugs when change Black or White -> current Pieces can't follow
+            var matchingPiece = Pieces.FirstOrDefault(p => p.Name == SelectedPiece?.Name);
+                if (matchingPiece != null)
+                {
+                    SelectedPiece = matchingPiece;
+                    RotateToItem(Pieces.IndexOf(matchingPiece));
+                }
         }
         private void BtnWhite_Click (object sender, MouseButtonEventArgs e)
         {
@@ -109,6 +116,7 @@ namespace ChessUI.Views.BoardMenu
             if (_currentColor != "B")
             {
                 LoadData("B");
+                
                 BtnWhite.StrokeThickness = 0.5;
                 BtnBlack.StrokeThickness = 3;
             }

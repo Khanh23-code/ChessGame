@@ -257,7 +257,8 @@
                                         Background="Transparent"
                                         BorderThickness="0"
                                         Click="TogglePlay_Click"
-                                        Cursor="Hand">
+                                        Cursor="Hand"
+                                        Style="{DynamicResource ButtonBorderRadius}">
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontFamily="Segoe Fluent Icons"
