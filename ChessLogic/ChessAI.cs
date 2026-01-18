@@ -193,7 +193,7 @@ namespace ChessLogic
             Board newBoard = currentState.Board.Copy();
             move.Execute(newBoard);
             //////
-            return new GameState(currentState.CurrentPlayer.Opponent(), newBoard, currentState.WhiteTime);
+            return new GameState(currentState.CurrentPlayer.Opponent(), newBoard, currentState.WhiteTime, "Default");
             /////
         }
 

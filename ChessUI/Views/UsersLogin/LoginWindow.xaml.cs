@@ -58,6 +58,7 @@ namespace ChessUI
             ErrorText.Visibility = Visibility.Collapsed;
         }
         #endregion
+
         #region Taskbar Button
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
@@ -215,7 +216,7 @@ namespace ChessUI
                     Settings.Default.Save();
 
                     // --- CHUYỂN MÀN HÌNH ---
-                    MainWindow mainWindow = new MainWindow();
+                    MainWindow mainWindow = new MainWindow(loggedInUser);
                     mainWindow.Show();
                     this.Close(); 
                 }
@@ -243,6 +244,7 @@ namespace ChessUI
             return;
         }
         #endregion
+        
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             // I can't do it

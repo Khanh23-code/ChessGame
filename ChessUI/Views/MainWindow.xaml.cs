@@ -24,7 +24,7 @@ namespace ChessUI
 
         private readonly CloudService _cloudService;
 
-        public MainWindow()
+        public MainWindow(UserData userData)
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
@@ -50,6 +50,7 @@ namespace ChessUI
             };
             // Khởi tạo dịch vụ đám mây để load game
             _cloudService = new CloudService();
+            BoardViewControl.userID = userData.UserID;
         }
 
         #region Taskbar Button
