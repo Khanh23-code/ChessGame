@@ -81,9 +81,10 @@
                         Height="25"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Click="EyeButton_Click"
                         Content="👁️"
                         Foreground="White"
+                        PreviewMouseLeftButtonDown="EyeButton_Show"
+                        PreviewMouseLeftButtonUp="EyeButton_Hide"
                         Style="{StaticResource EyeButton}" />
                 </Grid>
                 <TextBlock
@@ -108,9 +109,10 @@
                         Height="25"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Click="EyeConfirmButton_Click"
                         Content="👁️"
                         Foreground="White"
+                        PreviewMouseLeftButtonDown="EyeConfirmButton_Show"
+                        PreviewMouseLeftButtonUp="EyeConfirmButton_Hide"
                         Style="{StaticResource EyeButton}" />
                 </Grid>
 

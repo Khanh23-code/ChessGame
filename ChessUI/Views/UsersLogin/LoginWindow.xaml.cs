@@ -229,26 +229,17 @@ namespace ChessUI
 
         #region ShowPassword
         private bool isPasswordVisible = false;
-        private void EyeButton_Click(object sender, RoutedEventArgs e) 
+        private void EyeButton_Show(object sender, MouseButtonEventArgs e)
         {
-            if (isPasswordVisible == false)
-            {
-                PasswordShowBox.Text = PasswordBox.Password;
-                PasswordShowBox.Visibility = Visibility.Visible;
-                PasswordBox.Visibility = Visibility.Collapsed;
-                PasswordShowBox.Focus();
-                PasswordShowBox.Select(PasswordShowBox.Text.Length, 0);
-                isPasswordVisible = true;
-            }
-            else 
-            {
-                PasswordBox.Password = PasswordShowBox.Text;
-                PasswordShowBox.Visibility = Visibility.Collapsed;
-                PasswordBox.Visibility = Visibility.Visible;
-                PasswordShowBox.Text = ""; 
-
-                isPasswordVisible = false;
-            }
+            PasswordShowBox.Text = PasswordBox.Password;
+            PasswordShowBox.Visibility = Visibility.Visible;
+            PasswordBox.Visibility = Visibility.Collapsed;
+        }
+        private void EyeButton_Hide(object sender, MouseEventArgs e)
+        {
+            PasswordBox.Visibility = Visibility.Visible;
+            PasswordShowBox.Visibility = Visibility.Collapsed;
+            PasswordShowBox.Text = "";
         }
         #endregion
     }
