@@ -109,10 +109,8 @@ namespace ChessUI.Views.BoardMenu
                     if (!string.IsNullOrEmpty(selectedVideo.VideoPath))
                     {
                         MainPlayer.Source = new Uri(selectedVideo.VideoPath, UriKind.RelativeOrAbsolute);
-                        MainPlayer.Play();
-                        BtnBigPlay.Visibility = Visibility.Collapsed;
-
-                        _timer.Start();
+                        BtnBigPlay.Visibility = Visibility.Visible;
+                        MainPlayer.Pause();
                     }
                 }
                 catch { }

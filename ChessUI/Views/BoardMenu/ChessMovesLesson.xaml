@@ -34,10 +34,10 @@
                         Margin="0,0,0,10"
                         FontSize="14"
                         FontWeight="SemiBold"
-                        Foreground="{DynamicResource ChessMovesLessonTextColor}"
-                        Text="CHESS MOVES"/>
+                        Foreground="White"
+                        Text="CHESS MOVES" />
 
-                    <Grid HorizontalAlignment="Left" Margin="0,0,0,25">
+                    <Grid Margin="0,0,0,25" HorizontalAlignment="Left">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -71,8 +71,8 @@
                                         <DoubleAnimation
                                             Storyboard.TargetName="LineScale"
                                             Storyboard.TargetProperty="ScaleX"
-                                            From="0" 
-                                            To="1" 
+                                            From="0"
+                                            To="1"
                                             Duration="0:0:0.4">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -85,14 +85,16 @@
                     </Grid>
                     <TextBlock
                         Margin="0,0,0,15"
-                        FontSize="22"
                         FontFamily="Georgia"
+                        FontSize="22"
                         Foreground="#E0E0E0"
                         Text="{Binding SelectedPiece.Title}"
                         TextWrapping="Wrap" />
 
-                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto"
-                                  Padding="0,0,15,0">
+                    <ScrollViewer
+                        MaxHeight="500"
+                        Padding="0,0,15,0"
+                        VerticalScrollBarVisibility="Auto">
                         <TextBlock
                             FontSize="16"
                             Foreground="#AAAAAA"
@@ -120,7 +122,7 @@
                             Margin="0,0,10,0"
                             Cursor="Hand"
                             Fill="White"
-                            MouseLeftButtonDown="BtnWhite_Click"/>
+                            MouseLeftButtonDown="BtnWhite_Click" />
 
                         <Ellipse
                             x:Name="BtnBlack"
@@ -128,7 +130,7 @@
                             Height="30"
                             Cursor="Hand"
                             Fill="#222"
-                            MouseLeftButtonDown="BtnBlack_Click"/>
+                            MouseLeftButtonDown="BtnBlack_Click" />
                     </StackPanel>
 
                     <Grid Grid.Row="1" ClipToBounds="False">
@@ -175,7 +177,7 @@
                                                 To="1"
                                                 Duration="0:0:0.5">
                                                 <DoubleAnimation.EasingFunction>
-                                                    <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                                                    <BackEase Amplitude="0.5" EasingMode="EaseOut" />
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                             <DoubleAnimation
@@ -184,7 +186,7 @@
                                                 To="1"
                                                 Duration="0:0:0.5">
                                                 <DoubleAnimation.EasingFunction>
-                                                    <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                                                    <BackEase Amplitude="0.5" EasingMode="EaseOut" />
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                         </Storyboard>
@@ -192,7 +194,7 @@
                                 </EventTrigger>
                             </Image.Triggers>
                             <Image.RenderTransform>
-                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
                             </Image.RenderTransform>
                         </Image>
                     </Grid>
@@ -205,7 +207,7 @@
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <local:CarouselPanelLearning
-                                    RadiusX="180" 
+                                    RadiusX="180"
                                     RadiusY="30"
                                     RotationAngle="{Binding ElementName=LessonRoot, Path=CurrentRotation}" />
                             </ItemsPanelTemplate>
