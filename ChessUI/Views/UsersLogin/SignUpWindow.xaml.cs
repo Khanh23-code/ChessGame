@@ -1,13 +1,12 @@
-﻿using Microsoft.Data.SqlClient; 
+﻿using ChessLogic;
+using Microsoft.Data.SqlClient;
 using System;
-using System.Configuration; 
+using System.Configuration;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Media;
-using ChessLogic;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ChessUI
 {
@@ -16,7 +15,6 @@ namespace ChessUI
         public SignUpWindow()
         {
             InitializeComponent();
-
             // populate age combobox
             for (int i = 5; i <= 100; i++)
             {
@@ -28,7 +26,7 @@ namespace ChessUI
             DragMove();
         }
         // show error message
-        private void ShowError (string message)
+        private void ShowError(string message)
         {
             StatusTextBlock.Text = message;
             StatusTextBlock.Visibility = Visibility.Visible;
@@ -36,10 +34,6 @@ namespace ChessUI
         // register event button click
         private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            StatusTextBlock.Visibility = Visibility.Collapsed;
-            StatusTextBlock.Text = "";
-            StatusTextBlock.Foreground = Brushes.Red;
-
             string fullName = FullNameTextBox.Text;
             string email = EmailTextBox.Text;
             string ageText = AgeComboBox.Text;
@@ -57,15 +51,12 @@ namespace ChessUI
                 return;
             }
             // check email format
-            try
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+            if (!Regex.IsMatch(email, emailPattern))
             {
-                var mailAddress = new MailAddress(email);
-                if (mailAddress.Address != email) throw new FormatException();
-            }
-            catch (FormatException)
-            {
-                ShowError("Email không đúng định dạng.");
-                EmailTextBox.Focus(); 
+                ShowError("Email không đúng định dạng (thiếu @ hoặc tên miền như .com).");
+                EmailTextBox.Focus();
                 return;
             }
 
@@ -77,23 +68,17 @@ namespace ChessUI
                 return;
             }
 
-            // check confirm password
             if (password != confirmPassword)
             {
                 ShowError("Mật khẩu xác nhận không khớp.");
                 return;
             }
 
-            // check age is number
             if (!int.TryParse(ageText, out int age))
             {
                 ShowError("Tuổi phải là số.");
                 return;
             }
-            // insert data to database
-            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            string sqlInsert = @"INSERT INTO Users (Username, Password, FullName, Email, Age, ChessLevel) 
-                                 VALUES (@Username, @Password, @FullName, @Email, @Age, @ChessLevel)";
 
             RegisterButton.IsEnabled = true;
             this.Cursor = Cursors.Wait;
@@ -134,31 +119,6 @@ namespace ChessUI
 
                 UserData newUser = new UserData
                 {
-                    using (SqlCommand cmd = new SqlCommand(sqlInsert, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Username", username);
-                        cmd.Parameters.AddWithValue("@Password", password); 
-                        cmd.Parameters.AddWithValue("@FullName", fullName);
-                        cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@Age", age);
-                        cmd.Parameters.AddWithValue("@ChessLevel", level);
-
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            StatusTextBlock.Text = "Đăng ký thành công!";
-                            StatusTextBlock.Foreground = Brushes.LightGreen;
-                            StatusTextBlock.Visibility = Visibility.Visible;
-
-                            //this.Close();   
-                        }
-                        else
-                        {
-                            ShowError("Đăng ký thất bại.");
-                        }
-                    }
                     UserName = username,
                     Password = password,
                     FullName = fullName,
@@ -177,23 +137,26 @@ namespace ChessUI
                 // Bước 3: Xử lý kết quả trả về dựa trên string
                 if (result == "#DUPLICATE")
                 {
-                    MessageBox.Show("Email này đã được sử dụng. Vui lòng chọn Email khác.", "Đăng ký thất bại", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    ShowError("Email này đã được sử dụng. Vui lòng sử dụng Email khác.");
+                    EmailTextBox.Focus();
                 }
                 else if (result != null)
                 {
-                    ShowError("Username hoặc Email này đã tồn tại.");
-                }
-                else
-                {
-                    StatusTextBlock.Text = "Lỗi Database: " + ex.Message;
                     // Nếu result khác null và khác DUPLICATE thì đó là UserID -> Thành công
-                    MessageBox.Show("Đăng ký tài khoản thành công!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    StatusTextBlock.Text = "Đăng ký thành công!";
+                    StatusTextBlock.Foreground = Brushes.LightGreen;
+                    StatusTextBlock.Visibility = Visibility.Visible;
+
+                    RegisterButton.IsEnabled = false;
+                    CancelButton.IsEnabled = false;
+
+                    await Task.Delay(2000);
                     this.Close(); // Đóng form Register
                 }
                 else
                 {
                     // Trường hợp trả về null
-                    MessageBox.Show("Đăng ký thất bại. Vui lòng kiểm tra kết nối mạng.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowError("Đăng ký thất bại. Vui lòng kiểm tra kết nối mạng.");
                 }
             }
             //catch (SqlException ex)
@@ -209,7 +172,7 @@ namespace ChessUI
             //}
             catch (Exception ex)
             {
-                StatusTextBlock.Text = "Lỗi hệ thống: " + ex.Message;
+                ShowError("Lỗi hệ thống: " + ex.Message);
             }
             finally
             {
@@ -222,51 +185,31 @@ namespace ChessUI
         {
             this.Close();
         }
+
         #region ShowPassword
-        private bool isPasswordVisible = false;
-        private bool isConfirmPasswordVisible = false;
-        private void EyeButton_Click(object sender, RoutedEventArgs e)
+        private void EyeButton_Show(object sender, MouseButtonEventArgs e)
         {
-            if (isPasswordVisible == false)
-            {
-                PasswordShowBox.Text = PasswordBox.Password;
-                PasswordShowBox.Visibility = Visibility.Visible;
-                PasswordBox.Visibility = Visibility.Collapsed;
-                PasswordShowBox.Focus();
-                PasswordShowBox.Select(PasswordShowBox.Text.Length, 0);
-                isPasswordVisible = true;
-            }
-            else
-            {
-                PasswordBox.Password = PasswordShowBox.Text;
-                PasswordShowBox.Visibility = Visibility.Collapsed;
-                PasswordBox.Visibility = Visibility.Visible;
-                PasswordShowBox.Text = "";
-
-                isPasswordVisible = false;
-            }
+            PasswordShowBox.Text = PasswordBox.Password;
+            PasswordShowBox.Visibility = Visibility.Visible;
+            PasswordBox.Visibility = Visibility.Collapsed;
         }
-
-        private void EyeConfirmButton_Click(object sender, RoutedEventArgs e)
+        private void EyeButton_Hide(object sender, MouseEventArgs e)
         {
-            if (isConfirmPasswordVisible == false)
-            {
-                ConfirmPasswordShowBox.Text = ConfirmPasswordBox.Password;
-                ConfirmPasswordShowBox.Visibility = Visibility.Visible;
-                ConfirmPasswordBox.Visibility = Visibility.Collapsed;
-                ConfirmPasswordShowBox.Focus();
-                ConfirmPasswordShowBox.Select(ConfirmPasswordShowBox.Text.Length, 0);
-                isConfirmPasswordVisible = true;
-            }
-            else
-            {
-                ConfirmPasswordBox.Password = ConfirmPasswordShowBox.Text;
-                ConfirmPasswordShowBox.Visibility = Visibility.Collapsed;
-                ConfirmPasswordBox.Visibility = Visibility.Visible;
-                ConfirmPasswordShowBox.Text = "";
-
-                isConfirmPasswordVisible = false;
-            }
+            PasswordBox.Visibility = Visibility.Visible;
+            PasswordShowBox.Visibility = Visibility.Collapsed;
+            PasswordShowBox.Text = ""; 
+        }
+        private void EyeConfirmButton_Show(object sender, MouseButtonEventArgs e)
+        {
+            ConfirmPasswordShowBox.Text = ConfirmPasswordBox.Password;
+            ConfirmPasswordShowBox.Visibility = Visibility.Visible;
+            ConfirmPasswordBox.Visibility = Visibility.Collapsed;
+        }
+        private void EyeConfirmButton_Hide(object sender, MouseEventArgs e)
+        {
+            ConfirmPasswordBox.Visibility = Visibility.Visible;
+            ConfirmPasswordShowBox.Visibility = Visibility.Collapsed;
+            ConfirmPasswordShowBox.Text = "";
         }
         #endregion
     }
