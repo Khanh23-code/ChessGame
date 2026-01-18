@@ -28,11 +28,11 @@ namespace ChessLogic
 
         // Tạm thời dùng ID mặc định để lưu trữ đám mây
         // Sau này: mỗi account người dùng sẽ có ID riêng
-        private const string UserID = "Player_Default";
+        public string UserID = "none";
         #endregion
 
         #region Constructors
-        public GameState(Player player, Board board, TimeSpan initialTime, string mode = "")
+        public GameState(Player player, Board board, TimeSpan initialTime, string userID, string mode = "")
         {
             CurrentPlayer = player;
             Board = board;
@@ -48,27 +48,33 @@ namespace ChessLogic
 
             _cloudService = new CloudService();
             _mode = mode;
+
+            UserID = userID;
         }
         // New GameState from existing GameState (for Undo/Redo or FEN)
         // ??? Có cần lưu thêm stateHistory ???
-        public GameState(string fen, string mode = "")
+        
+        public GameState(string fen, string userID, string mode = "")
         {
             string[] parts = fen.Split(' ');
 
             CurrentPlayer = (parts[1] == "w") ? Player.White : Player.Black;
-            NoCaptureOrPawnMoves = int.Parse(parts[4]);
-            FullMoveNumber = int.Parse(parts[5]);
             Board = new Board(parts[0], parts[2], parts[3], CurrentPlayer);
 
             string[] timers = parts[6].Split(':');
             WhiteTime = TimeSpan.FromSeconds(int.Parse(timers[0]));
             BlackTime = TimeSpan.FromSeconds(int.Parse(timers[1]));
 
+            NoCaptureOrPawnMoves = int.Parse(parts[4]);
+            FullMoveNumber = int.Parse(parts[5]);
+
             FENString = fen;
             MovementInfo = new MovementInfo();
 
             _cloudService = new CloudService();
             _mode = mode;
+
+            UserID = userID;
         }
         #endregion
 

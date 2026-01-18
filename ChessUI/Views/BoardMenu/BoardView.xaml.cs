@@ -49,7 +49,7 @@ namespace ChessUI.Views.BoardMenu
         private bool loadFromFEN = false;   
 
         private CloudService _cloudService = new CloudService();
-        private string userID = "Player_Default";
+        public string userID = "Player_Default_00";
 
         public TimeSpan TimeLimit { get; set; }
 
@@ -58,17 +58,7 @@ namespace ChessUI.Views.BoardMenu
             InitializeComponent();
             InitialBoard();
 
-            if (loadFromFEN) 
-            {
-                //LoadGameStateFromFEN("r1bqkbnr/pp1ppppp/2n5/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3 485:470");
-                //LoadGameStateFromFEN("rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3 30:45");      // Test En Passant
-                //LoadGameStateFromFEN("8/8/8/4k3/8/8/4R3/4K3 b - - 10 45 15:10");      // Test Endgame
-                LoadGameStateFromFEN(gameState.FENString);
-            }
-            else
-            {
-                LoadInitialGameState();
-            }
+            LoadInitialGameState();
 
             DrawBoard(gameState.Board);
             //SetCursor(gameState.CurrentPlayer);
@@ -101,13 +91,7 @@ namespace ChessUI.Views.BoardMenu
         private void LoadInitialGameState()
         {
             TimeSpan initialTime = TimeSpan.FromMinutes(10);
-            gameState = new GameState(Player.White, Board.Initial(), initialTime);
-        }
-
-        public void LoadGameStateFromFEN(string fen)
-        {
-            //gameState = new GameState(fen);
-            loadFromFEN = true;
+            gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
         }
 
         private void DrawBoard(Board board)
@@ -363,12 +347,12 @@ namespace ChessUI.Views.BoardMenu
             if (fenToLoad != null)
             {
                 // Load saved game from cloud
-                gameState = new GameState(fenToLoad, modeKey);
+                gameState = new GameState(fenToLoad, userID, modeKey);
             }
             else
             {
                 // Load new game
-                gameState = new GameState(Player.White, Board.Initial(), initialTime, modeKey);
+                gameState = new GameState(Player.White, Board.Initial(), initialTime, userID, modeKey);
             }
 
             if (playerSide == Player.White)
@@ -422,12 +406,12 @@ namespace ChessUI.Views.BoardMenu
                 if (fenToLoad != null)
                 {
                     // Load saved game from cloud
-                    gameState = new GameState(fenToLoad, modeKey);
+                    gameState = new GameState(fenToLoad, userID, modeKey);
                 }
                 else
                 {
                     // Load new game
-                    gameState = new GameState(Player.White, Board.Initial(), TimeSpan.FromDays(1), modeKey);
+                    gameState = new GameState(Player.White, Board.Initial(), TimeSpan.FromDays(1), userID, modeKey);
                     gameState.ClearCloudSave();
                 }
             }
@@ -438,12 +422,12 @@ namespace ChessUI.Views.BoardMenu
                 if (fenToLoad != null)
                 {
                     // Load saved game from cloud
-                    gameState = new GameState(fenToLoad, modeKey);
+                    gameState = new GameState(fenToLoad, userID, modeKey);
                 }
                 else
                 {
                     // Load new game
-                    gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit, modeKey);
+                    gameState = new GameState(Player.White, Board.Initial(), settings.TimeLimit, userID, modeKey);
                     gameState.ClearCloudSave();
                 }
             }
@@ -464,7 +448,7 @@ namespace ChessUI.Views.BoardMenu
 
             this.IsVsComputer = true;
 
-            gameState = new GameState(fen);
+            gameState = new GameState(fen, userID);
             this.clientSide = gameState.CurrentPlayer;
 
             Player aiSide = (clientSide == Player.White) ? Player.Black : Player.White;
@@ -538,7 +522,7 @@ namespace ChessUI.Views.BoardMenu
 
             //TimeSpan initialTime = TimeSpan.FromMinutes(10);
             gameState.ClearCloudSave();
-            gameState = new GameState(Player.White, Board.Initial(), initialTime);
+            gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
 
             DrawBoard(gameState.Board);
             StartGame();
@@ -706,7 +690,7 @@ namespace ChessUI.Views.BoardMenu
             _aiService.SetDifficulty(3); 
             _aiService.SetAIPlayer(Player.Black);
 
-            gameState = new GameState(fenString);
+            gameState = new GameState(fenString, userID);
 
             PlayerNameText.Text = "You (Training)";
             OpponentNameText.Text = "Computer (Defender)";

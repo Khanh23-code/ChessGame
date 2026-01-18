@@ -26,6 +26,7 @@ namespace ChessLogic
         public int Age { get; set; }
         public string Level { get; set; }
         public string CreatedAt { get; set; }
+        public int AvatarIndex { get; set; } = 0;
     }
 
     public class CloudService
