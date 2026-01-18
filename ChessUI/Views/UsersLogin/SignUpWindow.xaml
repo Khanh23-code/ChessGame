@@ -147,7 +147,7 @@
                 <TextBlock
                     x:Name="StatusTextBlock"
                     Margin="0,0,0,10"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="14"
                     FontWeight="Bold"
                     Foreground="Red"

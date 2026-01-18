@@ -16,10 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Microsoft.Data.SqlClient;
-using System.Configuration;
 // remember settings
-using ChessUI.Properties;
 using ChessLogic;
 
 
@@ -44,7 +41,23 @@ namespace ChessUI
         {
             DragMove();
         }
+        #region Show Errors
+        private void ShowError(Control inputControl, TextBlock errorTextBlock, string message)
+        {
+            inputControl.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF5252"));
 
+            errorTextBlock.Text = $"❗ {message}";
+            errorTextBlock.Visibility = Visibility.Visible;
+        }
+        private void ClearErrors()
+        {
+            EmailTextBox.ClearValue(Control.BorderBrushProperty);
+            PasswordBox.ClearValue(Control.BorderBrushProperty);
+            PasswordShowBox.ClearValue(Control.BorderBrushProperty);
+
+            ErrorText.Visibility = Visibility.Collapsed;
+        }
+        #endregion
         #region Taskbar Button
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
@@ -154,9 +167,23 @@ namespace ChessUI
             string email = EmailTextBox.Text;
             string password = PasswordBox.Password;
 
+            ClearErrors();
+
+
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ email đăng nhập và mật khẩu");
+                if (string.IsNullOrEmpty(email))
+                {
+                    ShowError(EmailTextBox, ErrorText, "Email đăng nhập không thể để trống.");
+                    EmailTextBox.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(password))
+                {
+                    ShowError(PasswordBox, ErrorText, "Mật khẩu không thể để trống.");
+                    PasswordBox.Focus();
+                    return;
+                }
                 return;
             }
 
@@ -195,7 +222,7 @@ namespace ChessUI
                 else
                 {
                     // Login failed (Thông báo khi Firebase bảo sai mật khẩu)
-                    MessageBox.Show("Username hoặc Password bị sai");
+                    ShowError(PasswordBox, ErrorText, "Mật khẩu không chính xác. Vui lòng thử lại.");
                 }
 
             }

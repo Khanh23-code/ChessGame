@@ -28,7 +28,7 @@ namespace ChessUI
         // show error message
         private void ShowError(string message)
         {
-            StatusTextBlock.Text = message;
+            StatusTextBlock.Text = $"❗ {message}";
             StatusTextBlock.Visibility = Visibility.Visible;
         }
         // register event button click
@@ -55,7 +55,7 @@ namespace ChessUI
 
             if (!Regex.IsMatch(email, emailPattern))
             {
-                ShowError("Email không đúng định dạng (thiếu @ hoặc tên miền như .com).");
+                ShowError("Email không hợp lệ.");
                 EmailTextBox.Focus();
                 return;
             }
@@ -71,12 +71,14 @@ namespace ChessUI
             if (password != confirmPassword)
             {
                 ShowError("Mật khẩu xác nhận không khớp.");
+                ConfirmPasswordBox.Focus();
                 return;
             }
 
             if (!int.TryParse(ageText, out int age))
             {
                 ShowError("Tuổi phải là số.");
+                AgeComboBox.Focus();
                 return;
             }
 
@@ -116,11 +118,11 @@ namespace ChessUI
                 //}
 
 
-
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
                 UserData newUser = new UserData
                 {
                     UserName = username,
-                    Password = password,
+                    Password = passwordHash,
                     FullName = fullName,
                     Email = email,
                     Age = age,

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="LoginWindow"
     Width="760"
-    Height="480"
+    Height="520"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     StateChanged="Window_StateChanged"
     WindowStartupLocation="CenterScreen"
@@ -91,7 +91,6 @@
                     Foreground="White"
                     Text="Email" />
                 <TextBox x:Name="EmailTextBox" Height="25" />
-
                 <TextBlock
                     Margin="0,0,0,5"
                     FontWeight="Medium"
@@ -120,6 +119,13 @@
                         PreviewMouseLeftButtonUp="EyeButton_Hide"
                         Style="{StaticResource EyeButton}" />
                 </Grid>
+                <TextBlock
+                    x:Name="ErrorText"
+                    Margin="0,2,0,5"
+                    FontSize="12"
+                    Foreground="#FF5252"
+                    TextWrapping="Wrap"
+                    Visibility="Collapsed" />
 
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
