@@ -1,0 +1,233 @@
+﻿<UserControl
+    x:Class="ChessUI.Views.BoardMenu.UserProfileView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="700"
+    Height="450">
+
+    <UserControl.Resources>
+        <Style x:Key="LabelTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#AAAAAA" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+
+        <Style x:Key="ValueTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+
+        <Style x:Key="InfoRowStyle" TargetType="Border">
+            <Setter Property="Background" Value="#30FFFFFF" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="15,12" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border
+        BorderBrush="#81B64C"
+        BorderThickness="1.5"
+        CornerRadius="16">
+        <Border.Background>
+            <SolidColorBrush Opacity="1" Color="#CC1c1c1c" />
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Background="#1E1E1E"
+                BorderBrush="#2A2A2A"
+                BorderThickness="0,0,1,0"
+                CornerRadius="16,0,0,16">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <Grid>
+                        <Border
+                            Width="120"
+                            Height="120"
+                            BorderBrush="#1E1E1E"
+                            BorderThickness="1"
+                            CornerRadius="60">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
+                        <Border
+                            Width="24"
+                            Height="24"
+                            Margin="10,10,15,10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Background="Green"
+                            BorderBrush="#1E1E1E"
+                            BorderThickness="3"
+                            CornerRadius="12" />
+                    </Grid>
+
+                    <TextBlock
+                        x:Name="txtUsername"
+                        Margin="0,20,0,5"
+                        HorizontalAlignment="Center"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Karasuma2401" />
+
+                    <Border
+                        Margin="0,5,0,0"
+                        Padding="15,6"
+                        Background="#2D2D2D"
+                        BorderBrush="#3F3F3F"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,8,0"
+                                FontSize="14"
+                                Foreground="Gold"
+                                Text="🏆" />
+                            <TextBlock
+                                x:Name="txtLevel"
+                                FontWeight="Bold"
+                                Foreground="#81B64C"
+                                Text="Rank: Beginner" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,0,0,25"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="HỒ SƠ NGƯỜI CHƠI" />
+
+                <StackPanel Grid.Row="1">
+
+                    <Border Style="{StaticResource InfoRowStyle}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Opacity="0.7"
+                                    Text="👤" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Họ và tên" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="txtFullName"
+                                Style="{StaticResource ValueTextStyle}"
+                                Text="..." />
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{StaticResource InfoRowStyle}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Opacity="0.7"
+                                    Text="✉️" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Email" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="txtEmail"
+                                Style="{StaticResource ValueTextStyle}"
+                                Text="..." />
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{StaticResource InfoRowStyle}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Opacity="0.7"
+                                    Text="🎂" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Tuổi" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="txtAge"
+                                Style="{StaticResource ValueTextStyle}"
+                                Text=".." />
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{StaticResource InfoRowStyle}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Opacity="0.7"
+                                    Text="📅" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Ngày tham gia" />
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="txtJoinDate"
+                                Style="{StaticResource ValueTextStyle}"
+                                Text="..." />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <Button
+                    Grid.Row="2"
+                    Width="120"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderBrush="#FF6961"
+                    BorderThickness="1.5"
+                    Click="CloseButton_Click"
+                    Content="Đóng"
+                    Cursor="Hand"
+                    FontWeight="SemiBold"
+                    Foreground="#FF6961">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            x:Name="bd"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="20">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="#22FF6961" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

@@ -13,9 +13,13 @@ namespace ChessUI.Views.BoardMenu
 
         private void LogOutRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show();
-            Application.Current.MainWindow.Close();
+            LoginWindow NewLogin = new LoginWindow();
+            NewLogin.Show();
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.Close();
+            }
         }
 
         private void CustomRadioButton_Checked(object sender, RoutedEventArgs e)

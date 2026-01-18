@@ -12,7 +12,6 @@
     Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    StateChanged="Window_StateChanged"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -27,7 +26,7 @@
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -36,28 +35,6 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel
-            Grid.Row="0"
-            Grid.ColumnSpan="3"
-            HorizontalAlignment="Right"
-            Panel.ZIndex="1"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnMinimize"
-                Click="btnMinimize_Click"
-                Content="&#xE921;"
-                Style="{DynamicResource TitleBarButton}" />
-            <Button
-                x:Name="btnMaximize"
-                Click="btnMaximize_Click"
-                Content="&#xE922;"
-                Style="{DynamicResource TitleBarButton}" />
-            <Button
-                x:Name="btnClose"
-                Click="btnClose_Click"
-                Content="&#xE8BB;"
-                Style="{DynamicResource TitleBarButtonClose}" />
-        </StackPanel>
         <Image
             Grid.RowSpan="3"
             Grid.ColumnSpan="3"
@@ -91,6 +68,126 @@
 
             <views:BoardView x:Name="BoardViewControl" Grid.Column="0" />
             <ContentControl x:Name="RightPanelContentHost" Grid.Column="1" />
+
         </Grid>
+        <StackPanel
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="3"
+            Margin="0,5,10,5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Panel.ZIndex="1000">
+
+            <Button
+                x:Name="btnAvatar"
+                Width="40"
+                Height="40"
+                BorderThickness="0"
+                Click="btnAvatar_Click"
+                Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border
+                                x:Name="border"
+                                BorderBrush="#FF565656"
+                                BorderThickness="2"
+                                CornerRadius="22">
+                                <Border.Background>
+                                    <SolidColorBrush Color="#333" />
+                                </Border.Background>
+
+                                <Border CornerRadius="20">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/MenuAssets/admin_avartar.png" Stretch="UniformToFill" />
+                                    </Border.Background>
+                                </Border>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Popup
+                x:Name="UserProfilePopup"
+                AllowsTransparency="True"
+                HorizontalOffset="-180"
+                Placement="Bottom"
+                PlacementTarget="{Binding ElementName=btnAvatar}"
+                PopupAnimation="Fade"
+                StaysOpen="False"
+                VerticalOffset="10">
+
+                <Border
+                    Width="240"
+                    Padding="8"
+                    Background="#1E1E1E"
+                    BorderBrush="#3F3F3F"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <StackPanel>
+                        <StackPanel Margin="10,10,10,15">
+                            <TextBlock
+                                x:Name="txtUserNamePopup"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Karasuma2401"
+                                TextTrimming="CharacterEllipsis" />
+
+                            <Border
+                                Margin="0,5,0,0"
+                                Padding="8,2"
+                                HorizontalAlignment="Center"
+                                Background="#2D2D2D"
+                                CornerRadius="4">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="0,0,5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="11"
+                                        Foreground="#888"
+                                        Text="Level" />
+                                    <TextBlock
+                                        x:Name="txtLevelPopup"
+                                        FontSize="13"
+                                        FontWeight="Bold"
+                                        Foreground="#81B64C"
+                                        Text="" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <Separator Margin="5,0,5,5" Background="#3F3F3F" />
+
+                        <Button
+                            Click="BtnProfile_Click"
+                            Content="Hồ sơ người chơi"
+                            Style="{DynamicResource ProfileMenuItemStyle}"
+                            Tag="&#xE77B;" />
+
+                        <Separator Margin="5,5,5,5" Background="#3F3F3F" />
+
+                        <Button
+                            Click="SignOut_Click"
+                            Content="Đăng xuất"
+                            Foreground="#FF6961"
+                            Style="{StaticResource ProfileMenuItemStyle}"
+                            Tag="&#xE7E8;">
+                            <Button.Triggers />
+                        </Button>
+
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
     </Grid>
 </Window>

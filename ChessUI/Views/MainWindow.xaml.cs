@@ -24,9 +24,14 @@ namespace ChessUI
 
         private readonly CloudService _cloudService;
 
+
+        private UserData _currentUser;
         public MainWindow(UserData userData)
         {
             InitializeComponent();
+            _currentUser = userData;
+            UpdateUserInfoUI();
+
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             aiController = new AIController(Player.Black, AIController.Difficulty.Medium); 
             RightPanelContentHost.Content = DefaultInfoView; 
@@ -52,6 +57,40 @@ namespace ChessUI
             _cloudService = new CloudService();
             BoardViewControl.userID = userData.UserID;
         }
+        #region User Profile Popup
+        private void UpdateUserInfoUI()
+        {
+            txtUserNamePopup.Text = _currentUser.UserName ?? "Player";
+            if (_currentUser != null)
+            {
+                txtUserNamePopup.Text = _currentUser.UserName;
+                txtLevelPopup.Text = _currentUser.Level;
+            }
+        }
+        private void btnAvatar_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfilePopup.IsOpen = !UserProfilePopup.IsOpen;
+        }
+        private void SignOut_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfilePopup.IsOpen = false;
+            LoginWindow NewLogin = new LoginWindow();
+            NewLogin.Show();
+            this.Close();
+        }
+        private void BtnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfilePopup.IsOpen = false;
+            var profileView = new Views.BoardMenu.UserProfileView(_currentUser);
+            profileView.CloseRequested += (s, args) =>
+            {
+                OverlayContainer.Visibility = Visibility.Collapsed;
+                OverlayContainer.Content = null;
+                GameContainer.Visibility = Visibility.Visible;
+            };
+            OpenOverlay(profileView);
+        }
+        #endregion
 
         #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -73,19 +112,19 @@ namespace ChessUI
                 WindowState = WindowState.Maximized;
         }
         // Change content of btnMaximize
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            // check if Window in Maximized state change btn Maximize content
-            if (this.WindowState == WindowState.Maximized)
-            {
-                btnMaximize.Content = "\uE923";
-            }
-            // otherwise
-            else
-            {
-                btnMaximize.Content = "\uE922";
-            }
-        }
+        //private void Window_StateChanged(object sender, EventArgs e)
+        //{
+        //    // check if Window in Maximized state change btn Maximize content
+        //    if (this.WindowState == WindowState.Maximized)
+        //    {
+        //        btnMaximize.Content = "\uE923";
+        //    }
+        //    // otherwise
+        //    else
+        //    {
+        //        btnMaximize.Content = "\uE922";
+        //    }
+        //}
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
