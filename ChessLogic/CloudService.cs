@@ -189,9 +189,14 @@ namespace ChessLogic
                 foreach (var userEntry in allUsers)
                 {
                     var user = userEntry.Value;
-                    if (user.Email == email && user.Password == password)
+                    if (user.Email == email)
                     {
-                        return user; // Trả về dữ liệu người dùng nếu đăng nhập thành công
+                        bool isCorrect = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                        // if find match, return user data
+                        if (isCorrect)
+                            return user; 
+                        else
+                            return null; 
                     }
                 }
                 return null; // Không tìm thấy người dùng khớp
