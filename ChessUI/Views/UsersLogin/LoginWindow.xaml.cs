@@ -16,6 +16,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
+using System.Configuration;
+// remember settings
+using ChessUI.Properties;
+using ChessLogic;
 
 
 namespace ChessUI
@@ -32,7 +37,7 @@ namespace ChessUI
             if (Settings.Default.RememberMe)
             {
                 RememberMeCheckBox.IsChecked = true;
-                UsernameTextBox.Text = Settings.Default.RememberedUsername;
+                EmailTextBox.Text = Settings.Default.RememberedUsername;
             }
         }
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -73,73 +78,137 @@ namespace ChessUI
             Close();
         }
         #endregion
+
         #region Login
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        //private void LoginButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string username = UsernameTextBox.Text;
+        //    string password = PasswordBox.Password;
+
+        //    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        //    {
+        //        MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu");
+        //        return;
+        //    }
+
+        //    string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+        //    string sqlQuery = "SELECT COUNT(1) FROM Users WHERE Username = @Username and Password = @Password";
+
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
+        //            {
+        //                cmd.Parameters.AddWithValue("@Username", username);
+        //                cmd.Parameters.AddWithValue("@Password", password);
+
+        //                conn.Open();
+        //                int count = (int)cmd.ExecuteScalar();
+
+        //                if (count == 1) // Khi có data khớp
+        //                {
+        //                    // logic Remember Me
+        //                    if (RememberMeCheckBox.IsChecked == true)
+        //                    {
+        //                        // if checked is selected, save user name and state
+        //                        Settings.Default.RememberedUsername = username;
+        //                        Settings.Default.RememberMe = true;
+        //                    }
+        //                    else
+        //                    {
+        //                        // otherwise, delete settings
+        //                        Settings.Default.RememberedUsername = "";
+        //                        Settings.Default.RememberMe = false;
+        //                    }
+        //                    Settings.Default.Save();
+        //                    // Login successfully
+        //                    MainWindow mainWindow = new MainWindow();
+        //                    mainWindow.Show();
+        //                    this.Close();
+        //                }
+        //                else
+        //                {
+        //                    // Login failed
+        //                    MessageBox.Show("Username hoặc Password bị sai");
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+        //    }
+        //}
+
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            //MainWindow mainWindow = new MainWindow();
+            //mainWindow.Show();
+            //this.Close();
 
-            //string username = UsernameTextBox.Text;
-            //string password = PasswordBox.Password;
+            string email = EmailTextBox.Text;
+            string password = PasswordBox.Password;
 
-            //if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            //{
-            //    MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu");
-            //    return;
-            //}
-            //string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            //string sqlQuery = "SELECT COUNT(1) FROM Users WHERE Username = @Username and Password = @Password";
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ email đăng nhập và mật khẩu");
+                return;
+            }
 
-            //try
-            //{
-            //    using (SqlConnection conn = new SqlConnection(connectionString))
-            //    {
-            //        using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
-            //        {
-            //            cmd.Parameters.AddWithValue("@Username", username);
-            //            cmd.Parameters.AddWithValue("@Password", password);
+            LoginButton.IsEnabled = false;
+            this.Cursor = Cursors.Wait;
 
-            //            conn.Open();
-            //            int count = (int)cmd.ExecuteScalar();
+            try
+            {
 
-            //            if (count == 1)
-            //            {
-            //                // logic Remember Me
-            //                if (RememberMeCheckBox.IsChecked == true)
-            //                {
-            //                    // if checked is selected, save user name and state
-            //                    Settings.Default.RememberedUsername = username;
-            //                    Settings.Default.RememberMe = true;
-            //                }
-            //                else
-            //                {
-            //                    // otherwise, delete settings
-            //                    Settings.Default.RememberedUsername = "";
-            //                    Settings.Default.RememberMe = false;
-            //                }
-            //                Settings.Default.Save();
-            //                // Login successfully
-            //                MainWindow mainWindow = new MainWindow();
-            //                mainWindow.Show();
-            //                this.Close();
-            //            }
-            //            else
-            //            {
-            //                // Login failed
-            //                MessageBox.Show("Username hoặc Password bị sai");
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (SqlException ex)
-            //{
-            //    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-            //}
+                // Gọi CloudService
+                CloudService cloudService = new CloudService();
+
+                // Gọi hàm LoginUserAsync. Kết quả trả về là object UserData hoặc null
+                UserData loggedInUser = await cloudService.LoginUserAsync(email, password);
+
+                if (loggedInUser != null)
+                {
+                    // --- ĐẶT TÀI KHOẢN MẶC ĐỊNH ---
+                    if (RememberMeCheckBox.IsChecked == true)
+                    {
+                        Settings.Default.RememberedUsername = email;
+                        Settings.Default.RememberMe = true;
+                    }
+                    else
+                    {
+                        Settings.Default.RememberedUsername = "";
+                        Settings.Default.RememberMe = false;
+                    }
+                    Settings.Default.Save();
+
+                    // --- CHUYỂN MÀN HÌNH ---
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    this.Close(); 
+                }
+                else
+                {
+                    // Login failed (Thông báo khi Firebase bảo sai mật khẩu)
+                    MessageBox.Show("Username hoặc Password bị sai");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Bắt các lỗi chung (ví dụ lỗi mạng internet khi gọi Firebase)
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            }
+            finally
+            {
+                LoginButton.IsEnabled = true;
+                this.Cursor = Cursors.Arrow;
+            }
         }
 
         private void GoogleLoginButton_Click(object sender, RoutedEventArgs e)
@@ -157,6 +226,7 @@ namespace ChessUI
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
+
         #region ShowPassword
         private bool isPasswordVisible = false;
         private void EyeButton_Click(object sender, RoutedEventArgs e) 

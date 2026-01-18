@@ -8,6 +8,26 @@ using System.Threading.Tasks;
 
 namespace ChessLogic
 {
+    public class GameSaveData
+    {
+        public string FenString { get; set; }
+        public string TimeStamp { get; set; }
+    }
+
+    public class UserData
+    {
+        // ID này sẽ trùng với Key trên Firebase (để tiện truy xuất ngược)
+        public string UserID { get; set; }
+
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string FullName { get; set; }
+        public int Age { get; set; }
+        public string Level { get; set; }
+        public string CreatedAt { get; set; }
+    }
+
     public class CloudService
     {
         // Cấu hình Firebase
@@ -32,13 +52,7 @@ namespace ChessLogic
             }
         }
 
-        // Class lưu dữ liệu (tạm): FEN, Time là thời gian lưu
-        public class GameSaveData
-        {
-            public string FenString { get; set; }
-            public string TimeStamp { get; set; }
-        }
-
+        #region Game Data Tasks: Save, Load, Delete
         public async Task<bool> SaveGameAsync(string userID, string modeKey, string fen)
         {
             if (client == null) return false;
@@ -96,6 +110,97 @@ namespace ChessLogic
                 return false; // Xóa thất bại
             }
         }
+        #endregion
 
+        #region User Data Tasks: Register, Login
+        public async Task<bool> CheckUserExistsAsync(string email)
+        {
+            if (client == null) return false;
+            try
+            {
+                // Lấy tất cả người dùng từ Firebase
+                FirebaseResponse response = await client.GetAsync("Users");
+                if (response.Body == "null")
+                {
+                    return false; // Chưa có người dùng nào
+                }
+
+                var allUsers = response.ResultAs<Dictionary<string, UserData>>();
+                foreach (var userEntry in allUsers)
+                {
+                    var user = userEntry.Value;
+                    if (user.Email == email)
+                    {
+                        return true; // Email đã tồn tại
+                    }
+                }
+                return false; // Email chưa tồn tại
+            }
+            catch
+            {
+                return false; // Lỗi khi kiểm tra
+            }
+        }
+        
+        public async Task<string> RegisterUserAsync(UserData newUser)
+        {
+            if (client == null) return null;
+
+            bool isExist = await CheckUserExistsAsync(newUser.Email);
+            if (isExist)
+            {
+                return "#DUPLICATE"; // Trả về mã lỗi riêng để UI biết mà báo "Tên đã tồn tại"
+            }
+
+            try 
+            {
+                // Tạo một UserID mới (có thể dùng GUID hoặc bất kỳ phương pháp nào khác)
+                string userID = Guid.NewGuid().ToString();
+                newUser.UserID = userID;
+                newUser.CreatedAt = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+
+                // Lưu dữ liệu người dùng lên Firebase
+                await client.SetAsync($"Users/{userID}", newUser);
+
+                return userID; // Trả về UserID nếu đăng ký thành công
+            }
+            catch
+            {
+                return null; // Đăng ký thất bại
+            }
+        }
+
+        public async Task<UserData> LoginUserAsync(string email, string password)
+        {
+            if (client == null) return null;
+
+            try
+            {
+                // Lấy tất cả người dùng từ Firebase
+                FirebaseResponse response = await client.GetAsync("Users");
+                if (response.Body == "null")
+                {
+                    return null; // Chưa có người dùng nào
+                }
+
+                var allUsers = response.ResultAs<Dictionary<string, UserData>>();
+
+                // Tìm người dùng với username và password khớp
+                foreach (var userEntry in allUsers)
+                {
+                    var user = userEntry.Value;
+                    if (user.Email == email && user.Password == password)
+                    {
+                        return user; // Trả về dữ liệu người dùng nếu đăng nhập thành công
+                    }
+                }
+                return null; // Không tìm thấy người dùng khớp
+            }
+            catch
+            {
+                return null; // Đăng nhập thất bại
+            }
+        }
+        #endregion
     }
 }
