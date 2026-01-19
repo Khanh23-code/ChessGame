@@ -169,8 +169,8 @@
 
                             <TextBlock.RenderTransform>
                                 <TransformGroup>
-                                    <ScaleTransform x:Name="lblScale" ScaleX="0.85" ScaleY="0.85" />
-                                    <TranslateTransform x:Name="lblTrans" Y="-28" />
+                                    <ScaleTransform x:Name="lblScale" ScaleX="1" ScaleY="1" />
+                                    <TranslateTransform x:Name="lblTrans" Y="0" />
                                 </TransformGroup>
                             </TextBlock.RenderTransform>
 

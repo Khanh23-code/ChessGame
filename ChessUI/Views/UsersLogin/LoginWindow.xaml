@@ -17,7 +17,7 @@
         <WindowChrome
             CaptionHeight="0"
             CornerRadius="30"
-            GlassFrameThickness="0"/>
+            GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
@@ -201,6 +201,20 @@
                         Text="Don't have an accounts? " />
                     <TextBlock VerticalAlignment="Center">
                         <Hyperlink Click="SignUp_Click">
+                            <Hyperlink.Style>
+                                <Style TargetType="Hyperlink">
+                                    <Setter Property="Foreground" Value="#00BFFF" />
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="#00BFFF" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="#00BFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Hyperlink.Style>
                             Sign up
                         </Hyperlink>
                     </TextBlock>
