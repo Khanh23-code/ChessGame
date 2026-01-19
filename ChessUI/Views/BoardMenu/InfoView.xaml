@@ -22,6 +22,7 @@
             CornerRadius="8">
             <StackPanel>
                 <TextBlock
+                    x:Name="txtUserNameInfoView"
                     HorizontalAlignment="Center"
                     FontSize="16"
                     Foreground="{DynamicResource Brush.Text.Primary}"
