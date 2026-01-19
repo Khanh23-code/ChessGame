@@ -15,11 +15,7 @@ namespace ChessUI.Views.BoardMenu
         {
             LoginWindow NewLogin = new LoginWindow();
             NewLogin.Show();
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.Close();
-            }
+            Window.GetWindow(this)?.Close();
         }
 
         private void CustomRadioButton_Checked(object sender, RoutedEventArgs e)

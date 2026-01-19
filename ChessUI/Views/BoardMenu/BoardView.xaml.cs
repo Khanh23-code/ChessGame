@@ -494,7 +494,9 @@ namespace ChessUI.Views.BoardMenu
                 else
                 {
                     gameState.ClearCloudSave();
-                    Application.Current.Shutdown();
+                    LoginWindow newLogin = new LoginWindow();
+                    newLogin.Show();
+                    Window.GetWindow(this).Close();
                 }
             };
         }
