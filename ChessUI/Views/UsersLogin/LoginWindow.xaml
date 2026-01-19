@@ -147,9 +147,11 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Click="ForgotPasswordButton_Click"
-                        Content="Forgot Login?"
                         Cursor="Hand"
-                        Foreground="White" />
+                        Foreground="White"
+                        Style="{StaticResource EyeButton}">
+                        <TextBlock Text="Forgot Password?" TextDecorations="Underline" />
+                    </Button>
                 </Grid>
 
                 <Button
@@ -195,7 +197,7 @@
                         Foreground="White"
                         Text="Don't have an accounts? " />
                     <TextBlock VerticalAlignment="Center">
-                        <Hyperlink Click="SignUp_Click" Foreground="White">
+                        <Hyperlink Click="SignUp_Click">
                             Sign up
                         </Hyperlink>
                     </TextBlock>

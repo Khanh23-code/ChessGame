@@ -36,7 +36,7 @@ namespace ChessUI.Views.BoardMenu
                     AssetId = 1,
                     BoardIconPath = "/Assets/Asset1/BoardPreview.png", 
                     BoardFullPath = "/Assets/Asset1/Board.png",
-                    PiecePreviewPath = "/Assets/Asset1/KightW.png"
+                    PiecePreviewPath = "/Assets/Asset1/KnightW.png"
                 },
                 new GameTheme
                 {
@@ -44,7 +44,7 @@ namespace ChessUI.Views.BoardMenu
                     AssetId = 2,
                     BoardIconPath = "/Assets/Asset2/BoardPreview.png",
                     BoardFullPath = "/Assets/Asset2/Board.png",
-                    PiecePreviewPath = "/Assets/Asset2/KightW.png"
+                    PiecePreviewPath = "/Assets/Asset2/KnightW.png"
                 },
             };
 
@@ -68,7 +68,7 @@ namespace ChessUI.Views.BoardMenu
                 PreviewBoardImage.Source = new BitmapImage(new Uri(theme.BoardFullPath, UriKind.RelativeOrAbsolute)); 
                 PreviewPiecesGrid.Children.Clear();
 
-                string assetFolder = $"/Assets/Asset{theme.AssetId}";
+                string assetFolder = $"pack://application:,,,/Assets/Asset{theme.AssetId}";
                 string[] backRank = { "Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook" };
                 for (int col = 0; col < 8; col++)
                 {
@@ -88,7 +88,8 @@ namespace ChessUI.Views.BoardMenu
         {
             try
             {
-                Image img = new Image { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)) };
+                //Image img = new Image { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)) };
+                Image img = new Image { Source = new BitmapImage(new Uri(path, UriKind.Absolute)) };
                 Grid.SetRow(img, r);
                 Grid.SetColumn(img, c);
                 PreviewPiecesGrid.Children.Add(img);

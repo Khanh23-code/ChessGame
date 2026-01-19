@@ -113,7 +113,7 @@ namespace ChessLogic
         }
         #endregion
 
-        #region User Data Tasks: Register, Login
+        #region User Data Tasks: Register, Login, 
         public async Task<bool> CheckUserExistsAsync(string email)
         {
             if (client == null) return false;

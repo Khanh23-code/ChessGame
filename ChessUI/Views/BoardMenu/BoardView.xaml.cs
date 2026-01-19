@@ -96,7 +96,7 @@ namespace ChessUI.Views.BoardMenu
 
         private void DrawBoard(Board board)
         {
-                ImageBrush boardBackGround = BoardGrid.Background as ImageBrush;
+            ImageBrush boardBackGround = BoardGrid.Background as ImageBrush;
 
                 BitmapImage source = new BitmapImage();
                 source.BeginInit();

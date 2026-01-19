@@ -7,14 +7,14 @@
 
     <UserControl.Resources>
         <Style x:Key="LabelTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#AAAAAA" />
+            <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Secondary}" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,0,0,0" />
         </Style>
 
         <Style x:Key="ValueTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -22,7 +22,7 @@
         </Style>
 
         <Style x:Key="InfoRowStyle" TargetType="Border">
-            <Setter Property="Background" Value="#30FFFFFF" />
+            <Setter Property="Background" Value="{DynamicResource Brush.Container.Border}" />
             <Setter Property="CornerRadius" Value="8" />
             <Setter Property="Padding" Value="15,12" />
             <Setter Property="Margin" Value="0,0,0,12" />
@@ -30,12 +30,10 @@
     </UserControl.Resources>
 
     <Border
-        BorderBrush="#81B64C"
+        Background="{DynamicResource Brush.Glass}"
+        BorderBrush="{DynamicResource Brush.Text.Primary}"
         BorderThickness="1.5"
         CornerRadius="16">
-        <Border.Background>
-            <SolidColorBrush Opacity="1" Color="#CC1c1c1c" />
-        </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="260" />
@@ -44,8 +42,8 @@
 
             <Border
                 Grid.Column="0"
-                Background="#1E1E1E"
-                BorderBrush="#2A2A2A"
+                Background="{DynamicResource Brush.Background.Secondary}"
+                BorderBrush="{DynamicResource Brush.Container.Border}"
                 BorderThickness="0,0,1,0"
                 CornerRadius="16,0,0,16">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -54,7 +52,7 @@
                         <Border
                             Width="120"
                             Height="120"
-                            BorderBrush="#1E1E1E"
+                            BorderBrush="{DynamicResource Brush.Background.Main}"
                             BorderThickness="1"
                             CornerRadius="60">
                             <Border.Background>
@@ -68,25 +66,25 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Background="Green"
-                            BorderBrush="#1E1E1E"
+                            BorderBrush="{DynamicResource Brush.Background.Main}"
                             BorderThickness="3"
                             CornerRadius="12" />
                     </Grid>
 
                     <TextBlock
                         x:Name="txtUsername"
-                        Margin="0,20,0,5"
+                        Margin="0,20,0,10"
                         HorizontalAlignment="Center"
                         FontSize="24"
                         FontWeight="Bold"
-                        Foreground="White"
+                        Foreground="{DynamicResource Brush.Text.Primary}"
                         Text="Karasuma2401" />
 
                     <Border
                         Margin="0,5,0,0"
                         Padding="15,6"
-                        Background="#2D2D2D"
-                        BorderBrush="#3F3F3F"
+                        Background="{DynamicResource Brush.Background.Tertiary}"
+                        BorderBrush="{DynamicResource Brush.Container.Border}"
                         BorderThickness="1"
                         CornerRadius="15">
                         <StackPanel Orientation="Horizontal">
@@ -98,7 +96,7 @@
                             <TextBlock
                                 x:Name="txtLevel"
                                 FontWeight="Bold"
-                                Foreground="#81B64C"
+                                Foreground="{DynamicResource Brush.Text.Primary}"
                                 Text="Rank: Beginner" />
                         </StackPanel>
                     </Border>
@@ -116,7 +114,7 @@
                     Margin="0,0,0,25"
                     FontSize="14"
                     FontWeight="Bold"
-                    Foreground="White"
+                    Foreground="{DynamicResource Brush.Text.Primary}"
                     Text="HỒ SƠ NGƯỜI CHƠI" />
 
                 <StackPanel Grid.Row="1">
@@ -126,7 +124,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     FontSize="16"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="👤" />
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Họ và tên" />
@@ -143,7 +141,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     FontSize="16"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="✉️" />
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Email" />
@@ -160,7 +158,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     FontSize="16"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="🎂" />
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Tuổi" />
@@ -177,7 +175,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     FontSize="16"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="📅" />
                                 <TextBlock Style="{StaticResource LabelTextStyle}" Text="Ngày tham gia" />

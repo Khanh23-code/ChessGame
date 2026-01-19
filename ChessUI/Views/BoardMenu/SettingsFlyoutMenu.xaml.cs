@@ -29,8 +29,7 @@ namespace ChessUI.Views.BoardMenu
             if (customWindow.ShowDialog() == true)
             {
                 int AssetId = customWindow.SelectedTheme.AssetId;
-                var mainWindow = Application.Current.MainWindow as MainWindow;
-
+                var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
                 if (mainWindow != null && mainWindow.BoardViewControl != null)
                 {
                     mainWindow.BoardViewControl.UpdateTheme(AssetId);
