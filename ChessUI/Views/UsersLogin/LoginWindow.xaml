@@ -17,7 +17,7 @@
         <WindowChrome
             CaptionHeight="0"
             CornerRadius="30"
-            GlassFrameThickness="0" />
+            GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
     <Grid RenderOptions.BitmapScalingMode="HighQuality">
@@ -105,7 +105,10 @@
                         x:Name="PasswordShowBox"
                         Height="25"
                         Visibility="Collapsed" />
-                    <PasswordBox x:Name="PasswordBox" Height="25" />
+                    <PasswordBox
+                        x:Name="PasswordBox"
+                        Height="25"
+                        KeyDown="PasswordBox_KeyDown" />
                     <Button
                         x:Name="eye"
                         Grid.ColumnSpan="1"

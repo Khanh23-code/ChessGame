@@ -1,5 +1,8 @@
 ﻿// remember settings
+// remember settings
+using ChessLogic;
 using ChessUI.Properties;
+using ChessUI.Views.UsersLogin;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,8 +19,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-// remember settings
-using ChessLogic;
 
 
 namespace ChessUI
@@ -244,24 +245,24 @@ namespace ChessUI
             return;
         }
         #endregion
-        
-        private async void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            string email = EmailTextBox.Text;
 
-            ClearErrors();
-            if (string.IsNullOrEmpty(email))
-            {
-                ShowError(EmailTextBox, ErrorText, "Vui lòng nhập email để đặt lại mật khẩu.");
-            }
-            return;
+        private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            ForgotPassword forgotWindow = new ForgotPassword();
+            forgotWindow.ShowDialog();
         }
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
             SignUpWindow signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
-
+        private void PasswordBox_KeyDown (object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoginButton_Click(sender, e);
+            }
+        }
         #region ShowPassword
         private bool isPasswordVisible = false;
         private void EyeButton_Show(object sender, MouseButtonEventArgs e)
