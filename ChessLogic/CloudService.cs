@@ -3,6 +3,8 @@ using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -113,7 +115,7 @@ namespace ChessLogic
         }
         #endregion
 
-        #region User Data Tasks: Register, Login, 
+        #region User Data Tasks: Register, Login, Reset Password, Update
         public async Task<bool> CheckUserExistsAsync(string email)
         {
             if (client == null) return false;
@@ -142,7 +144,7 @@ namespace ChessLogic
                 return false; // Lỗi khi kiểm tra
             }
         }
-        
+
         public async Task<string> RegisterUserAsync(UserData newUser)
         {
             if (client == null) return null;
@@ -153,7 +155,7 @@ namespace ChessLogic
                 return "#DUPLICATE"; // Trả về mã lỗi riêng để UI biết mà báo "Tên đã tồn tại"
             }
 
-            try 
+            try
             {
                 // Tạo một UserID mới (có thể dùng GUID hoặc bất kỳ phương pháp nào khác)
                 string userID = Guid.NewGuid().ToString();
@@ -195,9 +197,9 @@ namespace ChessLogic
                         bool isCorrect = BCrypt.Net.BCrypt.Verify(password, user.Password);
                         // if find match, return user data
                         if (isCorrect)
-                            return user; 
+                            return user;
                         else
-                            return null; 
+                            return null;
                     }
                 }
                 return null; // Không tìm thấy người dùng khớp
@@ -207,6 +209,85 @@ namespace ChessLogic
                 return null; // Đăng nhập thất bại
             }
         }
+
+
+        #region Xử lý Reset Password
+
+        // Step 1: send OTP code to email
+        public bool SendVerificationCode(string toEmail, string code)
+        {
+            try
+            {
+                var fromAddress = new MailAddress("leminhthang24012006@gmail.com", "Chess Game Support");
+                var toAddress = new MailAddress(toEmail);
+                const string fromPassword = "mkch nsom cmym bzyl";
+
+                string subject = "[ChessGame] Please verify your device";
+                string body = $"Hey Player\r\n\r\n" +
+                    $"A sign in attempt requires further verification because we did not recognize your device. To complete the sign in, enter the verification code on the unrecognized device.\r\n\r\n" +
+                    $"Verification code: {code}\r\n\r\nIf you did not attempt to sign in to your account, your password may be compromised. Please contact with my number phone Teams: 0867070087\r\n\r\n" +
+                    $"Thanks,\r\n" +
+                    $"The ChessGame Team";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        // Step 2: Update new Password
+        public async Task<bool> UpdateUserPasswordAsync(string email, string newPasswordRaw)
+        {
+            if (client == null) return false;
+
+            try
+            {
+                FirebaseResponse response = await client.GetAsync("Users");
+                if (response.Body == "null") return false;
+
+                var allUsers = response.ResultAs<Dictionary<string, UserData>>();
+                UserData targetUser = null;
+
+                foreach (var item in allUsers)
+                {
+                    if (item.Value.Email.Equals(email, StringComparison.OrdinalIgnoreCase))
+                    {
+                        targetUser = item.Value;
+                        break;
+                    }
+                }
+
+                if (targetUser == null) return false;
+                string newPasswordHash = BCrypt.Net.BCrypt.HashPassword(newPasswordRaw);
+                targetUser.Password = newPasswordHash;
+
+                await client.SetAsync($"Users/{targetUser.UserID}", targetUser);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
         #endregion
     }
 }

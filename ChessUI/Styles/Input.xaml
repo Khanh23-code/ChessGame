@@ -129,6 +129,129 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--  style Material Design TextBox  -->
+    <Style x:Key="MaterialDesignTextBox" TargetType="TextBox">
+        <Setter Property="CaretBrush" Value="#42A5F5" />
+
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="#80FFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5,5" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="VerticalContentAlignment" Value="Bottom" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5" />
+
+                        <ScrollViewer
+                            x:Name="PART_ContentHost"
+                            Margin="0,0,0,5"
+                            VerticalAlignment="Center" />
+
+                        <TextBlock
+                            x:Name="lblPlaceholder"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{TemplateBinding BorderBrush}"
+                            IsHitTestVisible="False"
+                            RenderTransformOrigin="0,0.5"
+                            Text="{TemplateBinding Tag}">
+
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="lblScale" ScaleX="0.85" ScaleY="0.85" />
+                                    <TranslateTransform x:Name="lblTrans" Y="-28" />
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+
+                            <TextBlock.Background>
+                                <SolidColorBrush Color="#1E1E1E" />
+                            </TextBlock.Background>
+                        </TextBlock>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#42A5F5" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="lblPlaceholder" Property="Foreground" Value="#42A5F5" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsKeyboardFocused" Value="False" />
+                                <Condition Property="Text" Value="" />
+                            </MultiTrigger.Conditions>
+
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblTrans"
+                                            Storyboard.TargetProperty="Y"
+                                            To="0"
+                                            Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="1"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="1"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblTrans"
+                                            Storyboard.TargetProperty="Y"
+                                            To="-24"
+                                            Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0.85"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="lblScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0.85"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--  ToogleButton for switch light or dark theme  -->
     <Style x:Key="ImageThemeToggleStyle" TargetType="CheckBox">
         <Setter Property="Cursor" Value="Hand" />
