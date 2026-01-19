@@ -74,12 +74,13 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.ColumnSpan="3"
-            Margin="0,5,10,5"
+            Margin="0,5,10,10"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Panel.ZIndex="1000">
 
             <Button
+                Margin="0,0,10,0"
                 x:Name="btnAvatar"
                 Width="40"
                 Height="40"
@@ -95,7 +96,7 @@
                                 BorderThickness="2"
                                 CornerRadius="22">
                                 <Border.Background>
-                                    <SolidColorBrush Color="#333" />
+                                    <SolidColorBrush Color="#AAAAAA" />
                                 </Border.Background>
 
                                 <Border CornerRadius="20">
@@ -107,7 +108,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#00DC82" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brush.Gradient.Play}" />
                                 <Setter TargetName="border" Property="BorderThickness" Value="2" />
                             </Trigger>
                         </ControlTemplate.Triggers>

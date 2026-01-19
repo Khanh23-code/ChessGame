@@ -245,9 +245,15 @@ namespace ChessUI
         }
         #endregion
         
-        private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
+        private async void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
-            // I can't do it
+            string email = EmailTextBox.Text;
+
+            ClearErrors();
+            if (string.IsNullOrEmpty(email))
+            {
+                ShowError(EmailTextBox, ErrorText, "Vui lòng nhập email để đặt lại mật khẩu.");
+            }
             return;
         }
         private void SignUp_Click(object sender, RoutedEventArgs e)

@@ -7,7 +7,6 @@ namespace ChessUI.Views.BoardMenu
 {
     public partial class UserProfileView : UserControl
     {
-        // Sự kiện để báo cho MainWindow biết cần đóng Overlay
         public event EventHandler CloseRequested;
 
         public UserProfileView(UserData user)
