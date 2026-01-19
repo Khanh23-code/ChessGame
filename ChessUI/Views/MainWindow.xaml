@@ -83,7 +83,7 @@
                 x:Name="btnAvatar"
                 Width="40"
                 Height="40"
-                Margin="0,0,10,0"
+                Margin="0,10,10,0"
                 BorderThickness="0"
                 Click="btnAvatar_Click"
                 Cursor="Hand">

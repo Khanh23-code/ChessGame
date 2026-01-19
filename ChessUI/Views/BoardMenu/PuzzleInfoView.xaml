@@ -7,7 +7,6 @@
     Margin="20"
     d:DesignHeight="700"
     d:DesignWidth="300"
-    Style="{StaticResource SlideInAnimation}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="GradientTextStyle" TargetType="TextBlock">
@@ -37,27 +36,16 @@
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock
+                                Margin="0,2,0,4"
+                                FontSize="30"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource Brush.Text.Primary}"
+                                Text="CHALLENGES" />
+                            <TextBlock
                                 FontSize="12"
                                 FontWeight="SemiBold"
                                 Foreground="{StaticResource Brush.Text.Secondary}"
-                                Text="PUZZLE RATING" />
-                            <TextBlock
-                                Margin="0,2,0,4"
-                                FontSize="36"
-                                FontWeight="Bold"
-                                Foreground="{DynamicResource Brush.Text.Primary}"
-                                Text="1452" />
-                            <Border
-                                Padding="6,2"
-                                HorizontalAlignment="Left"
-                                Background="#1500DC82"
-                                CornerRadius="4">
-                                <TextBlock
-                                    FontSize="11"
-                                    FontWeight="Bold"
-                                    Foreground="#00DC82"
-                                    Text="+8 today" />
-                            </Border>
+                                Text="Try for best" />
                         </StackPanel>
 
                         <Border
@@ -276,8 +264,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
+                        x:Name="BtnHint"
                         Grid.Column="0"
                         Height="48"
+                        Click="BtnHint_Click"
                         FontSize="15"
                         Style="{StaticResource NeutralButton}">
                         <StackPanel Orientation="Horizontal">
@@ -291,8 +281,10 @@
                     </Button>
 
                     <Button
+                        x:Name="BtnRetry"
                         Grid.Column="2"
                         Height="48"
+                        Click="BtnRetry_Click"
                         FontSize="15"
                         Style="{StaticResource NeutralButton}">
                         <StackPanel Orientation="Horizontal">
@@ -309,6 +301,7 @@
                 <Button
                     x:Name="ActionBtn"
                     Height="52"
+                    Click="ActionBtn_Click"
                     Content="Start Puzzle"
                     FontSize="18"
                     Style="{StaticResource StartButtonStyle}" />

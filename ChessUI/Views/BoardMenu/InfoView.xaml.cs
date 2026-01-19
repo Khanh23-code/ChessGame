@@ -27,10 +27,10 @@ namespace ChessUI.Views.BoardMenu
         private string whiteData = "";
         private MoveData moveData;
 
-        public InfoView()
+        public InfoView(UserData user)
         {
             InitializeComponent();
-
+            txtUserNameInfoView.Text = user.UserName;
             lvMovementInfo.Items.Clear();
         }
 

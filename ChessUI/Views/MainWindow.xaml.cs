@@ -19,17 +19,17 @@ namespace ChessUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AIController aiController; 
-        private readonly Views.BoardMenu.InfoView DefaultInfoView = new Views.BoardMenu.InfoView();
-
+        private UserData _currentUser;
+        private AIController aiController;
+        private readonly Views.BoardMenu.InfoView DefaultInfoView;
         private readonly CloudService _cloudService;
 
-
-        private UserData _currentUser;
         public MainWindow(UserData userData)
         {
             InitializeComponent();
             _currentUser = userData;
+            DefaultInfoView = new Views.BoardMenu.InfoView(_currentUser);
+
             UpdateUserInfoUI();
 
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
@@ -95,7 +95,14 @@ namespace ChessUI
         #region Taskbar Button
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                try
+                {
+                    DragMove();
+                }
+                catch (InvalidOperationException) {}
+            }
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
@@ -285,12 +292,25 @@ namespace ChessUI
         {
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
             puzzleView.IsDailyMode = false;
-            puzzleView.OnPuzzleSelected += (fen) =>
+
+            puzzleView.OnPuzzleSelected += (puzzleItem) =>
             {
                 if (BoardViewControl != null)
                 {
-                    BoardViewControl.StartPuzzle(fen);
+                    BoardViewControl.StartPuzzle(puzzleItem.FenString, puzzleItem.Solution);
                 }
+            };
+            puzzleView.OnHintRequested += () =>
+            {
+                BoardViewControl.ShowHint();
+            };
+            puzzleView.OnRetryRequested += () =>
+            {
+                BoardViewControl.RestartGame();
+            };
+            puzzleView.OnBackToMenu += () =>
+            {
+                RightPanelContentHost.Content = DefaultInfoView;
             };
 
             RightPanelContentHost.Content = puzzleView;
@@ -298,13 +318,32 @@ namespace ChessUI
         private void PuzzleMenu_DailyClicked(object sender, EventArgs e)
         {
             var puzzleView = new Views.BoardMenu.PuzzleInfoView();
-            puzzleView.IsDailyMode = true;
-            puzzleView.OnPuzzleSelected += (fen) =>
+            puzzleView.IsDailyMode = true; 
+            puzzleView.OnPuzzleSelected += (puzzleItem) =>
             {
                 if (BoardViewControl != null)
                 {
-                    BoardViewControl.StartPuzzle(fen);
+                    BoardViewControl.StartPuzzle(puzzleItem.FenString, puzzleItem.Solution);
                 }
+            };
+            puzzleView.OnPuzzleSelected += (puzzleItem) =>
+            {
+                if (BoardViewControl != null)
+                {
+                    BoardViewControl.StartPuzzle(puzzleItem.FenString, puzzleItem.Solution);
+                }
+            };
+            puzzleView.OnHintRequested += () =>
+            {
+                BoardViewControl.ShowHint();
+            };
+            puzzleView.OnRetryRequested += () =>
+            {
+                BoardViewControl.RestartGame();
+            };
+            puzzleView.OnBackToMenu += () =>
+            {
+                RightPanelContentHost.Content = DefaultInfoView;
             };
 
             RightPanelContentHost.Content = puzzleView;
