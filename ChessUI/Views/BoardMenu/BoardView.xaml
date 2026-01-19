@@ -49,7 +49,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         Foreground="{DynamicResource Brush.Text.Primary}"
-                        Text="Garry Kasparov" />
+                        Text="Your Opponent" />
                     <TextBlock
                         FontSize="14"
                         Foreground="{DynamicResource Brush.Text.Secondary}"
@@ -125,7 +125,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         Foreground="{DynamicResource Brush.Text.Primary}"
-                        Text="Magnus Carlsen" />
+                        Text="You" />
                     <TextBlock
                         FontSize="14"
                         Foreground="{DynamicResource Brush.Text.Secondary}"
