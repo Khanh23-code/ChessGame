@@ -46,6 +46,38 @@ namespace ChessUI.Views.BoardMenu
                     BoardFullPath = "/Assets/Asset2/Board.png",
                     PiecePreviewPath = "/Assets/Asset2/KnightW.png"
                 },
+                new GameTheme
+                {
+                    Name = "Đơn giản",
+                    AssetId = 3,
+                    BoardIconPath = "/Assets/Asset3/BoardPreview.png",
+                    BoardFullPath = "/Assets/Asset3/Board.png",
+                    PiecePreviewPath = "/Assets/Asset3/KnightW.png"
+                },
+                new GameTheme
+                {
+                    Name = "Nhà thờ phương Tây",
+                    AssetId = 4,
+                    BoardIconPath = "/Assets/Asset4/BoardPreview.png",
+                    BoardFullPath = "/Assets/Asset4/Board.png",
+                    PiecePreviewPath = "/Assets/Asset4/KnightW.png"
+                },
+                new GameTheme
+                {
+                    Name = "Chess.com Style",
+                    AssetId = 5,
+                    BoardIconPath = "/Assets/Asset5/BoardPreview.png",
+                    BoardFullPath = "/Assets/Asset5/Board.png",
+                    PiecePreviewPath = "/Assets/Asset5/KnightW.png"
+                },
+                new GameTheme
+                {
+                    Name = "Custom La Mã",
+                    AssetId = 6,
+                    BoardIconPath = "/Assets/Asset6/BoardPreview.png",
+                    BoardFullPath = "/Assets/Asset6/Board.png",
+                    PiecePreviewPath = "/Assets/Asset6/KnightW.png"
+                },
             };
 
             ThemeList.ItemsSource = themes;
