@@ -805,9 +805,7 @@ namespace ChessUI.Views.BoardMenu
             PauseMenu pauseMenu = new PauseMenu();
             MenuContainer.Content = pauseMenu;
 
-            //MessageBox.Show(gameState.FENString);
-            CustomMessageBox.Show("Current FEN", gameState.FENString);
-
+            //CustomMessageBox.Show("Current FEN", gameState.FENString);
             pauseMenu.OptionSelected += option =>
             {
                 MenuContainer.Content = null;
