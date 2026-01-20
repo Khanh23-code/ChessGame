@@ -41,6 +41,7 @@ namespace ChessUI
                 NavigationViewControl.Loaded += NavigationView_Loaded;
             }
 
+            BoardViewControl.OnReturnToMenu += HandleReturnToMenu;
             BoardViewControl._infoView = DefaultInfoView;
             DefaultInfoView.OptionSelected += (option) =>
             {
@@ -56,6 +57,42 @@ namespace ChessUI
             // Khởi tạo dịch vụ đám mây để load game
             _cloudService = new CloudService();
             BoardViewControl.userID = userData.UserID;
+        }
+        private void HandleReturnToMenu()
+        {
+            if (BoardViewControl.IsEndgameMode)
+            {
+                var endgameView = new Views.BoardMenu.EndgameLesson();
+                endgameView.OptionSelected += Endgame_OptionSelected;
+                RightPanelContentHost.Content = endgameView;
+            }
+            else if (BoardViewControl.IsVsComputer)
+            {
+                var setupControl = new Views.BoardMenu.ComputerPlaySetup();
+                setupControl.OnStartGameClicked += (s, settings) =>
+                {
+                    RightPanelContentHost.Content = DefaultInfoView;
+                    if (BoardViewControl != null)
+                    {
+                        BoardViewControl.StartVsComputerGame(settings.AiDepth, settings.PlayerSide);
+                    }
+                };
+                RightPanelContentHost.Content = setupControl;
+            }
+            else
+            {
+                var setupControl = new Views.BoardMenu.TwoPlayerSetup();
+                setupControl.OnStartGameClicked += (s, settings) =>
+                {
+                    RightPanelContentHost.Content = DefaultInfoView;
+                    if (BoardViewControl != null)
+                    {
+                        BoardViewControl.TimeLimit = settings.TimeLimit;
+                        BoardViewControl.StartPvPGame(settings);
+                    }
+                };
+                RightPanelContentHost.Content = setupControl;
+            }
         }
         #region User Profile Popup
         private void UpdateUserInfoUI()

@@ -23,6 +23,12 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class BoardView : UserControl
     {
+        public event Action OnReturnToMenu;
+        // Fen strings for Endgame Lessons
+        private string _currentScenarioFen = null;
+        // Cache FEN for Puzzle Mode Restart
+        private string _cachedPuzzleFen;
+
         private readonly Image[,] pieceImages = new Image[8, 8];
         private readonly Rectangle[,] highlights = new Rectangle[8, 8];
         private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
@@ -57,10 +63,15 @@ namespace ChessUI.Views.BoardMenu
 
         public event Action<int> OnPuzzleSolved;
         private List<string> _currentPuzzleSolution;
-        private string _cachedPuzzleFen;
+
         private int _currentPuzzleMoveIndex;        
         private bool _isPuzzleMode = false;
         private bool _isDailyMode = false;
+
+
+        // Properties
+        public bool IsPuzzleMode => _isPuzzleMode;
+        public bool IsEndgameMode => !string.IsNullOrEmpty(_currentScenarioFen);
         public BoardView()
         {
             InitializeComponent();
@@ -430,6 +441,7 @@ namespace ChessUI.Views.BoardMenu
 
         public async void StartVsComputerGame(int aiDepth, Player playerSide)
         {
+            _currentScenarioFen = null;
             timer.Stop();                  
             MenuContainer.Content = null;
 
@@ -494,6 +506,7 @@ namespace ChessUI.Views.BoardMenu
         }
         public async void StartPvPGame(TwoPlayerSettings settings)
         {
+            _currentScenarioFen = null;
             timer.Stop();
             MenuContainer.Content = null;
             selectedPos = null;
@@ -698,9 +711,8 @@ namespace ChessUI.Views.BoardMenu
                 else
                 {
                     gameState.ClearCloudSave();
-                    LoginWindow newLogin = new LoginWindow();
-                    newLogin.Show();
-                    Window.GetWindow(this).Close();
+                    gameOverMenu.Content = null;
+                    OnReturnToMenu?.Invoke();
                 }
             };
         }
@@ -732,7 +744,14 @@ namespace ChessUI.Views.BoardMenu
                 }
 
                 gameState.ClearCloudSave();
-                gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
+                if (!string.IsNullOrEmpty(_currentScenarioFen))
+                {
+                    gameState = new GameState(_currentScenarioFen, userID);
+                }
+                else
+                {
+                    gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
+                }
 
                 DrawBoard(gameState.Board);
                 StartGame();
@@ -903,6 +922,8 @@ namespace ChessUI.Views.BoardMenu
 
             _isPuzzleMode = false;
             _currentPuzzleSolution = null;
+
+            _currentScenarioFen = fenString;
             this.IsVsComputer = true; 
             this.clientSide = Player.White; 
 
