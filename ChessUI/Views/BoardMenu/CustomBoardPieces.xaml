@@ -203,19 +203,20 @@
                     Orientation="Horizontal">
 
                     <Button
+                        Width="90"
+                        Height="40"
                         Margin="0,0,15,0"
-                        Background="#3A3937"
+                        Background="#1A1918"
                         Click="BtnCancel_Click"
-                        Content="Hủy bỏ"
-                        Foreground="#AAAAAA"
-                        Style="{StaticResource DialogButton}" />
+                        Content="Cancel"
+                        Style="{StaticResource GameMenuGrayButtonStyle}" />
 
                     <Button
                         Width="120"
                         Height="40"
                         Background="{DynamicResource PlayGradientBrush}"
                         Click="BtnSave_Click"
-                        Content="Lưu"
+                        Content="Save"
                         Foreground="{DynamicResource Brush.Text.Primary}"
                         Style="{DynamicResource StartButtonStyle}" />
                 </StackPanel>

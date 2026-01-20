@@ -84,7 +84,7 @@
                         HorizontalAlignment="Center"
                         FontSize="12"
                         Foreground="{DynamicResource Brush.Text.Secondary}"
-                        Text="Thiết lập trận đấu với bạn" />
+                        Text="Set up a match with a friend" />
                 </StackPanel>
 
                 <Grid Grid.Row="1" Margin="0,0,0,25">
@@ -126,7 +126,7 @@
                                     FontSize="11"
                                     FontWeight="Bold"
                                     Foreground="#666666"
-                                    Text="QUÂN TRẮNG (ĐI TRƯỚC)" />
+                                    Text="WHITE (MOVES FIRST)" />
 
                                 <TextBox
                                     x:Name="WhitePlayerName"
@@ -174,7 +174,7 @@
                                     FontSize="11"
                                     FontWeight="Bold"
                                     Foreground="#AAAAAA"
-                                    Text="QUÂN ĐEN (ĐI SAU)" />
+                                    Text="BLACK (MOVES SECOND)" />
 
                                 <TextBox
                                     x:Name="BlackPlayerName"
@@ -256,7 +256,7 @@
                                 FontSize="14"
                                 FontWeight="SemiBold"
                                 Foreground="{DynamicResource Brush.Text.Primary}"
-                                Text="THỜI GIAN (Time Control)" />
+                                Text="TIMER CONTROL" />
                         </StackPanel>
 
                         <ComboBox
@@ -264,16 +264,16 @@
                             Height="36"
                             SelectedIndex="0">
                             <ComboBoxItem Content="No limts" />
-                            <ComboBoxItem Content="1 phút (Bullet)" />
-                            <ComboBoxItem Content="3 phút (Blitz)" />
-                            <ComboBoxItem Content="10 phút (Rapid)" />
-                            <ComboBoxItem Content="30 phút (Classical)" />
+                            <ComboBoxItem Content="1 minutes (Bullet)" />
+                            <ComboBoxItem Content="3 minutes (Blitz)" />
+                            <ComboBoxItem Content="10 minutes (Rapid)" />
+                            <ComboBoxItem Content="30 minutes (Classical)" />
                         </ComboBox>
                     </StackPanel>
                     <Button
                         x:Name="StartTwoPlayerButton"
                         Click="StartTwoPlayerButton_Click"
-                        Content="BẮT ĐẦU"
+                        Content="START GAME"
                         Style="{StaticResource StartButtonStyle}" />
                 </StackPanel>
             </Grid>

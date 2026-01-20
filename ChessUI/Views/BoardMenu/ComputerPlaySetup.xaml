@@ -56,7 +56,7 @@
                         <TextBlock
                             FontSize="12"
                             Foreground="{DynamicResource Brush.Text.Secondary}"
-                            Text="Thiết lập trận đấu với máy" />
+                            Text="Set up a match against the computer" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -74,7 +74,7 @@
                     FontSize="18"
                     FontWeight="SemiBold"
                     Foreground="{DynamicResource Brush.Text.Primary}"
-                    Text="⚔️ Chọn đối thủ" />
+                    Text="⚔️ Select Opponent" />
 
                 <Border
                     Margin="0,0,0,25"
@@ -93,7 +93,7 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#FFA274"
-                            Text="CÁC CẤP ĐỘ KHÓ" />
+                            Text="LEVELS OF DIFFICULTY" />
 
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -329,7 +329,7 @@
                 <Button
                     x:Name="StartGameButton"
                     Click="StartGameButton_Click"
-                    Content="BẮT ĐẦU TRẬN ĐẤU"
+                    Content="START GAME"
                     Style="{StaticResource StartButtonStyle}" />
             </StackPanel>
         </Border>

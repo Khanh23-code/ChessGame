@@ -115,7 +115,7 @@
                     FontSize="14"
                     FontWeight="Bold"
                     Foreground="{DynamicResource Brush.Text.Primary}"
-                    Text="HỒ SƠ NGƯỜI CHƠI" />
+                    Text="PLAYER PROFILE" />
 
                 <StackPanel Grid.Row="1">
 
@@ -127,7 +127,7 @@
                                     Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="👤" />
-                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Họ và tên" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Full name" />
                             </StackPanel>
                             <TextBlock
                                 x:Name="txtFullName"
@@ -161,7 +161,7 @@
                                     Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="🎂" />
-                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Tuổi" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Age" />
                             </StackPanel>
                             <TextBlock
                                 x:Name="txtAge"
@@ -178,7 +178,7 @@
                                     Foreground="{DynamicResource Brush.Text.Primary}"
                                     Opacity="0.7"
                                     Text="📅" />
-                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Ngày tham gia" />
+                                <TextBlock Style="{StaticResource LabelTextStyle}" Text="Join date" />
                             </StackPanel>
                             <TextBlock
                                 x:Name="txtJoinDate"
@@ -197,7 +197,7 @@
                     BorderBrush="#FF6961"
                     BorderThickness="1.5"
                     Click="CloseButton_Click"
-                    Content="Đóng"
+                    Content="Close"
                     Cursor="Hand"
                     FontWeight="SemiBold"
                     Foreground="#FF6961">
