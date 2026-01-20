@@ -21,6 +21,7 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class InfoView : UserControl
     {
+        public event Action OnPauseRequested;
         public event Action<Option> OptionSelected;
 
         private int count = 1;
@@ -63,6 +64,54 @@ namespace ChessUI.Views.BoardMenu
             lvMovementInfo.Items.Clear();
             count = 1;
             whiteData = "";
+        }
+        private void BtnNav_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag != null)
+            {
+                string action = btn.Tag.ToString();
+                if (action == "Pause")
+                {
+                    OnPauseRequested?.Invoke();
+                    return;
+                }
+                if (lvMovementInfo.Items.Count == 0) return;
+
+                int currentIndex = lvMovementInfo.SelectedIndex;
+
+                switch (action)
+                {
+                    case "First":
+                        lvMovementInfo.SelectedIndex = 0;
+                        break;
+
+                    case "Prev":
+                        if (currentIndex > 0)
+                        {
+                            lvMovementInfo.SelectedIndex = currentIndex - 1;
+                        }
+                        else if (currentIndex == -1)
+                        {
+                            lvMovementInfo.SelectedIndex = 0;
+                        }
+                        break;
+
+                    case "Next":
+                        if (currentIndex < lvMovementInfo.Items.Count - 1)
+                        {
+                            lvMovementInfo.SelectedIndex = currentIndex + 1;
+                        }
+                        break;
+
+                    case "Last":
+                        lvMovementInfo.SelectedIndex = lvMovementInfo.Items.Count - 1;
+                        break;
+                }
+                if (lvMovementInfo.SelectedItem != null)
+                {
+                    lvMovementInfo.ScrollIntoView(lvMovementInfo.SelectedItem);
+                }
+            }
         }
         private void ButtonResign_Click(object sender, RoutedEventArgs e)
         {

@@ -32,6 +32,14 @@ namespace ChessUI
             _currentUser = userData;
             DefaultInfoView = new Views.BoardMenu.InfoView(_currentUser);
 
+            DefaultInfoView.OnPauseRequested += () =>
+            {
+                if (BoardViewControl != null && !BoardViewControl.IsMenuOnScreen())
+                {
+                    BoardViewControl.ShowPauseMenu();
+                }
+            };
+
             UpdateUserInfoUI();
 
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;

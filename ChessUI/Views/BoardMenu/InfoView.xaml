@@ -64,11 +64,31 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-                    <Button Content="&#xE892;" Style="{StaticResource MoveNavButton}" />
-                    <Button Content="&#xE76B;" Style="{StaticResource MoveNavButton}" />
-                    <Button Content="&#xE768;" Style="{StaticResource MoveNavButton}" />
-                    <Button Content="&#xE76C;" Style="{StaticResource MoveNavButton}" />
-                    <Button Content="&#xE893;" Style="{StaticResource MoveNavButton}" />
+                    <Button
+                        Click="BtnNav_Click"
+                        Content="&#xE892;"
+                        Style="{StaticResource MoveNavButton}"
+                        Tag="First" />
+                    <Button
+                        Click="BtnNav_Click"
+                        Content="&#xE76B;"
+                        Style="{StaticResource MoveNavButton}"
+                        Tag="Prev" />
+                    <Button
+                        Click="BtnNav_Click"
+                        Content="&#xE768;"
+                        Style="{StaticResource MoveNavButton}"
+                        Tag="Pause" />
+                    <Button
+                        Click="BtnNav_Click"
+                        Content="&#xE76C;"
+                        Style="{StaticResource MoveNavButton}"
+                        Tag="Next" />
+                    <Button
+                        Click="BtnNav_Click"
+                        Content="&#xE893;"
+                        Style="{StaticResource MoveNavButton}"
+                        Tag="Last" />
                 </StackPanel>
 
                 <ListView
