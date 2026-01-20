@@ -36,6 +36,7 @@
                     <Button
                         x:Name="LogoButton"
                         Grid.Row="0"
+                        Click="LogoButton_Click"
                         Style="{StaticResource LogoButton}">
                         <Grid>
                             <Grid.RowDefinitions>

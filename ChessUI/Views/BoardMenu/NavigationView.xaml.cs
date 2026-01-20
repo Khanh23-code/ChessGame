@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ChessLogic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +28,7 @@ namespace ChessUI.Views.BoardMenu
         {
             public MenuPage Page { get; set; }
         }
-
+        
         public partial class NavigationView : UserControl
         {
             public event EventHandler<NavigationEventArgs> SelectionChanged;
@@ -52,14 +50,26 @@ namespace ChessUI.Views.BoardMenu
                 }
             }
 
-        //private void LogoButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    // refresh main window by close and open again
-        //    var OldMainWindow = Application.Current.MainWindow;
-        //    var newMainWindow = new MainWindow();
-        //    Application.Current.MainWindow = newMainWindow;
-        //    newMainWindow.Show();
-        //    OldMainWindow.Close();
-        //}
+        private void LogoButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow oldWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow) 
+                {
+                    oldWindow = (MainWindow)window;
+                    break; 
+                }
+            }
+            if (oldWindow != null)
+            {
+                    var userData = oldWindow.CurrentUser;
+                    var newWindow = new MainWindow(userData);
+                    Application.Current.MainWindow = newWindow;
+
+                    newWindow.Show();
+                    oldWindow.Close();
+            }
+        }
     }
 }
