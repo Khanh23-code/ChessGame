@@ -225,7 +225,7 @@
                 Background="{DynamicResource Brush.Background.Main}"
                 ClipToBounds="True"
                 CornerRadius="0,12,12,0">
-                <Grid>
+                <Grid RenderOptions.BitmapScalingMode="HighQuality">
                     <Viewbox Margin="40">
                         <Grid Width="600" Height="600">
                             <Border
