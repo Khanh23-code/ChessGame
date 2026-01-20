@@ -23,12 +23,20 @@ namespace ChessUI.Views.BoardMenu
     /// </summary>
     public partial class BoardView : UserControl
     {
+        public event Action OnReturnToMenu;
+        // Fen strings for Endgame Lessons
+        private string _currentScenarioFen = null;
+        // Cache FEN for Puzzle Mode Restart
+        private string _cachedPuzzleFen;
+
         private readonly Image[,] pieceImages = new Image[8, 8];
         private readonly Rectangle[,] highlights = new Rectangle[8, 8];
         private readonly Dictionary<Position, Move> moveCache = new Dictionary<Position, Move>();
         // Khi 1 quân cờ được chọn (thay đổi biến selectedPos), tất cả các vị trí có thể di chuyển kèm theo move tương ứng sẽ được lưu vào Dictionary moveCache
         // moveCache lưu key là <Position> tương ứng vị trí có thể di chuyển, với value là <Move>
 
+        // AudioManager
+        private readonly AudioManager _audioManager = new AudioManager();
         private readonly ChessAIService _aiService = new ChessAIService(); // Service AI chúng ta đã tạo
         public bool IsVsComputer { get; set; } = false; // Biến cờ để biết đang chơi với Người hay Máy
 
@@ -53,11 +61,17 @@ namespace ChessUI.Views.BoardMenu
 
         public TimeSpan TimeLimit { get; set; }
 
+        public event Action<int> OnPuzzleSolved;
         private List<string> _currentPuzzleSolution;
-        private string _cachedPuzzleFen;
+
         private int _currentPuzzleMoveIndex;        
         private bool _isPuzzleMode = false;
         private bool _isDailyMode = false;
+
+
+        // Properties
+        public bool IsPuzzleMode => _isPuzzleMode;
+        public bool IsEndgameMode => !string.IsNullOrEmpty(_currentScenarioFen);
         public BoardView()
         {
             InitializeComponent();
@@ -277,67 +291,80 @@ namespace ChessUI.Views.BoardMenu
         {
             if (_isPuzzleMode && _currentPuzzleSolution != null && gameState.CurrentPlayer == clientSide && _currentPuzzleMoveIndex < _currentPuzzleSolution.Count)
             {
-                string userMoveUci = GetUciString(move);
-                string expectedMove = _currentPuzzleSolution[_currentPuzzleMoveIndex];
-                if (userMoveUci != expectedMove)
-                {
-                    CustomMessageBox.Show("Nước đi sai! Hãy thử lại.", "Puzzle Failed");
-                    selectedPos = null;
-                    HideHighLights();
-                    DrawBoard(gameState.Board); 
-                    return; 
-                }
+                    string userMoveUci = GetUciString(move);
+                    string expectedMove = _currentPuzzleSolution[_currentPuzzleMoveIndex];
 
-                _currentPuzzleMoveIndex++;
+                    if (userMoveUci != expectedMove)
+                    {
+                        _audioManager.PlayPuzzleWrong();
+
+                        CustomMessageBox.Show("Nước đi sai! Hãy thử lại.", "Puzzle Failed");
+                        selectedPos = null;
+                        HideHighLights();
+                        DrawBoard(gameState.Board);
+                        return; 
+                    }
+                    _currentPuzzleMoveIndex++;
+                
             }
+
+            bool isCapture = gameState.Board[move.ToPos] != null || move.Type == MoveType.EnPassant;
+            bool isCastle = move.Type == MoveType.CaslteKS || move.Type == MoveType.CaslteQS;
+            bool isPromotion = move.Type == MoveType.PawnPromotion;
 
             gameState.MakeMove(move);
 
             string movementData = gameState.GetMovementData(gameState.CurrentPlayer.Opponent());
-            _infoView.ShowData(movementData, gameState.CurrentPlayer.Opponent());
-
+            if (_infoView != null) _infoView.ShowData(movementData, gameState.CurrentPlayer.Opponent());
             DrawBoard(gameState.Board);
-            // Sau mỗi lần thực thi di chuyển, vẽ lại bàn cờ tương ứng với gameState.Board
 
-            //SetCursor(gameState.CurrentPlayer);
-
-            // gameState.Result được tự động cập nhật khi gọi hàm MakeMove
-            if (gameState.IsGameOver())     // if (gameState.Result != null)
+            if (gameState.IsGameOver())
             {
                 if (_isPuzzleMode)
                 {
                     timer.Stop();
                     CustomMessageBox.Show("Puzzle Completed!", "Congratulations");
+                    _audioManager.PlayPuzzleCorrect();
                     return;
+                }
+                else
+                {
+                    _audioManager.PlayGameEnd();       
                 }
                 ShowGameOverMenu();
                 return;
             }
-            // Nếu đang là chế độ Đánh với máy, và lượt hiện tại là của MÁY (thường là quân Đen)
-            // Giả sử Người chơi luôn cầm Trắng (White), Máy cầm Đen (Black)
-            if (_isPuzzleMode && !_isDailyMode && gameState.CurrentPlayer != clientSide) // Nếu puzzle chưa hết
+
+
+            if (isPromotion) _audioManager.PlayPromote();
+            else if (isCastle) _audioManager.PlayCastle();
+            else if (isCapture) _audioManager.PlayCapture();
+            else _audioManager.PlayMove();
+
+            if (_isPuzzleMode && !_isDailyMode && gameState.CurrentPlayer != clientSide)
             {
                 if (_currentPuzzleMoveIndex < _currentPuzzleSolution.Count)
                 {
                     string opponentUci = _currentPuzzleSolution[_currentPuzzleMoveIndex];
+
                     await Task.Delay(500);
 
                     Move opponentMove = FindMoveFromUci(opponentUci);
                     if (opponentMove != null)
                     {
-                        _currentPuzzleMoveIndex++; // Tăng index sau khi máy đi
-                        HandleMove(opponentMove);  // Gọi đệ quy để máy đi
+                        _currentPuzzleMoveIndex++;
+                        HandleMove(opponentMove); 
                     }
                 }
                 else
                 {
-                    timer.Stop();
-                    CustomMessageBox.Show("Puzzle Solved!", "Great Job");
+                    _audioManager.PlayPuzzleCorrect();
+                    OnPuzzleSolved?.Invoke(10);
                 }
             }
             else if (IsVsComputer && gameState.CurrentPlayer != clientSide)
             {
-                PlayAiTurn();
+                PlayAiTurn(); 
             }
         }
         private Move FindMoveFromUci(string uci)
@@ -414,9 +441,12 @@ namespace ChessUI.Views.BoardMenu
 
         public async void StartVsComputerGame(int aiDepth, Player playerSide)
         {
+            _currentScenarioFen = null;
             timer.Stop();                  
             MenuContainer.Content = null;
 
+            _isPuzzleMode = false;
+            _currentPuzzleSolution = null;
             this.clientSide = playerSide;
             this.IsVsComputer = true;
 
@@ -476,6 +506,7 @@ namespace ChessUI.Views.BoardMenu
         }
         public async void StartPvPGame(TwoPlayerSettings settings)
         {
+            _currentScenarioFen = null;
             timer.Stop();
             MenuContainer.Content = null;
             selectedPos = null;
@@ -488,6 +519,8 @@ namespace ChessUI.Views.BoardMenu
             // Set default avatar images for both players
             SetAvatarImages("/Assets/MenuAssets/player1.png", "/Assets/MenuAssets/player2.png");
 
+            _isPuzzleMode = false;
+            _currentPuzzleSolution = null;
             this.IsVsComputer = false;
             this.clientSide = Player.White;
 
@@ -678,9 +711,8 @@ namespace ChessUI.Views.BoardMenu
                 else
                 {
                     gameState.ClearCloudSave();
-                    LoginWindow newLogin = new LoginWindow();
-                    newLogin.Show();
-                    Window.GetWindow(this).Close();
+                    gameOverMenu.Content = null;
+                    OnReturnToMenu?.Invoke();
                 }
             };
         }
@@ -712,7 +744,14 @@ namespace ChessUI.Views.BoardMenu
                 }
 
                 gameState.ClearCloudSave();
-                gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
+                if (!string.IsNullOrEmpty(_currentScenarioFen))
+                {
+                    gameState = new GameState(_currentScenarioFen, userID);
+                }
+                else
+                {
+                    gameState = new GameState(Player.White, Board.Initial(), initialTime, userID);
+                }
 
                 DrawBoard(gameState.Board);
                 StartGame();
@@ -790,6 +829,7 @@ namespace ChessUI.Views.BoardMenu
         #region TimerSetUp
         private void StartGame()
         {
+            _audioManager.PlayGameStart();
             UpdateTimerDisplay();
             if (_infoView != null)
             {
@@ -879,6 +919,11 @@ namespace ChessUI.Views.BoardMenu
             selectedPos = null;
             moveCache.Clear();
             HideHighLights();
+
+            _isPuzzleMode = false;
+            _currentPuzzleSolution = null;
+
+            _currentScenarioFen = fenString;
             this.IsVsComputer = true; 
             this.clientSide = Player.White; 
 
@@ -894,6 +939,9 @@ namespace ChessUI.Views.BoardMenu
 
             BoardGrid.IsHitTestVisible = true;
             Cursor = Cursors.Arrow;
+
+            // Start audio 
+            _audioManager.PlayGameStart();
             UpdateTimerDisplay();
             PlayerTimerBorder.Visibility = Visibility.Visible;
             OpponentTimerBorder.Visibility = Visibility.Visible;
