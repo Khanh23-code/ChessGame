@@ -42,7 +42,7 @@
                     Margin="0,10,0,5"
                     FontWeight="Medium"
                     Foreground="White"
-                    Text="Họ và tên:" />
+                    Text="Full name:" />
                 <TextBox x:Name="FullNameTextBox" />
                 <TextBlock
                     Margin="0,10,0,5"
@@ -122,7 +122,7 @@
                     Margin="0,10,0,5"
                     FontWeight="Medium"
                     Foreground="White"
-                    Text="Tuổi:" />
+                    Text="Age:" />
                 <ComboBox
                     x:Name="AgeComboBox"
                     Height="34"
@@ -133,7 +133,7 @@
                     Margin="0,10,0,5"
                     FontWeight="Medium"
                     Foreground="White"
-                    Text="Trình độ hiện tại:" />
+                    Text="Level:" />
                 <ComboBox
                     x:Name="LevelComboBox"
                     IsEditable="True"

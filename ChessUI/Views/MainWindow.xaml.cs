@@ -20,6 +20,8 @@ namespace ChessUI
     public partial class MainWindow : Window
     {
         private UserData _currentUser;
+        public UserData CurrentUser => _currentUser;
+
         private AIController aiController;
         private readonly Views.BoardMenu.InfoView DefaultInfoView;
         private readonly CloudService _cloudService;
