@@ -171,7 +171,7 @@
 
                         <Button
                             Click="BtnProfile_Click"
-                            Content="Hồ sơ người chơi"
+                            Content="Player Profile"
                             Foreground="{DynamicResource Brush.Text.Secondary}"
                             Style="{DynamicResource ProfileMenuItemStyle}"
                             Tag="&#xE77B;" />
@@ -180,7 +180,7 @@
 
                         <Button
                             Click="SignOut_Click"
-                            Content="Đăng xuất"
+                            Content="Log out"
                             Foreground="#FF6961"
                             Style="{StaticResource ProfileMenuItemStyle}"
                             Tag="&#xE7E8;">
