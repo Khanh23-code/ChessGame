@@ -40,9 +40,9 @@ namespace ChessUI.Views.BoardMenu
         {
             var options = new List<SideOption>
             {
-                new SideOption { Name = "Trắng", ImagePath = "/Assets/Asset1/KingW.png", Id = "white" },
-                new SideOption { Name = "Ngẫu nhiên", ImagePath = "/Assets/MenuAssets/randomBox.png", Id = "random" },
-                new SideOption { Name = "Đen", ImagePath = "/Assets/Asset1/KingB.png", Id = "black" }
+                new SideOption { Name = "White", ImagePath = "/Assets/Asset1/KingW.png", Id = "white" },
+                new SideOption { Name = "Random", ImagePath = "/Assets/MenuAssets/randomBox.png", Id = "random" },
+                new SideOption { Name = "Black", ImagePath = "/Assets/Asset1/KingB.png", Id = "black" }
             };
             SideSelectionCarousel.ItemsSource = options;
         }
