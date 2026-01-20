@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="600"
     d:DesignWidth="300"
+    Style="{StaticResource SlideInAnimation}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -62,7 +63,7 @@
                         FontSize="36"
                         FontWeight="Bold"
                         Foreground="White"
-                        Text="Chiếu hết" />
+                        Text="Checkmate" />
 
                     <Border
                         Width="100"
@@ -91,38 +92,38 @@
                 <StackPanel Margin="20,0">
                     <Button
                         Click="BtnOption_Click"
-                        Content="Hai xe chiếu hết"
+                        Content="Double rook checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="TwoRooks" />
 
                     <Button
                         Click="BtnOption_Click"
-                        Content="Hậu chiếu hết"
+                        Content="Queen checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="Queen" />
 
                     <Button
                         Click="BtnOption_Click"
-                        Content="Xe chiếu hết"
+                        Content="Rook checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="Rook" />
 
                     <Button
                         Click="BtnOption_Click"
-                        Content="Hai tượng chiếu hết"
+                        Content="Double bishop checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="TwoBishops" />
 
                     <Button
                         Click="BtnOption_Click"
-                        Content="Chiếu với Tượng và Mã"
+                        Content="Bishop and knight checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="BishopKnight" />
 
                     <Button
                         BorderThickness="0"
                         Click="BtnOption_Click"
-                        Content="Hậu với Xe"
+                        Content="Queen and rook checkmate"
                         Style="{StaticResource TransparentListItemStyle}"
                         Tag="QueenRook" />
                 </StackPanel>

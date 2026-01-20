@@ -7,6 +7,7 @@
     Margin="20"
     d:DesignHeight="700"
     d:DesignWidth="300"
+    Style="{StaticResource SlideInAnimation}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="GradientTextStyle" TargetType="TextBlock">

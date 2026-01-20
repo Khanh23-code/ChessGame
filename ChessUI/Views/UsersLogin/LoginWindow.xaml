@@ -170,30 +170,6 @@
                     Foreground="#333333"
                     Style="{StaticResource ButtonBorderRadius}" />
 
-                <Button
-                    x:Name="GoogleLoginButton"
-                    Height="40"
-                    Margin="0,0,0,30"
-                    Background="Transparent"
-                    BorderBrush="White"
-                    BorderThickness="1"
-                    Click="GoogleLoginButton_Click"
-                    Foreground="White"
-                    Style="{StaticResource ButtonBorderRadius}">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Image
-                            Width="21"
-                            Height="21"
-                            Margin="0,0,15,0"
-                            Source="/Assets/LoginAssets/GoogleIcon.png" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            FontWeight="Medium"
-                            Text="Login with Google" />
-                    </StackPanel>
-                </Button>
-
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         VerticalAlignment="Center"

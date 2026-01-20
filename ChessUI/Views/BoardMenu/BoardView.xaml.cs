@@ -298,7 +298,7 @@ namespace ChessUI.Views.BoardMenu
                     {
                         _audioManager.PlayPuzzleWrong();
 
-                        CustomMessageBox.Show("Nước đi sai! Hãy thử lại.", "Puzzle Failed");
+                        CustomMessageBox.Show("Wrong move! Please try again.", "Puzzle Failed");
                         selectedPos = null;
                         HideHighLights();
                         DrawBoard(gameState.Board);
@@ -323,8 +323,8 @@ namespace ChessUI.Views.BoardMenu
                 if (_isPuzzleMode)
                 {
                     timer.Stop();
-                    CustomMessageBox.Show("Puzzle Completed!", "Congratulations");
                     _audioManager.PlayPuzzleCorrect();
+                    CustomMessageBox.Show("Puzzle Completed!", "Congratulations");
                     return;
                 }
                 else
