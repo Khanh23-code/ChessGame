@@ -95,7 +95,7 @@
         CornerRadius="12">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="420" />
+                <ColumnDefinition Width="380" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -121,83 +121,81 @@
                     Foreground="{DynamicResource Brush.Text.Secondary}"
                     Text="Choose style for board và pieces."
                     TextWrapping="Wrap" />
-
-                <ScrollViewer
+                <ListBox
+                    x:Name="ThemeList"
                     Grid.Row="2"
                     Margin="0,0,0,10"
-                    VerticalScrollBarVisibility="Hidden">
-                    <ListBox
-                        x:Name="ThemeList"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ItemContainerStyle="{StaticResource ThemeItemStyle}"
-                        SelectionChanged="ThemeList_SelectionChanged">
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource ThemeItemStyle}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    SelectionChanged="ThemeList_SelectionChanged">
 
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Width="90"
-                                    Height="90"
-                                    Margin="0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Width="90"
+                                Height="90"
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
 
-                                    <Border
-                                        BorderBrush="{DynamicResource Brush.Gradient.Play}"
-                                        BorderThickness="1"
-                                        ClipToBounds="True"
-                                        CornerRadius="6">
-                                        <Image
-                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                            Source="{Binding BoardIconPath}"
-                                            Stretch="UniformToFill" />
-                                    </Border>
-
+                                <Border
+                                    BorderBrush="{DynamicResource Brush.Gradient.Play}"
+                                    BorderThickness="1"
+                                    ClipToBounds="True"
+                                    CornerRadius="6">
                                     <Image
-                                        Width="50"
-                                        Height="50"
+                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                        Source="{Binding BoardIconPath}"
+                                        Stretch="UniformToFill" />
+                                </Border>
+
+                                <Image
+                                    Width="50"
+                                    Height="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{Binding PiecePreviewPath}">
+                                    <Image.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="5"
+                                            Direction="270"
+                                            Opacity="0.5"
+                                            ShadowDepth="2" />
+                                    </Image.Effect>
+                                </Image>
+
+                                <Border
+                                    Width="22"
+                                    Height="22"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderBrush="{DynamicResource Brush.Gradient.Play}"
+                                    BorderThickness="0.75"
+                                    CornerRadius="11"
+                                    Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Path
+                                        Margin="0,0,3,3"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        RenderOptions.BitmapScalingMode="HighQuality"
-                                        Source="{Binding PiecePreviewPath}">
-                                        <Image.Effect>
-                                            <DropShadowEffect
-                                                BlurRadius="5"
-                                                Direction="270"
-                                                Opacity="0.5"
-                                                ShadowDepth="2" />
-                                        </Image.Effect>
-                                    </Image>
-
-                                    <Border
-                                        Width="22"
-                                        Height="22"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Background="Transparent"
-                                        BorderBrush="{DynamicResource Brush.Gradient.Play}"
-                                        BorderThickness="0.75"
-                                        CornerRadius="11"
-                                        Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <Path
-                                            Margin="0,0,3,3"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="M 6,11 L 10,15 L 16,7"
-                                            Stroke="{DynamicResource Brush.Gradient.Play}"
-                                            StrokeThickness="3" />
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                                        Data="M 6,11 L 10,15 L 16,7"
+                                        Stroke="{DynamicResource Brush.Gradient.Play}"
+                                        StrokeThickness="3" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
                 <StackPanel
                     Grid.Row="3"
@@ -213,7 +211,7 @@
                         Style="{StaticResource DialogButton}" />
 
                     <Button
-                        Width="150"
+                        Width="120"
                         Height="40"
                         Background="{DynamicResource PlayGradientBrush}"
                         Click="BtnSave_Click"

@@ -37,6 +37,62 @@
     <None Remove="Assets\Asset2\QueenW.png" />
     <None Remove="Assets\Asset2\RookB.png" />
     <None Remove="Assets\Asset2\RookW.png" />
+    <None Remove="Assets\Asset3\BishopB.png" />
+    <None Remove="Assets\Asset3\BishopW.png" />
+    <None Remove="Assets\Asset3\Board.png" />
+    <None Remove="Assets\Asset3\BoardPreview.png" />
+    <None Remove="Assets\Asset3\kingB.png" />
+    <None Remove="Assets\Asset3\KingW.png" />
+    <None Remove="Assets\Asset3\KnightB.png" />
+    <None Remove="Assets\Asset3\KnightW.png" />
+    <None Remove="Assets\Asset3\PawnB.png" />
+    <None Remove="Assets\Asset3\PawnW.png" />
+    <None Remove="Assets\Asset3\QueenB.png" />
+    <None Remove="Assets\Asset3\QueenW.png" />
+    <None Remove="Assets\Asset3\RookB.png" />
+    <None Remove="Assets\Asset3\RookW.png" />
+    <None Remove="Assets\Asset4\BishopB.png" />
+    <None Remove="Assets\Asset4\BishopW.png" />
+    <None Remove="Assets\Asset4\Board.png" />
+    <None Remove="Assets\Asset4\BoardPreview.png" />
+    <None Remove="Assets\Asset4\KingB.png" />
+    <None Remove="Assets\Asset4\KingW.png" />
+    <None Remove="Assets\Asset4\KnightB.png" />
+    <None Remove="Assets\Asset4\KnightW.png" />
+    <None Remove="Assets\Asset4\PawnB.png" />
+    <None Remove="Assets\Asset4\PawnW.png" />
+    <None Remove="Assets\Asset4\QueenB.png" />
+    <None Remove="Assets\Asset4\QueenW.png" />
+    <None Remove="Assets\Asset4\RookB.png" />
+    <None Remove="Assets\Asset4\RookW.png" />
+    <None Remove="Assets\Asset5\BishopB.png" />
+    <None Remove="Assets\Asset5\BishopW.png" />
+    <None Remove="Assets\Asset5\Board.png" />
+    <None Remove="Assets\Asset5\BoardPreview.png" />
+    <None Remove="Assets\Asset5\KingB.png" />
+    <None Remove="Assets\Asset5\KingW.png" />
+    <None Remove="Assets\Asset5\KnightB.png" />
+    <None Remove="Assets\Asset5\KnightW.png" />
+    <None Remove="Assets\Asset5\PawnB.png" />
+    <None Remove="Assets\Asset5\PawnW.png" />
+    <None Remove="Assets\Asset5\QueenB.png" />
+    <None Remove="Assets\Asset5\QueenW.png" />
+    <None Remove="Assets\Asset5\RookB.png" />
+    <None Remove="Assets\Asset5\RookW.png" />
+    <None Remove="Assets\Asset6\BishopB.png" />
+    <None Remove="Assets\Asset6\BishopW.png" />
+    <None Remove="Assets\Asset6\Board.png" />
+    <None Remove="Assets\Asset6\BoardPreview.png" />
+    <None Remove="Assets\Asset6\KingB.png" />
+    <None Remove="Assets\Asset6\KingW.png" />
+    <None Remove="Assets\Asset6\KnightB.png" />
+    <None Remove="Assets\Asset6\KnightW.png" />
+    <None Remove="Assets\Asset6\PawnB.png" />
+    <None Remove="Assets\Asset6\PawnW.png" />
+    <None Remove="Assets\Asset6\QueenB.png" />
+    <None Remove="Assets\Asset6\QueenW.png" />
+    <None Remove="Assets\Asset6\RookB.png" />
+    <None Remove="Assets\Asset6\RookW.png" />
     <None Remove="Assets\BackgroundMenu.jpeg" />
     <None Remove="Assets\BishopB.png" />
     <None Remove="Assets\BishopW.png" />
@@ -126,6 +182,174 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Asset2\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\BishopB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\BishopW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\Board.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\kingB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\KingW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\KnightB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\KnightW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\PawnB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\PawnW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\QueenB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\QueenW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\RookB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset3\RookW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\BishopB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\BishopW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\Board.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\KingB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\KingW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\KnightB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\KnightW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\PawnB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\PawnW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\QueenB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\QueenW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\RookB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset4\RookW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\BishopB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\BishopW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\Board.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\KingB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\KingW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\KnightB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\KnightW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\PawnB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\PawnW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\QueenB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\QueenW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\RookB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset5\RookW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\BishopB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\BishopW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\Board.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\BoardPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\KingB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\KingW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\KnightB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\KnightW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\PawnB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\PawnW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\QueenB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\QueenW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\RookB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Asset6\RookW.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\MenuAssets\admin_avartar.png" />
@@ -241,6 +465,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\MenuAssets\two_player.png" />
+    <Content Include="Assets\Videos\ChessOpeningItalianThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningNimzoIndianDefenseThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningQueen%27sGambitThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningRuyLopezThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningSicilianDefenseThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Videos\ChessOpeningTwoKnightThumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sounds\capture.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

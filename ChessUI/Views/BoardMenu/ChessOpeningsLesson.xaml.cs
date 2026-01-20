@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
+using System.IO;
 using System.Windows.Threading;
 
 namespace ChessUI.Views.BoardMenu
@@ -49,7 +49,7 @@ namespace ChessUI.Views.BoardMenu
                     Title = "1. The Queen's Gambit",
                     Description = "Dominate the center with this solid strategic choice.",
                     Duration = "21:09",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningQueen'sGambitThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningQueen'sGambit.mp4"
                 },
                 new OpeningVideo
@@ -57,7 +57,7 @@ namespace ChessUI.Views.BoardMenu
                     Title = "2. Nimzo-Indian Defense",
                     Description = "A dynamic defense creating imbalance for Black.",
                     Duration = "37:08",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningNimzoIndianDefenseThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningNimzoIndianDefense.mp4"
                 },
                 new OpeningVideo
@@ -65,7 +65,7 @@ namespace ChessUI.Views.BoardMenu
                     Title = "3. The Sicilian Defense",
                     Description = "The most aggressive and sharp counter-attack to 1.e4.",
                     Duration = "19:21",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningSicilianDefenseThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningSicilianDefense.mp4"
                 },
                 new OpeningVideo
@@ -73,23 +73,23 @@ namespace ChessUI.Views.BoardMenu
                     Title = "4. Ruy Lopez",
                     Description = "Master the board with this classic positional squeeze.",
                     Duration = "24:21",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningRuyLopezThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningRuyLopez.mp4"
                 },
                 new OpeningVideo
                 {
-                    Title = "5. Two Knights Defense", 
+                    Title = "5. Two Knights Defense",
                     Description = "Sacrifice material for active piece play.",
                     Duration = "14:18",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningTwoKnightThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningTwoKnight.mp4"
                 },
                 new OpeningVideo
                 {
-                    Title = "6. Italian Game", 
+                    Title = "6. Italian Game",
                     Description = "Rapid development targeting the weak f7 square.",
                     Duration = "23:38",
-                    ThumbnailPath = "",
+                    ThumbnailPath = @"/Assets/Videos/ChessOpeningItalianThumbnail.png",
                     VideoPath = @"Assets\Videos\ChessOpeningItalian.mp4"
                 },
             };
