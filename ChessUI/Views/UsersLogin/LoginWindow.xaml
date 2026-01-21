@@ -12,6 +12,7 @@
     StateChanged="Window_StateChanged"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
+    Icon="/Assets/icon.ico"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
         <WindowChrome
