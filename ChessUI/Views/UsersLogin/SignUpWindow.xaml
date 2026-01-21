@@ -10,8 +10,38 @@
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0.0"
+                        To="1.0"
+                        Duration="0:0:0.4" />
 
-    <Grid Margin="20">
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                        From="250"
+                        To="0"
+                        Duration="0:0:0.4">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase EasingMode="EaseOut" Power="4" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid
+        x:Name="MainGrid"
+        Margin="20"
+        RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid.RenderTransform>
+            <TranslateTransform X="0" Y="0" />
+        </Grid.RenderTransform>
         <Border
             Grid.Row="1"
             Grid.Column="1"
@@ -43,20 +73,29 @@
                     FontWeight="Medium"
                     Foreground="White"
                     Text="Full name:" />
-                <TextBox x:Name="FullNameTextBox" />
+                <TextBox
+                    x:Name="FullNameTextBox"
+                    GotFocus="Input_GotFocus"
+                    KeyDown="FullNameTextBox_KeyDown" />
                 <TextBlock
                     Margin="0,10,0,5"
                     FontWeight="Medium"
                     Foreground="White"
                     Text="Email:" />
-                <TextBox x:Name="EmailTextBox" />
+                <TextBox
+                    x:Name="EmailTextBox"
+                    GotFocus="Input_GotFocus"
+                    KeyDown="EmailTextBox_KeyDown" />
 
                 <TextBlock
                     Margin="0,10,0,5"
                     FontWeight="Medium"
                     Foreground="White"
                     Text="Username:" />
-                <TextBox x:Name="UsernameTextBox" />
+                <TextBox
+                    x:Name="UsernameTextBox"
+                    GotFocus="Input_GotFocus"
+                    KeyDown="UsernameTextBox_KeyDown" />
 
 
                 <TextBlock
@@ -74,7 +113,11 @@
                         x:Name="PasswordShowBox"
                         Height="25"
                         Visibility="Collapsed" />
-                    <PasswordBox x:Name="PasswordBox" Height="25" />
+                    <PasswordBox
+                        x:Name="PasswordBox"
+                        Height="25"
+                        GotFocus="Input_GotFocus"
+                        KeyDown="PasswordBox_KeyDown" />
                     <Button
                         x:Name="eye"
                         Grid.ColumnSpan="1"
@@ -102,7 +145,11 @@
                         x:Name="ConfirmPasswordShowBox"
                         Height="25"
                         Visibility="Collapsed" />
-                    <PasswordBox x:Name="ConfirmPasswordBox" Height="25" />
+                    <PasswordBox
+                        x:Name="ConfirmPasswordBox"
+                        Height="25"
+                        GotFocus="Input_GotFocus"
+                        KeyDown="ConfirmPasswordBox_KeyDown" />
                     <Button
                         x:Name="eyeConfirm"
                         Grid.ColumnSpan="1"
@@ -136,7 +183,7 @@
                     Text="Level:" />
                 <ComboBox
                     x:Name="LevelComboBox"
-                    IsEditable="True"
+                    IsEditable="False"
                     IsReadOnly="True"
                     Text="Beginner">
 

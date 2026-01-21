@@ -9,11 +9,13 @@
     Title="ChessGame"
     Width="1150"
     Height="800"
+    AllowsTransparency="False"
+    Background="Transparent"
     Icon="/Assets/icon.ico"
     KeyDown="Window_KeyDown"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
+    WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
         <WindowChrome
@@ -23,8 +25,37 @@
             NonClientFrameEdges="None"
             ResizeBorderThickness="{Binding ResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0.0"
+                        To="1.0"
+                        Duration="0:0:0.8" />
 
-    <Grid RenderOptions.BitmapScalingMode="HighQuality">
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                        From="500"
+                        To="0"
+                        Duration="0:0:0.8">
+
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase EasingMode="EaseOut" Power="4" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid x:Name="MainGrid" RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid.RenderTransform>
+            <TranslateTransform X="0" Y="0" />
+        </Grid.RenderTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />

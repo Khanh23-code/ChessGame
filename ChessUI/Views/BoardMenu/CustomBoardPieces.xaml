@@ -13,6 +13,32 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0.0"
+                        To="1.0"
+                        Duration="0:0:0.8" />
+
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                        From="500"
+                        To="0"
+                        Duration="0:0:0.8">
+
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase EasingMode="EaseOut" Power="4" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
@@ -93,7 +119,10 @@
         BorderThickness="2"
         ClipToBounds="True"
         CornerRadius="12">
-        <Grid>
+        <Grid x:Name="MainGrid" RenderOptions.BitmapScalingMode="HighQuality">
+            <Grid.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Grid.RenderTransform>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="380" />
                 <ColumnDefinition Width="*" />

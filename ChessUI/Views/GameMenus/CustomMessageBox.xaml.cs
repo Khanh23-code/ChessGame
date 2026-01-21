@@ -19,7 +19,7 @@ namespace ChessUI.Views.GameMenus
     {
         public bool IsConfirmed { get; private set; } = false;
 
-        public CustomMessageBox(string message, string title = "Thông báo", bool showCancel = false)
+        public CustomMessageBox(string message, string title = "Notification", bool showCancel = false)
         {
             InitializeComponent();
             txtMessage.Text = message;
@@ -47,7 +47,7 @@ namespace ChessUI.Views.GameMenus
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
-        public static bool Show(string message, string title = "Thông báo", bool showCancel = false)
+        public static bool Show(string message, string title = "Notification", bool showCancel = false)
         {
             var msgBox = new CustomMessageBox(message, title, showCancel);
             var result = msgBox.ShowDialog();

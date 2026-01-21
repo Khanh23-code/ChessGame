@@ -240,10 +240,10 @@ namespace ChessUI
             }
         }
 
-        private void GoogleLoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        //private void GoogleLoginButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    return;
+        //}
         #endregion
 
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
@@ -278,5 +278,14 @@ namespace ChessUI
             PasswordShowBox.Text = "";
         }
         #endregion
+
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                PasswordBox.Focus();
+            }
+        }
     }
 }
