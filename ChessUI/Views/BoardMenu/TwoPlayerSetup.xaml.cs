@@ -42,10 +42,10 @@ namespace ChessUI.Views.BoardMenu
             if (TimeComboBox.SelectedItem is ComboBoxItem selectedItem)
             {
                 string content = selectedItem.Content.ToString();
-                if (content.Contains("1 phút")) selectedTime = TimeSpan.FromMinutes(1);
-                else if (content.Contains("3 phút")) selectedTime = TimeSpan.FromMinutes(3);
-                else if (content.Contains("10 phút")) selectedTime = TimeSpan.FromMinutes(10);
-                else if (content.Contains("30 phút")) selectedTime = TimeSpan.FromMinutes(30);
+                if (content.Contains("1 minutes")) selectedTime = TimeSpan.FromMinutes(1);
+                else if (content.Contains("3 minutes")) selectedTime = TimeSpan.FromMinutes(3);
+                else if (content.Contains("10 minutes")) selectedTime = TimeSpan.FromMinutes(10);
+                else if (content.Contains("30 minutes")) selectedTime = TimeSpan.FromMinutes(30);
                 else if (content.Contains("No limts")) selectedTime = TimeSpan.Zero;
             }
             string wName = WhitePlayerName.Text;
