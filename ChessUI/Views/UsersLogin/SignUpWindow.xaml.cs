@@ -1,17 +1,21 @@
-﻿using ChessLogic;
+﻿using Azure;
+using ChessLogic;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Configuration;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChessUI
 {
     public partial class SignUpWindow : Window
     {
+
         public SignUpWindow()
         {
             InitializeComponent();
@@ -31,6 +35,14 @@ namespace ChessUI
             StatusTextBlock.Text = $"❗ {message}";
             StatusTextBlock.Visibility = Visibility.Visible;
         }
+        private void ShowErrorAndFocus(string message, Control controlToFocus)
+        {
+            ShowError(message);
+            // This is System focus
+            _isSystemFocus = true;
+            controlToFocus.Focus(); 
+            _isSystemFocus = false;
+        }
         // register event button click
         private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -47,7 +59,7 @@ namespace ChessUI
                 string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(confirmPassword))
             {
-                ShowError("Vui lòng nhập đầy đủ tất cả thông tin.");
+                ShowError("Please enter all required information.");
                 return;
             }
             // check email format
@@ -55,7 +67,7 @@ namespace ChessUI
 
             if (!Regex.IsMatch(email, emailPattern))
             {
-                ShowError("Email không hợp lệ.");
+                ShowErrorAndFocus("Invalid email.", EmailTextBox);
                 EmailTextBox.Focus();
                 return;
             }
@@ -63,21 +75,21 @@ namespace ChessUI
             // check full name not contain number
             if (Regex.IsMatch(fullName, @"\d"))
             {
-                ShowError("Họ và tên không được chứa chữ số.");
+                ShowErrorAndFocus("The full name must not contain numbers.", FullNameTextBox);
                 FullNameTextBox.Focus();
                 return;
             }
 
             if (password != confirmPassword)
             {
-                ShowError("Mật khẩu xác nhận không khớp.");
+                ShowErrorAndFocus("The confirmation password does not match.", ConfirmPasswordBox);
                 ConfirmPasswordBox.Focus();
                 return;
             }
 
             if (!int.TryParse(ageText, out int age))
             {
-                ShowError("Tuổi phải là số.");
+                ShowErrorAndFocus("Age must be a number.", AgeComboBox);
                 AgeComboBox.Focus();
                 return;
             }
@@ -139,13 +151,13 @@ namespace ChessUI
                 // Bước 3: Xử lý kết quả trả về dựa trên string
                 if (result == "#DUPLICATE")
                 {
-                    ShowError("Email này đã được sử dụng. Vui lòng sử dụng Email khác.");
+                    ShowErrorAndFocus("This email has already been used. Please use a different email.", EmailTextBox);
                     EmailTextBox.Focus();
                 }
                 else if (result != null)
                 {
                     // Nếu result khác null và khác DUPLICATE thì đó là UserID -> Thành công
-                    StatusTextBlock.Text = "Đăng ký thành công!";
+                    StatusTextBlock.Text = "Registration successful!";
                     StatusTextBlock.Foreground = Brushes.LightGreen;
                     StatusTextBlock.Visibility = Visibility.Visible;
 
@@ -158,7 +170,7 @@ namespace ChessUI
                 else
                 {
                     // Trường hợp trả về null
-                    ShowError("Đăng ký thất bại. Vui lòng kiểm tra kết nối mạng.");
+                    ShowError("Registration failed. Please check your network connection.");
                 }
             }
             //catch (SqlException ex)
@@ -174,10 +186,11 @@ namespace ChessUI
             //}
             catch (Exception ex)
             {
-                ShowError("Lỗi hệ thống: " + ex.Message);
+                ShowError("System error: " + ex.Message);
             }
             finally
             {
+                // fix bugs avoid create more fake accounts
                 RegisterButton.IsEnabled = true;
                 this.Cursor = Cursors.Arrow;
             }
@@ -212,6 +225,60 @@ namespace ChessUI
             ConfirmPasswordBox.Visibility = Visibility.Visible;
             ConfirmPasswordShowBox.Visibility = Visibility.Collapsed;
             ConfirmPasswordShowBox.Text = "";
+        }
+        #endregion
+        #region UI/UX when Sign Up
+        private bool _isSystemFocus = false;
+        private void Input_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_isSystemFocus)
+                return;
+            StatusTextBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void FullNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                EmailTextBox.Focus();
+            }
+        }
+
+        private void EmailTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                UsernameTextBox.Focus();
+            }
+        }
+
+        private void UsernameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                PasswordBox.Focus();
+            }
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                ConfirmPasswordBox.Focus();
+            }
+        }
+
+        private void ConfirmPasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                AgeComboBox.Focus();
+            }
         }
         #endregion
     }

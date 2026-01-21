@@ -8,11 +8,13 @@
     Title="LoginWindow"
     Width="760"
     Height="520"
+    AllowsTransparency="False"
+    Background="Transparent"
+    Icon="/Assets/icon.ico"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     StateChanged="Window_StateChanged"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
-    Icon="/Assets/icon.ico"
+    WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
         <WindowChrome
@@ -20,8 +22,37 @@
             CornerRadius="30"
             GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0.0"
+                        To="1.0"
+                        Duration="0:0:0.8" />
 
-    <Grid RenderOptions.BitmapScalingMode="HighQuality">
+                    <DoubleAnimation
+                        Storyboard.TargetName="MainGrid"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                        From="500"
+                        To="0"
+                        Duration="0:0:0.8">
+
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase EasingMode="EaseOut" Power="4" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid x:Name="MainGrid" RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid.RenderTransform>
+            <TranslateTransform X="0" Y="0" />
+        </Grid.RenderTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
@@ -91,7 +122,10 @@
                     FontWeight="Medium"
                     Foreground="White"
                     Text="Email" />
-                <TextBox x:Name="EmailTextBox" Height="25" />
+                <TextBox
+                    x:Name="EmailTextBox"
+                    Height="25"
+                    KeyDown="EmailTextBox_KeyDown" />
                 <TextBlock
                     Margin="0,0,0,5"
                     FontWeight="Medium"

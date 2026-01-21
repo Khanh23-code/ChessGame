@@ -16,6 +16,42 @@ namespace ChessUI.Views.UsersLogin
         {
             InitializeComponent();
         }
+        #region ehance UI/UX 
+        private void TxtEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                BtnMain_Click(sender, e);
+            }
+        }
+        private void TxtOtp_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                BtnMain_Click(sender, e);
+            }
+        }
+
+        private void PwdNew_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                PwdConfirm.Focus();
+            }
+        }
+
+        private void PwdConfirm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                BtnMain_Click(sender, e);
+            }
+        }
+        #endregion
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -26,6 +62,7 @@ namespace ChessUI.Views.UsersLogin
         {
             this.Close();
         }
+
 
         private async void BtnMain_Click(object sender, RoutedEventArgs e)
         {
@@ -79,7 +116,6 @@ namespace ChessUI.Views.UsersLogin
                 BtnMain.IsEnabled = true;
                 this.Cursor = Cursors.Arrow;
             }
-            // --- BƯỚC 2: XỬ LÝ CHECK OTP ---
             else if (_currentStep == 2)
             {
                 string inputOtp = TxtOtp.Text.Trim();
@@ -136,5 +172,6 @@ namespace ChessUI.Views.UsersLogin
                 this.Cursor = Cursors.Arrow;
             }
         }
+     
     }
 }
